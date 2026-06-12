@@ -1,0 +1,265 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Waybar from '../../components/Waybar.astro';
+import Footer from '../../components/Footer.astro';
+import ProjectHero from '../../components/project-blocks/ProjectHero.astro';
+import ProjectGallery from '../../components/project-blocks/ProjectGallery.astro';
+import ProjectTextBlock from '../../components/project-blocks/ProjectTextBlock.astro';
+import ProjectMeta from '../../components/project-blocks/ProjectMeta.astro';
+import ProjectIntro from '../../components/project-blocks/ProjectIntro.astro';
+import ProjectCallout from '../../components/project-blocks/ProjectCallout.astro';
+import ProjectQuote from '../../components/project-blocks/ProjectQuote.astro';
+import ProjectMetricsBand from '../../components/project-blocks/ProjectMetricsBand.astro';
+import ProjectBeforeAfter from '../../components/project-blocks/ProjectBeforeAfter.astro';
+import ProjectLearnings from '../../components/project-blocks/ProjectLearnings.astro';
+import ProjectProcessSteps from '../../components/project-blocks/ProjectProcessSteps.astro';
+import ProjectFindingsGrid from '../../components/project-blocks/ProjectFindingsGrid.astro';
+import ProjectHowMightWe from '../../components/project-blocks/ProjectHowMightWe.astro';
+import ProjectDecisionLog from '../../components/project-blocks/ProjectDecisionLog.astro';
+import ProjectPersona from '../../components/project-blocks/ProjectPersona.astro';
+import ProjectProblemKeyInfo from '../../components/project-blocks/ProjectProblemKeyInfo.astro';
+import ProjectTextImage from '../../components/project-blocks/ProjectTextImage.astro';
+import ProjectImageGalleryGrid from '../../components/project-blocks/ProjectImageGalleryGrid.astro';
+import ProjectAccessibilityAudit from '../../components/project-blocks/ProjectAccessibilityAudit.astro';
+import MoreProjects from '../../components/project-blocks/MoreProjects.astro';
+import WindowChrome from '../../components/WindowChrome.astro';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((project) => ({
+    params: { slug: project.id },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+
+const blockComponents = {
+  ProjectHero,
+  ProjectGallery,
+  ProjectTextBlock,
+  ProjectMeta,
+  ProjectIntro,
+  ProjectCallout,
+  ProjectQuote,
+  ProjectMetricsBand,
+  ProjectBeforeAfter,
+  ProjectLearnings,
+  ProjectProcessSteps,
+  ProjectFindingsGrid,
+  ProjectHowMightWe,
+  ProjectDecisionLog,
+  ProjectPersona,
+  ProjectProblemKeyInfo,
+  ProjectTextImage,
+  ProjectImageGalleryGrid,
+  ProjectAccessibilityAudit,
+  MoreProjects,
+};
+
+const sections = project.data.sections ?? [
+  { component: 'ProjectHero' as const, props: { title: project.data.title, type: project.data.type, year: project.data.year } },
+  { component: 'ProjectGallery' as const, props: { image: project.data.image, imageAlt: project.data.imageAlt } },
+  { component: 'ProjectMeta' as const, props: { statusline: project.data.statusline } },
+];
+
+const outsideSections = sections.filter((s) => s.component === 'ProjectHero' || s.component === 'MoreProjects');
+const bodySections = sections.filter((s) => s.component !== 'ProjectHero' && s.component !== 'MoreProjects');
+const heroSections = outsideSections.filter((s) => s.component === 'ProjectHero');
+const moreProjectsSections = outsideSections.filter((s) => s.component === 'MoreProjects');
+---
+
+<Layout title={`${project.data.title} — Nirmal`}>
+  <Waybar />
+  <div class="proj-page">
+    {heroSections.map((section) => {
+      const Component = blockComponents[section.component];
+      return <Component {...(section.props ?? {})} />;
+    })}
+    <div class="proj-window">
+      <WindowChrome title="case-study.md" activeTitle="[+]" icon="UTF-8">
+        <div class="proj-window-body">
+          {bodySections.map((section) => {
+            const Component = blockComponents[section.component];
+            return <Component {...(section.props ?? {})} />;
+          })}
+          <ProjectTextBlock heading="about_this_project">
+            <Content />
+          </ProjectTextBlock>
+        </div>
+        <div class="vim-statusline">
+          <span class="vs-mode">NORMAL</span>
+          <span class="vs-chunk vs-file">case-study.md</span>
+          <span class="vs-chunk vs-grow"></span>
+          <span class="vs-chunk">utf-8[unix]</span>
+          <span class="vs-chunk">markdown</span>
+          <span class="vs-chunk vs-pos">1:1</span>
+          <span class="vs-mode vs-pct">Top</span>
+        </div>
+      </WindowChrome>
+    </div>
+    {moreProjectsSections.map((section) => {
+      const Component = blockComponents[section.component];
+      return <Component {...(section.props ?? {})} />;
+    })}
+  </div>
+  <Footer />
+</Layout>
+
+<style>
+  .proj-page {
+    max-width: 1440px;
+    margin: 0 auto;
+    scroll-snap-type: y proximity;
+  }
+
+  .proj-window {
+    padding: 0 3rem 3rem;
+    scroll-snap-align: center;
+  }
+
+  .proj-window :global(.window) {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - var(--bar-h) - 2rem);
+    position: sticky;
+    top: calc(var(--bar-h) + 1rem);
+  }
+
+  .proj-window-body {
+    background: var(--bg1);
+    padding-top: 2rem;
+    overflow-y: hidden;
+    flex: 1;
+    min-height: 0;
+  }
+
+  .vim-statusline {
+    height: 26px;
+    background: var(--bg0);
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: stretch;
+    font-family: var(--mono);
+    font-size: 10px;
+    flex-shrink: 0;
+  }
+
+  .vs-mode {
+    background: var(--lime);
+    color: #0a0a0a;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+  }
+
+  .vs-chunk {
+    padding: 0 12px;
+    border-right: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    color: var(--dim);
+    white-space: nowrap;
+  }
+
+  .vs-file {
+    color: var(--sub);
+    border-right: none;
+  }
+
+  .vs-grow {
+    flex: 1;
+    border-right: none;
+  }
+
+  .vs-pos {
+    border-right: none;
+  }
+
+  .vs-pct {
+    border-right: none;
+    border-left: 1px solid var(--border);
+  }
+
+  @media (max-width: 860px) {
+    .proj-window { padding: 0 1.25rem 2rem; height: auto !important; }
+    .proj-window :global(.window) { height: auto; position: static; }
+    .proj-window-body { overflow-y: visible; flex: none; }
+    .vim-statusline { display: none; }
+  }
+
+  @media (max-width: 480px) {
+    .proj-window { padding: 0 0.75rem 1.5rem; }
+  }
+</style>
+
+<script>
+  (function () {
+    const posEl = document.querySelector<HTMLElement>('.vs-pos');
+    const pctEl = document.querySelector<HTMLElement>('.vs-pct');
+    const body = document.querySelector<HTMLElement>('.proj-window-body');
+    const wrapper = document.querySelector<HTMLElement>('.proj-window');
+    const windowEl = document.querySelector<HTMLElement>('.proj-window .window');
+    if (!posEl || !pctEl || !body || !wrapper || !windowEl) return;
+
+    const mobile = () => window.matchMedia('(max-width: 860px)').matches;
+    const STICKY_TOP = 'calc(var(--bar-h) + 1rem)';
+
+    let maxScroll = 0;
+
+    const measure = () => {
+      if (mobile()) {
+        wrapper.style.height = '';
+        maxScroll = 0;
+        return;
+      }
+      maxScroll = Math.max(0, body.scrollHeight - body.clientHeight);
+      const windowHeight = windowEl.getBoundingClientRect().height;
+      wrapper.style.height = `${windowHeight + maxScroll}px`;
+    };
+
+    const stickyTopPx = () => {
+      const probe = document.createElement('div');
+      probe.style.cssText = `position: fixed; visibility: hidden; top: ${STICKY_TOP};`;
+      document.body.appendChild(probe);
+      const top = probe.getBoundingClientRect().top;
+      probe.remove();
+      return top;
+    };
+
+    let line = 1;
+    const updatePct = (ratio: number) => {
+      line = Math.max(1, Math.round(ratio * 240) + 1);
+      posEl.textContent = `${line}:1`;
+      pctEl.textContent = ratio <= 0 ? 'Top' : ratio >= 0.98 ? 'Bot' : `${Math.round(ratio * 100)}%`;
+    };
+
+    const onScroll = () => {
+      if (mobile() || maxScroll <= 0) {
+        const ratio = mobile() && body.scrollHeight > body.clientHeight
+          ? body.scrollTop / (body.scrollHeight - body.clientHeight)
+          : 0;
+        updatePct(ratio);
+        return;
+      }
+      const rect = wrapper.getBoundingClientRect();
+      const progress = Math.min(1, Math.max(0, (stickyTopPx() - rect.top) / maxScroll));
+      body.scrollTop = progress * maxScroll;
+      updatePct(progress);
+    };
+
+    measure();
+    onScroll();
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', () => {
+      measure();
+      onScroll();
+    });
+    if (mobile()) body.addEventListener('scroll', onScroll, { passive: true });
+  })();
+</script>

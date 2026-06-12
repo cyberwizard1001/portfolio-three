@@ -1,0 +1,196 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  padding-top: var(--bar-h);
+}
+
+/* ═══════════════════════════════════════════════
+   GLOBAL GRID BG
+═══════════════════════════════════════════════ */
+.grid-bg {
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+/* ═══════════════════════════════════════════════
+   WINDOW CHROME MIXIN
+═══════════════════════════════════════════════ */
+.window {
+  border: 1px solid var(--border-hi);
+  border-radius: 6px;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+
+.window:hover { border-color: rgba(245,244,240,0.35); }
+
+.win-bar {
+  height: 34px;
+  background: var(--bg1);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.win-controls {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.wc {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1px solid rgba(245,244,240,0.12);
+  background: rgba(245,244,240,0.05);
+}
+
+.wc.close { border-color: rgba(255,96,96,0.3); }
+.wc.min   { border-color: rgba(255,196,48,0.3); }
+.wc.max   { border-color: rgba(80,200,80,0.3); }
+
+.win-title {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--dim);
+  flex: 1;
+}
+
+.win-title .active-title { color: var(--sub); }
+
+.win-icon {
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--dim);
+}
+
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+.cursor-blink,
+.term-cursor {
+  display: inline-block;
+  width: 8px;
+  height: 14px;
+  background: var(--lime);
+  animation: blink 1.1s step-end infinite;
+  vertical-align: -2px;
+  border-radius: 1px;
+}
+
+/* ═══════════════════════════════════════════════
+   BOTTOM STATUSBAR
+═══════════════════════════════════════════════ */
+.statusbar {
+  height: 56px;
+  background: var(--bg0);
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: stretch;
+  font-family: var(--mono);
+  font-size: 11px;
+}
+
+.sb-chunk {
+  padding: 0 24px;
+  border-right: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  color: var(--dim);
+  white-space: nowrap;
+}
+
+.sb-chunk.sb-grow {
+  flex: 1;
+}
+
+.sb-chunk.lime-bg {
+  background: var(--lime-dim);
+  color: var(--lime);
+  border-color: rgba(158,255,87,0.2);
+}
+
+.sb-chunk.right {
+  border-right: none;
+  border-left: 1px solid var(--border);
+  margin-left: auto;
+}
+
+.sb-email {
+  color: var(--text);
+  text-decoration: none;
+  border-right: none;
+  border-left: 1px solid var(--border);
+  margin-left: auto;
+  transition: color 0.15s;
+  padding: 0 14px;
+  display: flex;
+  align-items: center;
+}
+
+.sb-email:hover { color: var(--lime); }
+
+.sb-link {
+  color: var(--dim);
+  text-decoration: none;
+  border-right: 1px solid var(--border);
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  transition: color 0.15s;
+  margin-left: auto;
+}
+
+.sb-link:hover { color: var(--lime); }
+
+.sb-email {
+  padding: 0 24px;
+  margin-left: 0;
+}
+
+@media (max-width: 640px) {
+  .sb-chunk:not(.lime-bg):not(.sb-grow),
+  .sb-link {
+    display: none;
+  }
+
+  .sb-chunk.sb-grow {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .sb-email {
+    padding: 0 12px;
+  }
+}
+
+/* Smooth theme transitions */
+body, .waybar, .hero-section, .work-section, .about-section,
+.statusbar, .window, .win-bar, .proj-window, .pw-bar,
+.pw-image, .pw-content, .pw-statusline, .hero-win-body,
+.hero-main, .hero-split, .hs-cell, .term-window,
+.term-titlebar, .term-body, .term-left, .term-right {
+  transition: background-color 0.25s ease, border-color 0.25s ease;
+}
+.wb-logo, .wb-label, .wb-clock, .ws-pill, .hero-h1,
+.hero-prompt, .hs-text, .hs-label, .tl-cmd, .tl-out,
+.pw-title-text, .pw-oneliner, .pw-type, .pw-year,
+.sl-chunk, .term-ascii {
+  transition: color 0.25s ease;
+}

@@ -1,0 +1,41 @@
+---
+interface Props {
+  heading?: string;
+  body?: string;
+}
+
+const { heading, body } = Astro.props;
+---
+
+<section class="proj-text">
+  {heading && <h2 class="proj-text-heading">{heading}</h2>}
+  {body && <p class="proj-text-body">{body}</p>}
+  <slot />
+</section>
+
+<style>
+  .proj-text {
+    padding: 0 3rem 3rem;
+    max-width: 720px;
+  }
+
+  .proj-text-heading {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--dim);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+
+  .proj-text-body {
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--sub);
+    line-height: 1.7;
+  }
+
+  @media (max-width: 860px) {
+    .proj-text { padding: 0 1.25rem 2rem; }
+  }
+</style>

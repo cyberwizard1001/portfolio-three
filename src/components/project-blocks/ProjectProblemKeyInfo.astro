@@ -1,0 +1,110 @@
+---
+interface InfoItem {
+  label: string;
+  value: string;
+}
+
+interface Props {
+  problemBody: string;
+  contextBody: string;
+  infoItems: InfoItem[];
+}
+
+const { problemBody, contextBody, infoItems } = Astro.props;
+---
+
+<section class="proj-pki">
+  <div class="proj-pki-narrative">
+    <span class="proj-pki-label">Problem</span>
+    <p class="proj-pki-body">{problemBody}</p>
+    <span class="proj-pki-label proj-pki-label-context">Brief</span>
+    <p class="proj-pki-context">{contextBody}</p>
+  </div>
+  <div class="proj-pki-panel">
+    {infoItems.map((item) => (
+      <div class="proj-pki-info-item">
+        <span class="proj-pki-info-label">{item.label}</span>
+        <span class="proj-pki-info-value">{item.value}</span>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .proj-pki {
+    display: grid;
+    grid-template-columns: 7fr 3fr;
+    gap: 2.5rem;
+    padding: 0 3rem 3rem;
+  }
+
+  .proj-pki-label {
+    display: block;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--lime);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+
+  .proj-pki-body {
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--sub);
+    line-height: 1.7;
+    max-width: 760px;
+    margin-bottom: 1.5rem;
+  }
+
+  .proj-pki-label-context {
+    margin-bottom: 0.75rem;
+  }
+
+  .proj-pki-context {
+    font-size: clamp(1.0625rem, 2vw, 1.3125rem);
+    font-weight: 600;
+    line-height: 1.55;
+    max-width: 62ch;
+  }
+
+  .proj-pki-panel {
+    border: 1px solid var(--border-hi);
+    border-radius: 6px;
+    padding: 1.5rem;
+    background: var(--bg1);
+    align-self: start;
+  }
+
+  .proj-pki-info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding-bottom: 1.25rem;
+    margin-bottom: 1.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .proj-pki-info-item:last-child {
+    padding-bottom: 0;
+    margin-bottom: 0;
+    border-bottom: none;
+  }
+
+  .proj-pki-info-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--lime);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .proj-pki-info-value {
+    font-size: 0.875rem;
+    color: var(--text);
+  }
+
+  @media (max-width: 860px) {
+    .proj-pki { grid-template-columns: 1fr; padding: 0 1.25rem 2rem; gap: 1.5rem; }
+  }
+</style>

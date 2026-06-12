@@ -1,0 +1,92 @@
+---
+import { getCollection } from 'astro:content';
+import ProjectCard from './ProjectCard.astro';
+
+const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<section class="work-section" id="work">
+  <div class="grid-bg work-grid-bg"></div>
+  <div class="work-header">
+    <span class="work-label">selected_work</span>
+    <span class="work-count">{String(projects.length).padStart(2, '0')} projects</span>
+  </div>
+
+  <div class="project-grid">
+    {projects.map((project) => (
+      <ProjectCard
+        href={`/projects/${project.id}/`}
+        filename={project.data.filename}
+        mode={project.data.mode}
+        image={project.data.image}
+        imageAlt={project.data.imageAlt}
+        type={project.data.type}
+        year={project.data.year}
+        title={project.data.title}
+        oneliner={project.data.oneliner}
+        statusline={project.data.statusline}
+      />
+    ))}
+  </div>
+</section>
+
+<style>
+  .work-section {
+    padding: 4rem 3rem 5rem;
+    position: relative;
+  }
+
+  .work-grid-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.5;
+  }
+
+  .work-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .work-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--dim);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .work-label::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 1px;
+    background: var(--border-hi);
+  }
+
+  .work-count {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--dim);
+  }
+
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    position: relative;
+    z-index: 1;
+  }
+
+  @media (max-width: 860px) {
+    .work-section { padding: 2rem 1.25rem; }
+    .project-grid { grid-template-columns: 1fr; }
+  }
+</style>

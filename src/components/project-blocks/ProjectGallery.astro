@@ -1,0 +1,29 @@
+---
+interface Props {
+  image: string;
+  imageAlt: string;
+}
+
+const { image, imageAlt } = Astro.props;
+---
+
+<section class="proj-gallery">
+  <img src={image} alt={imageAlt} class="proj-gallery-img" />
+</section>
+
+<style>
+  .proj-gallery {
+    padding: 0 3rem 3rem;
+  }
+
+  .proj-gallery-img {
+    width: 100%;
+    border: 1px solid var(--border-hi);
+    border-radius: 6px;
+    display: block;
+  }
+
+  @media (max-width: 860px) {
+    .proj-gallery { padding: 0 1.25rem 2rem; }
+  }
+</style>

@@ -1,0 +1,243 @@
+---
+interface StatuslineChunk {
+  label: string;
+  lime?: boolean;
+}
+
+interface Props {
+  href: string;
+  filename: string;
+  mode?: string;
+  image: string;
+  imageAlt: string;
+  type: string;
+  year: string;
+  title: string;
+  oneliner: string;
+  statusline: StatuslineChunk[];
+}
+
+const { href, filename, mode = 'NORMAL', image, imageAlt, type, year, title, oneliner, statusline } = Astro.props;
+---
+
+<a class="proj-window" href={href}>
+  <div class="pw-bar">
+    <div class="pw-controls">
+      <div class="pwc"></div><div class="pwc"></div><div class="pwc"></div>
+    </div>
+    <span class="pw-title">vim: <span class="fname">{filename}</span></span>
+    <span class="pw-mode">{mode}</span>
+  </div>
+  <div class="pw-image">
+    <img src={image} alt={imageAlt} class="pw-img-el" />
+  </div>
+  <div class="pw-content">
+    <div class="pw-meta">
+      <span class="pw-type">{type}</span>
+      <span class="pw-year">{year}</span>
+    </div>
+    <h3 class="pw-title-text">{title}</h3>
+    <p class="pw-oneliner">{oneliner}</p>
+  </div>
+  <div class="pw-statusline">
+    <span class="sl-chunk sl-arrow">↗</span>
+  </div>
+</a>
+
+<style>
+  .proj-window {
+    background: var(--bg1);
+    border: 1px solid var(--border-hi);
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.18s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .proj-window::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1.5px solid transparent;
+    border-radius: 0;
+    pointer-events: none;
+    transition: border-color 0.18s;
+  }
+
+  .proj-window:hover::after { border-color: var(--lime); }
+  .proj-window:hover { background: var(--term-hover); }
+
+  .pw-bar {
+    height: 32px;
+    background: var(--term-bg);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  .pw-controls { display: flex; gap: 5px; }
+
+  .pwc {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    border: 1px solid rgba(245,244,240,0.10);
+    background: rgba(245,244,240,0.04);
+    transition: background 0.18s, border-color 0.18s;
+  }
+
+  .proj-window:hover .pwc:nth-child(1) { background: #ff5f57; border-color: #ff5f57; }
+  .proj-window:hover .pwc:nth-child(2) { background: #febc2e; border-color: #febc2e; }
+  .proj-window:hover .pwc:nth-child(3) { background: #28c840; border-color: #28c840; }
+
+  .pw-bar {
+    transition: background 0.18s;
+  }
+
+  .proj-window:hover .pw-bar { background: var(--term-hover2); }
+
+  .pw-title {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--dim);
+    flex: 1;
+    transition: color 0.18s;
+  }
+
+  .proj-window:hover .pw-title { color: var(--sub); }
+
+  .pw-title .fname { color: var(--dim); transition: color 0.18s; }
+  .proj-window:hover .pw-title .fname { color: var(--text); }
+
+  .pw-mode {
+    font-family: var(--mono);
+    font-size: 9px;
+    background: var(--lime-dim);
+    color: var(--lime);
+    padding: 1px 7px;
+    border-radius: 2px;
+    border: 1px solid rgba(158,255,87,0.25);
+  }
+
+  .pw-image {
+    height: 210px;
+    background: var(--term-bg);
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+    flex-shrink: 0;
+    position: relative;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  .pw-img-el {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    opacity: 0.9;
+    mix-blend-mode: luminosity;
+  }
+
+  .pw-content {
+    padding: 1.5rem 1.75rem 1.25rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .pw-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.875rem;
+  }
+
+  .pw-type {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--lime);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: var(--lime-dim);
+    border: 1px solid rgba(158,255,87,0.2);
+    padding: 2px 8px;
+    border-radius: 2px;
+  }
+
+  .pw-year {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--dim);
+  }
+
+  .pw-title-text {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    color: var(--text);
+    margin-bottom: 0.6rem;
+  }
+
+  .pw-oneliner {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--sub);
+    line-height: 1.55;
+    flex: 1;
+  }
+
+  .pw-statusline {
+    height: 26px;
+    background: var(--term-bg2);
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    gap: 0;
+    font-family: var(--mono);
+    font-size: 9px;
+    flex-shrink: 0;
+  }
+
+  .sl-chunk {
+    padding: 0 10px;
+    border-right: 1px solid var(--border);
+    color: var(--dim);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+  }
+
+  .sl-chunk:first-child { padding-left: 0; }
+  .sl-chunk:last-child { border-right: none; margin-left: auto; }
+
+  .sl-chunk.lime {
+    color: var(--lime);
+    background: var(--lime-dim);
+    padding: 0 10px;
+    border: none;
+    border-right: 1px solid var(--border);
+  }
+
+  .sl-arrow {
+    color: var(--lime);
+    font-size: 11px;
+    margin-left: auto;
+    padding-right: 0;
+    transition: transform 0.2s;
+  }
+
+  .proj-window:hover .sl-arrow { transform: translate(3px, -3px); }
+</style>

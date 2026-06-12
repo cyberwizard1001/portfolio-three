@@ -1,0 +1,24 @@
+---
+interface Props {
+  title: string;
+  activeTitle?: string;
+  icon?: string;
+}
+
+const { title, activeTitle, icon } = Astro.props;
+---
+
+<div class="window">
+  <div class="win-bar">
+    <div class="win-controls">
+      <div class="wc close"></div>
+      <div class="wc min"></div>
+      <div class="wc max"></div>
+    </div>
+    <span class="win-title">
+      {title}{activeTitle && <>&nbsp;<span class="active-title">{activeTitle}</span></>}
+    </span>
+    {icon && <span class="win-icon">{icon}</span>}
+  </div>
+  <slot />
+</div>

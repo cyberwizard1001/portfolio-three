@@ -1,0 +1,265 @@
+---
+import WindowChrome from './WindowChrome.astro';
+---
+
+<section class="hero-section grid-bg">
+  <div class="hero-window">
+    <WindowChrome title="bash —" activeTitle="~/portfolio/nirmal" icon="⌃⌥T">
+      <div class="hero-win-body">
+        <div class="hero-main">
+          <div class="hero-copy">
+            <p class="hero-prompt">
+              <span class="ps1">nirmal@arch ~/portfolio $</span>&nbsp;cat about.txt<span class="cursor-blink"></span>
+            </p>
+            <h1 class="hero-h1">
+              <span class="stroke">Observing</span><br />
+              people,<br />
+              <span class="lime">crafting</span><br />
+              experiences.
+            </h1>
+          </div>
+          <dl class="hero-meta">
+            <div class="hm-row">
+              <dt>role</dt>
+              <dd>UX Researcher &amp; Designer</dd>
+            </div>
+            <div class="hm-row">
+              <dt>focus</dt>
+              <dd>Product design, design systems, Flutter</dd>
+            </div>
+            <div class="hm-row">
+              <dt>based</dt>
+              <dd>Remote-friendly</dd>
+            </div>
+            <div class="hm-row">
+              <dt>status</dt>
+              <dd><span class="hm-dot"></span>Open for collaboration</dd>
+            </div>
+          </dl>
+        </div>
+        <div class="hero-split">
+          <div class="hs-cell">
+            <p class="hs-label">background</p>
+            <p class="hs-text">
+              I care about the gap between what an interface promises and what it actually delivers. Most of my work starts there — in that small moment where a user forms an expectation and either gets what they expected, or doesn't.
+            </p>
+            <div class="hs-tags">
+              <span class="hs-tag active">hyprland</span>
+              <span class="hs-tag active">i3wm</span>
+              <span class="hs-tag active">arch</span>
+              <span class="hs-tag active">waybar</span>
+              <span class="hs-tag">btw</span>
+            </div>
+          </div>
+          <div class="hs-cell">
+            <p class="hs-label">currently</p>
+            <p class="hs-text">
+              Open for collaboration. UX research and design is where most of my time goes, but I build too — which means I know what's hard to implement and I will absolutely ask about it.
+            </p>
+            <a href="#work" class="hs-cta">See the work →</a>
+          </div>
+        </div>
+      </div>
+    </WindowChrome>
+  </div>
+</section>
+
+<style>
+  .hero-section {
+    min-height: calc(100vh - var(--bar-h));
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+  }
+
+  .hero-window {
+    position: relative;
+    z-index: 1;
+    max-width: 1320px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .hero-win-body {
+    background: var(--term-overlay);
+    display: grid;
+    grid-template-rows: 1fr auto;
+  }
+
+  .hero-main {
+    padding: 3rem 3rem 2.5rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 2rem;
+  }
+
+  .hero-copy { min-width: 0; }
+
+  .hero-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    padding-left: 2rem;
+    border-left: 1px solid var(--border);
+    margin: 0;
+    min-width: 220px;
+  }
+
+  .hm-row dt {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--dim);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+
+  .hm-row dd {
+    font-size: 0.875rem;
+    color: var(--sub);
+    margin: 0;
+    line-height: 1.4;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .hm-dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--lime);
+    box-shadow: 0 0 0 3px var(--lime-dim);
+  }
+
+  @media (max-width: 1024px) {
+    .hero-main {
+      grid-template-columns: 1fr;
+    }
+    .hero-meta {
+      padding-left: 0;
+      border-left: none;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 1.5rem 2.5rem;
+    }
+    .hm-row { min-width: 160px; }
+  }
+
+  .hero-prompt {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--lime);
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .hero-prompt .ps1 { color: var(--dim); }
+
+  .hero-h1 {
+    font-size: clamp(3.5rem, 8vw, 7.5rem);
+    font-weight: 700;
+    letter-spacing: -0.045em;
+    line-height: 0.9;
+    color: var(--text);
+    margin-bottom: 0;
+  }
+
+  .hero-h1 .stroke {
+    -webkit-text-stroke: 1.5px var(--dim);
+    color: transparent;
+  }
+
+  .hero-h1 .lime { color: var(--lime); }
+
+  .hero-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-top: 1px solid var(--border);
+  }
+
+  .hs-cell {
+    padding: 1.75rem 2rem;
+    border-right: 1px solid var(--border);
+  }
+
+  .hs-cell:last-child { border-right: none; }
+
+  .hs-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--dim);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+  }
+
+  .hs-text {
+    font-size: 0.9375rem;
+    color: var(--sub);
+    line-height: 1.65;
+    max-width: 380px;
+  }
+
+  .hs-tags {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+    margin-top: 0.9rem;
+  }
+
+  .hs-tag {
+    font-family: var(--mono);
+    font-size: 9px;
+    padding: 3px 9px;
+    border: 1px solid var(--border-hi);
+    border-radius: 2px;
+    color: var(--dim);
+  }
+
+  .hs-tag.active {
+    border-color: var(--lime);
+    color: var(--lime);
+    background: var(--lime-dim);
+  }
+
+  .hs-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    background: var(--lime);
+    color: #0a0a0a;
+    padding: 0.55rem 1.25rem;
+    text-decoration: none;
+    border-radius: 2px;
+    letter-spacing: -0.01em;
+    transition: opacity 0.15s;
+  }
+
+  .hs-cta:hover { opacity: 0.8; }
+
+  @media (max-width: 860px) {
+    .hero-section { padding: 2rem 1.25rem; }
+    .hero-split { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 480px) {
+    .hero-h1 { font-size: clamp(2.5rem, 13vw, 3.5rem); }
+    .hero-main { padding: 1.5rem 1.25rem; }
+    .hero-prompt { margin-bottom: 1.25rem; }
+    .hero-meta { gap: 1rem 1.25rem; }
+    .hm-row { min-width: 130px; }
+    .hs-cell { padding: 1.25rem; }
+  }
+</style>

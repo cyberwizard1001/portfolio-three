@@ -1,0 +1,110 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Waybar from '../components/Waybar.astro';
+import Footer from '../components/Footer.astro';
+import WindowChrome from '../components/WindowChrome.astro';
+---
+
+<Layout title="Contact — Nirmal">
+  <Waybar />
+  <section class="contact-section">
+    <div class="contact-window">
+      <WindowChrome title="~/contact — bash">
+        <div class="contact-body">
+          <p class="contact-prompt">
+            <span class="ps1">nirmal@arch ~ $</span>&nbsp;contact --open<span class="cursor-blink"></span>
+          </p>
+          <ul class="contact-list">
+            <li>
+              <span class="contact-label">email</span>
+              <a href="mailto:nirmalkarthikeyan1503@gmail.com" class="contact-link">nirmalkarthikeyan1503@gmail.com →</a>
+            </li>
+            <li>
+              <span class="contact-label">linkedin</span>
+              <a href="https://linkedin.com/in/nirmal-karthikeyan" class="contact-link">linkedin.com/in/nirmal-karthikeyan ↗</a>
+            </li>
+          </ul>
+        </div>
+      </WindowChrome>
+    </div>
+  </section>
+  <Footer />
+</Layout>
+
+<style>
+  .contact-section {
+    min-height: calc(100vh - var(--bar-h) - 34px);
+    padding: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .contact-window {
+    width: 100%;
+    max-width: 720px;
+  }
+
+  .contact-body {
+    padding: 2.5rem 2rem;
+  }
+
+  .contact-prompt {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--lime);
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .contact-prompt .ps1 { color: var(--dim); }
+
+  .contact-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .contact-list li {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-family: var(--mono);
+    font-size: 0.875rem;
+  }
+
+  .contact-label {
+    color: var(--dim);
+    width: 90px;
+    flex-shrink: 0;
+    text-transform: uppercase;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+  }
+
+  .contact-link {
+    color: var(--text);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .contact-link:hover { color: var(--lime); }
+
+  @media (max-width: 860px) {
+    .contact-section { padding: 2rem 1.25rem; }
+  }
+
+  @media (max-width: 480px) {
+    .contact-section { padding: 1.25rem 0.75rem; }
+    .contact-body { padding: 1.5rem 1.25rem; }
+    .contact-list li {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.35rem;
+    }
+    .contact-link { word-break: break-all; }
+  }
+</style>

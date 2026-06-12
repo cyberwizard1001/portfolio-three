@@ -1,0 +1,81 @@
+---
+interface Props {
+  body: string;
+  label?: string;
+  variant?: 'insight' | 'principle' | 'warning';
+}
+
+const { body, label, variant = 'insight' } = Astro.props;
+---
+
+<section class="proj-callout">
+  <div class:list={['proj-callout-card', `proj-callout-${variant}`]}>
+    <div class="proj-callout-strip"></div>
+    <div class="proj-callout-content">
+      {label && <span class="proj-callout-label">{label}</span>}
+      <p class="proj-callout-body">{body}</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .proj-callout {
+    padding: 0 3rem 3rem;
+  }
+
+  .proj-callout-card {
+    display: flex;
+    border-radius: 6px;
+    border: 1px solid rgba(158,255,87,0.20);
+    background: var(--lime-dim);
+    overflow: hidden;
+  }
+
+  .proj-callout-strip {
+    width: 4px;
+    background: var(--lime);
+    flex-shrink: 0;
+  }
+
+  .proj-callout-content {
+    padding: 1.25rem 1.5rem;
+  }
+
+  .proj-callout-label {
+    display: block;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--lime);
+    margin-bottom: 0.5rem;
+  }
+
+  .proj-callout-body {
+    font-size: 0.9375rem;
+    color: var(--text);
+    line-height: 1.65;
+    max-width: 68ch;
+  }
+
+  .proj-callout-principle {
+    background: var(--lime-dim);
+  }
+
+  .proj-callout-warning {
+    background: rgba(217,119,6,0.08);
+    border-color: rgba(217,119,6,0.20);
+  }
+
+  .proj-callout-warning .proj-callout-strip {
+    background: #d97706;
+  }
+
+  .proj-callout-warning .proj-callout-label {
+    color: #d97706;
+  }
+
+  @media (max-width: 860px) {
+    .proj-callout { padding: 0 1.25rem 2rem; }
+  }
+</style>

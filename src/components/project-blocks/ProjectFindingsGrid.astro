@@ -1,0 +1,78 @@
+---
+interface FindingItem {
+  title: string;
+  body: string;
+}
+
+interface Props {
+  title: string;
+  items: FindingItem[];
+}
+
+const { title, items } = Astro.props;
+---
+
+<section class="proj-findings">
+  <h2 class="proj-findings-title">{title}</h2>
+  <div class="proj-findings-grid">
+    {items.map((item) => (
+      <div class="proj-findings-card">
+        <h3 class="proj-findings-card-title">{item.title}</h3>
+        <p class="proj-findings-card-body">{item.body}</p>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .proj-findings {
+    padding: 0 3rem 3rem;
+  }
+
+  .proj-findings-title {
+    font-size: clamp(1.375rem, 3vw, 1.875rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+  }
+
+  .proj-findings-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  .proj-findings-card {
+    border: 1px solid var(--border-hi);
+    border-radius: 6px;
+    padding: 1.25rem;
+    background: var(--bg1);
+  }
+
+  .proj-findings-card-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--lime);
+    margin-bottom: 0.5rem;
+  }
+
+  .proj-findings-card-body {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--sub);
+    line-height: 1.65;
+    max-width: 42ch;
+  }
+
+  @media (max-width: 1100px) {
+    .proj-findings-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 640px) {
+    .proj-findings-grid { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 860px) {
+    .proj-findings { padding: 0 1.25rem 2rem; }
+  }
+</style>

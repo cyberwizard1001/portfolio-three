@@ -1,0 +1,145 @@
+:root {
+  --bg:       #0a0a0a;
+  --bg1:      #111111;
+  --bg2:      #1a1a1a;
+  --border:   rgba(245,244,240,0.10);
+  --border-hi:rgba(245,244,240,0.22);
+  --text:     #f0ede6;
+  --sub:      rgba(240,237,230,0.70);
+  --dim:      rgba(240,237,230,0.40);
+  --lime:     #9eff57;
+  --lime-dim: rgba(158,255,87,0.10);
+  --mono:     'JetBrains Mono', 'Fira Code', monospace;
+  --sans:     'Space Grotesk', -apple-system, sans-serif;
+  --bar-h:    42px;
+  --bg0:      #050505;
+  --term-bg:      #0d0d0d;
+  --term-bg2:     #080808;
+  --term-hover:   #101010;
+  --term-hover2:  #161616;
+  --term-overlay: rgba(10,10,10,0.6);
+}
+
+/* ── Theme 2: Catppuccin Mocha ── */
+[data-theme="2"] {
+  --bg:        #1e1e2e;
+  --bg1:       #181825;
+  --bg2:       #313244;
+  --border:    rgba(180,190,254,0.10);
+  --border-hi: rgba(180,190,254,0.26);
+  --text:      #cdd6f4;
+  --sub:       rgba(205,214,244,0.74);
+  --dim:       rgba(205,214,244,0.42);
+  --lime:      #cba6f7;
+  --lime-dim:  rgba(203,166,247,0.12);
+}
+
+/* ── Theme 3: Gruvbox ── */
+[data-theme="3"] {
+  --bg:        #282828;
+  --bg1:       #1d2021;
+  --bg2:       #3c3836;
+  --border:    rgba(235,219,178,0.10);
+  --border-hi: rgba(235,219,178,0.24);
+  --text:      #ebdbb2;
+  --sub:       rgba(235,219,178,0.74);
+  --dim:       rgba(235,219,178,0.42);
+  --lime:      #fabd2f;
+  --lime-dim:  rgba(250,189,47,0.12);
+}
+
+/* ── Theme 4: Dracula ── */
+[data-theme="4"] {
+  --bg:        #282a36;
+  --bg1:       #1e1f29;
+  --bg2:       #44475a;
+  --border:    rgba(248,248,242,0.10);
+  --border-hi: rgba(248,248,242,0.22);
+  --text:      #f8f8f2;
+  --sub:       rgba(248,248,242,0.74);
+  --dim:       rgba(248,248,242,0.42);
+  --lime:      #ff79c6;
+  --lime-dim:  rgba(255,121,198,0.12);
+}
+
+/* ── Light variants ── */
+
+/* Theme 1 Light */
+[data-theme="1"][data-mode="light"] {
+  --bg:        #f5f4f0;
+  --bg0:       #fbfaf7;
+  --bg1:       #ffffff;
+  --bg2:       #e8e6e0;
+  --border:    rgba(20,20,20,0.10);
+  --border-hi: rgba(20,20,20,0.22);
+  --text:      #1a1a1a;
+  --sub:       rgba(20,20,20,0.65);
+  --dim:       rgba(20,20,20,0.40);
+  --lime:      #5b8c00;
+  --lime-dim:  rgba(91,140,0,0.10);
+  --term-bg:      var(--bg2);
+  --term-bg2:     var(--bg0);
+  --term-hover:   var(--bg1);
+  --term-hover2:  var(--bg0);
+  --term-overlay: var(--bg1);
+}
+
+/* Theme 2 Light — Catppuccin Latte */
+[data-theme="2"][data-mode="light"] {
+  --bg:        #eff1f5;
+  --bg0:       #f5f6fa;
+  --bg1:       #e6e9ef;
+  --bg2:       #ccd0da;
+  --border:    rgba(76,79,105,0.12);
+  --border-hi: rgba(76,79,105,0.26);
+  --text:      #4c4f69;
+  --sub:       rgba(76,79,105,0.74);
+  --dim:       rgba(76,79,105,0.42);
+  --lime:      #8839ef;
+  --lime-dim:  rgba(136,57,239,0.12);
+  --term-bg:      var(--bg2);
+  --term-bg2:     var(--bg0);
+  --term-hover:   var(--bg1);
+  --term-hover2:  var(--bg0);
+  --term-overlay: var(--bg1);
+}
+
+/* Theme 3 Light — Gruvbox Light */
+[data-theme="3"][data-mode="light"] {
+  --bg:        #fbf1c7;
+  --bg0:       #f9f5d7;
+  --bg1:       #f9f5d7;
+  --bg2:       #ebdbb2;
+  --border:    rgba(60,56,54,0.10);
+  --border-hi: rgba(60,56,54,0.24);
+  --text:      #3c3836;
+  --sub:       rgba(80,73,69,0.78);
+  --dim:       rgba(80,73,69,0.45);
+  --lime:      #b57614;
+  --lime-dim:  rgba(181,118,20,0.12);
+  --term-bg:      var(--bg2);
+  --term-bg2:     var(--bg0);
+  --term-hover:   var(--bg1);
+  --term-hover2:  var(--bg0);
+  --term-overlay: var(--bg1);
+}
+
+/* Theme 4 Light — Alucard */
+[data-theme="4"][data-mode="light"] {
+  --bg:        #f7f7f7;
+  --bg0:       #fdfdfd;
+  --bg1:       #fdfdfd;
+  --bg2:       #e6e6e6;
+  --border:    rgba(33,34,44,0.10);
+  --border-hi: rgba(33,34,44,0.22);
+  --text:      #21222c;
+  --sub:       rgba(65,66,79,0.78);
+  --dim:       rgba(65,66,79,0.45);
+  --lime:      #a3144d;
+  --lime-dim:  rgba(163,20,77,0.10);
+  --term-bg:      var(--bg2);
+  --term-bg2:     var(--bg0);
+  --term-hover:   var(--bg1);
+  --term-hover2:  var(--bg0);
+  --term-overlay: var(--bg1);
+}

@@ -1,0 +1,128 @@
+---
+interface HmwItem {
+  question: string;
+  theme?: string;
+}
+
+interface Props {
+  items: HmwItem[];
+  title?: string;
+  intro?: string;
+}
+
+const { items, title = 'How might we…', intro } = Astro.props;
+---
+
+<section class="proj-hmw">
+  <div class="proj-hmw-top">
+    <div>
+      <h2 class="proj-hmw-title">{title}</h2>
+      {intro && <p class="proj-hmw-intro">{intro}</p>}
+    </div>
+    <span class="proj-hmw-count">{items.length} questions</span>
+  </div>
+  <div class="proj-hmw-grid">
+    {items.map((item) => (
+      <div class="proj-hmw-card">
+        <span class="proj-hmw-quote-mark">"</span>
+        <p class="proj-hmw-question">{item.question}</p>
+        {item.theme && <span class="proj-hmw-theme">{item.theme}</span>}
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .proj-hmw {
+    padding: 0 3rem 3rem;
+  }
+
+  .proj-hmw-top {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .proj-hmw-title {
+    font-size: clamp(1.375rem, 3vw, 1.875rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .proj-hmw-intro {
+    margin-top: 0.5rem;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--sub);
+    line-height: 1.6;
+  }
+
+  .proj-hmw-count {
+    flex-shrink: 0;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--lime);
+    background: var(--lime-dim);
+    border: 1px solid rgba(158,255,87,0.22);
+    border-radius: 999px;
+    padding: 6px 12px;
+  }
+
+  .proj-hmw-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  .proj-hmw-card {
+    border: 1px solid var(--border-hi);
+    border-radius: 6px;
+    padding: 1.25rem;
+    background: var(--bg1);
+  }
+
+  .proj-hmw-quote-mark {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--lime);
+    line-height: 0.8;
+    margin-bottom: 0.5rem;
+  }
+
+  .proj-hmw-question {
+    font-size: 0.9375rem;
+    color: var(--text);
+    line-height: 1.5;
+  }
+
+  .proj-hmw-theme {
+    display: inline-block;
+    margin-top: 0.75rem;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--lime);
+    background: var(--lime-dim);
+    border-radius: 999px;
+    padding: 4px 10px;
+  }
+
+  @media (max-width: 1100px) {
+    .proj-hmw-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 640px) {
+    .proj-hmw-grid { grid-template-columns: 1fr; }
+    .proj-hmw-top { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+  }
+
+  @media (max-width: 860px) {
+    .proj-hmw { padding: 0 1.25rem 2rem; }
+  }
+</style>

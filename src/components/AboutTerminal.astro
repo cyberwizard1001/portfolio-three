@@ -1,0 +1,230 @@
+---
+import WindowChrome from './WindowChrome.astro';
+---
+
+<section class="about-section" id="about">
+  <div class="term-window">
+    <WindowChrome title="~/about_me — bash">
+      <div class="term-body">
+        <div class="term-left">
+          <pre class="term-ascii"> _  _ ___ ____  _  _   __   _
+| \| |_ _|  _ \| \| | / _\ | |
+|  ` || || |_) |  ` || |_| | |__
+|_|\_|___|_|__/|_|\_| \__/ |____|
+
+
+      /\
+     /  \
+    /\  /\
+   /  \/  \
+  /________\
+
+ arch btw
+
+[nirmal@arch ~]$</pre>
+        </div>
+        <div class="term-right">
+          <div id="term-output-area"></div>
+          <div class="term-btns">
+            <a href="#" class="term-btn-p">&#8595; View CV</a>
+            <a href="https://linkedin.com/in/nirmal-karthikeyan" class="term-btn-s">LinkedIn &#8599;</a>
+          </div>
+        </div>
+      </div>
+    </WindowChrome>
+  </div>
+</section>
+
+<style>
+  .about-section { padding: 0 3rem 4rem; position: relative; z-index: 1; }
+
+  .term-window {
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid var(--border-hi);
+  }
+
+  .term-body {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    background: var(--bg1);
+    min-height: 360px;
+  }
+
+  .term-left {
+    border-right: 1px solid var(--border);
+    padding: 2rem 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg);
+  }
+
+  .term-ascii {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    color: var(--lime);
+    line-height: 1.45;
+    white-space: pre;
+    opacity: 0.80;
+  }
+
+  .term-right {
+    padding: 1.75rem 2rem 1.75rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #term-output-area {
+    font-family: var(--mono);
+    font-size: 13px;
+    line-height: 1.75;
+    flex: 1;
+  }
+
+  :global(.tl-cmd) { color: var(--lime); }
+  :global(.tl-ps)  { color: rgba(158,255,87,0.45); }
+  :global(.tl-out) { color: var(--sub); padding-left: 0; }
+
+  .term-btns {
+    display: flex;
+    gap: 10px;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .term-btn-p,
+  .term-btn-s {
+    font-family: var(--mono);
+    font-size: 10px;
+    padding: 4px 14px;
+    border-radius: 2px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: opacity 0.15s;
+  }
+
+  .term-btn-p { background: var(--lime); color: var(--bg); font-weight: 600; }
+  .term-btn-s { background: var(--lime-dim); color: var(--lime); border: 1px solid rgba(158,255,87,0.25); }
+  .term-btn-p:hover, .term-btn-s:hover { opacity: 0.75; }
+
+  @media (max-width: 860px) {
+    .about-section { padding: 0 1.25rem 2rem; }
+    .term-body { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 480px) {
+    .about-section { padding: 0 0.75rem 1.5rem; }
+    .term-left,
+    .term-right { padding: 1.25rem 1rem; }
+    .term-ascii { font-size: 9px; }
+  }
+</style>
+
+<script>
+  (function () {
+    type Line =
+      | { type: 'cmd'; text: string }
+      | { type: 'out'; rows: string[] }
+      | { type: 'blank' }
+      | { type: 'prompt' };
+
+    const lines: Line[] = [
+      { type: 'cmd', text: 'about --nirmal' },
+      {
+        type: 'out',
+        rows: [
+          'CS grad who moved from building software to designing it.',
+          'I still write Flutter when the occasion calls for it. Tinkering with Linux',
+          'desktop environments as a teenager is probably where the design obsession',
+          "started, though I wouldn't have called it that at the time.",
+        ],
+      },
+      { type: 'blank' },
+      { type: 'cmd', text: 'skills --list' },
+      {
+        type: 'out',
+        rows: ['UX research  ·  UX design', 'Flutter developer  ·  Linux enthusiast'],
+      },
+      { type: 'blank' },
+      { type: 'cmd', text: 'contact --open' },
+      { type: 'out', rows: ['Opening links panel…  ✓  Ready.'] },
+      { type: 'blank' },
+      { type: 'prompt' },
+    ];
+
+    const area = document.getElementById('term-output-area');
+    let started = false;
+
+    function typeChars(el: HTMLElement, text: string, speed: number, cb?: () => void) {
+      let i = 0;
+      (function tick() {
+        if (i < text.length) {
+          el.textContent += text[i++];
+          setTimeout(tick, speed);
+        } else if (cb) cb();
+      })();
+    }
+
+    function runLines(idx: number) {
+      if (!area || idx >= lines.length) return;
+      const l = lines[idx];
+
+      if (l.type === 'blank') {
+        const el = document.createElement('div');
+        el.style.height = '0.55em';
+        area.appendChild(el);
+        runLines(idx + 1);
+      } else if (l.type === 'prompt') {
+        const el = document.createElement('div');
+        el.className = 'tl-cmd';
+        el.innerHTML = '<span class="tl-ps">~$ </span>';
+        const cur = document.createElement('span');
+        cur.className = 'term-cursor';
+        el.appendChild(cur);
+        area.appendChild(el);
+      } else if (l.type === 'cmd') {
+        const el = document.createElement('div');
+        el.className = 'tl-cmd';
+        el.innerHTML = '<span class="tl-ps">~$ </span>';
+        const cmd = document.createElement('span');
+        el.appendChild(cmd);
+        area.appendChild(el);
+        typeChars(cmd, l.text, 38, () => setTimeout(() => runLines(idx + 1), 180));
+      } else if (l.type === 'out') {
+        let ri = 0;
+        (function nextRow() {
+          if (ri >= l.rows.length) {
+            setTimeout(() => runLines(idx + 1), 90);
+            return;
+          }
+          const el = document.createElement('div');
+          el.className = 'tl-out';
+          area.appendChild(el);
+          typeChars(el, l.rows[ri++], 11, nextRow);
+        })();
+      }
+    }
+
+    function start() {
+      if (started) return;
+      started = true;
+      runLines(0);
+    }
+
+    const obs = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          start();
+          obs.disconnect();
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    const sec = document.getElementById('about');
+    if (sec) obs.observe(sec);
+  })();
+</script>

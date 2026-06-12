@@ -1,0 +1,212 @@
+---
+---
+
+<header class="waybar">
+  <div class="wb-section wb-logo-sec">
+    <a href="/" class="wb-logo">nirmal.sh</a>
+  </div>
+  <div class="wb-section">
+    <div class="wb-workspaces">
+      <div class="ws-pill" title="Theme: Default">1</div>
+      <div class="ws-pill" title="Theme: Catppuccin Mocha">2</div>
+      <div class="ws-pill active" title="Theme: Gruvbox">3</div>
+      <div class="ws-pill" title="Theme: Dracula">4</div>
+    </div>
+  </div>
+  <div class="wb-section">
+    <span class="wb-label">uxd <span class="hl">@</span> arch</span>
+    <div class="wb-sep"></div>
+    <span class="wb-label"><span class="lime">●</span> hyprland</span>
+    <div class="wb-sep"></div>
+    <span class="wb-label">kernel <span class="hl">6.9.3</span></span>
+  </div>
+  <div class="wb-section center">
+    <span class="wb-label">portfolio — <span class="hl">UX research &amp; design · Flutter</span></span>
+  </div>
+  <div class="wb-section right">
+    <span class="wb-label wb-hide-sm">open for collab</span>
+    <div class="wb-sep wb-hide-sm"></div>
+    <span class="wb-label wb-hide-sm">RAM <span class="hl">4.2G</span></span>
+    <div class="wb-sep wb-hide-sm"></div>
+    <span class="wb-clock" id="clock">--:--</span>
+    <div class="wb-sep"></div>
+    <div class="mode-toggle" id="mode-toggle" title="Toggle light/dark mode">☾</div>
+  </div>
+</header>
+
+<style>
+  .waybar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    height: var(--bar-h);
+    background: var(--bg0);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: stretch;
+  }
+
+  .wb-section {
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+    border-right: 1px solid var(--border);
+    gap: 0.5rem;
+  }
+
+  .wb-section.right {
+    border-right: none;
+    border-left: 1px solid var(--border);
+    margin-left: auto;
+  }
+
+  .wb-section.center {
+    border-right: none;
+    border-left: 1px solid var(--border);
+    padding: 0 1.5rem;
+  }
+
+  .wb-workspaces { display: flex; gap: 4px; }
+
+  .ws-pill {
+    font-family: var(--mono);
+    font-size: 10px;
+    width: 26px;
+    height: 22px;
+    border-radius: 3px;
+    border: 1px solid var(--border-hi);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--dim);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .ws-pill.active {
+    background: var(--lime-dim);
+    border-color: var(--lime);
+    color: var(--lime);
+  }
+
+  .ws-pill:hover:not(.active) {
+    border-color: var(--border-hi);
+    color: var(--sub);
+  }
+
+  .wb-logo {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--lime);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+  }
+
+  .wb-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--dim);
+    white-space: nowrap;
+  }
+
+  .wb-label .hl { color: var(--sub); }
+  .wb-label .lime { color: var(--lime); }
+
+  .wb-sep {
+    width: 1px;
+    height: 16px;
+    background: var(--border);
+    margin: 0 0.25rem;
+  }
+
+  .wb-clock {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+
+  .mode-toggle {
+    font-family: var(--mono);
+    font-size: 12px;
+    width: 22px;
+    height: 22px;
+    border-radius: 3px;
+    border: 1px solid var(--border-hi);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--dim);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .mode-toggle:hover {
+    border-color: var(--lime);
+    color: var(--lime);
+  }
+
+  @media (max-width: 860px) {
+    .wb-section:not(.wb-logo-sec):not(.right) { display: none; }
+  }
+
+  @media (max-width: 600px) {
+    .wb-section.right { padding: 0 0.6rem; }
+    .wb-hide-sm { display: none; }
+  }
+</style>
+
+<script>
+  function updateClock() {
+    const now = new Date();
+    const h = String(now.getHours()).padStart(2, '0');
+    const m = String(now.getMinutes()).padStart(2, '0');
+    const clock = document.getElementById('clock');
+    if (clock) clock.textContent = `${h}:${m}`;
+  }
+  updateClock();
+  setInterval(updateClock, 10000);
+</script>
+
+<script>
+  (function () {
+    const pills = document.querySelectorAll<HTMLElement>('.ws-pill');
+    const modeToggle = document.getElementById('mode-toggle');
+
+    const setTheme = (theme: string) => {
+      document.documentElement.setAttribute('data-theme', theme);
+      pills.forEach((p) => p.classList.toggle('active', p.textContent?.trim() === theme));
+      localStorage.setItem('theme', theme);
+    };
+
+    const setMode = (mode: string) => {
+      document.documentElement.setAttribute('data-mode', mode);
+      if (modeToggle) modeToggle.textContent = mode === 'light' ? '☀' : '☾';
+      localStorage.setItem('mode', mode);
+    };
+
+    let savedTheme = localStorage.getItem('theme');
+    let savedMode = localStorage.getItem('mode');
+
+    if (savedTheme === '5') {
+      savedTheme = '1';
+      savedMode = 'light';
+    }
+
+    if (savedTheme) setTheme(savedTheme);
+    setMode(savedMode === 'light' ? 'light' : 'dark');
+
+    pills.forEach((pill) => {
+      pill.addEventListener('click', () => {
+        setTheme(pill.textContent?.trim() ?? '1');
+      });
+    });
+
+    modeToggle?.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-mode');
+      setMode(current === 'light' ? 'dark' : 'light');
+    });
+  })();
+</script>
