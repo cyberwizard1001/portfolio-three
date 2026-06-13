@@ -1,5 +1,5 @@
 ---
-import { getCollection, render } from 'astro:content';
+import { getCollection, getEntry, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import Waybar from '../../components/Waybar.astro';
 import Footer from '../../components/Footer.astro';
@@ -35,6 +35,9 @@ export async function getStaticPaths() {
 
 const { project } = Astro.props;
 const { Content } = await render(project);
+
+const tldrEntry = await getEntry('projectTldrs', project.id);
+const TldrContent = tldrEntry ? (await render(tldrEntry)).Content : null;
 
 const blockComponents = {
   ProjectHero,
@@ -80,14 +83,31 @@ const moreProjectsSections = outsideSections.filter((s) => s.component === 'More
     })}
     <div class="proj-window">
       <WindowChrome title="case-study.md" activeTitle="[+]" icon="UTF-8">
+        <Fragment slot="actions">
+          {TldrContent && (
+            <button class="win-tldr" type="button" aria-pressed="false">
+              <span class="win-tldr-label">tldr</span>
+              <span class="win-tldr-track"><span class="win-tldr-thumb"></span></span>
+            </button>
+          )}
+        </Fragment>
         <div class="proj-window-body">
-          {bodySections.map((section) => {
-            const Component = blockComponents[section.component];
-            return <Component {...(section.props ?? {})} />;
-          })}
-          <ProjectTextBlock heading="about_this_project">
-            <Content />
-          </ProjectTextBlock>
+          <div class="proj-full">
+            {bodySections.map((section) => {
+              const Component = blockComponents[section.component];
+              return <Component {...(section.props ?? {})} />;
+            })}
+            <ProjectTextBlock heading="about_this_project">
+              <Content />
+            </ProjectTextBlock>
+          </div>
+          {TldrContent && (
+            <div class="proj-tldr" hidden>
+              <ProjectTextBlock heading="tldr">
+                <TldrContent />
+              </ProjectTextBlock>
+            </div>
+          )}
         </div>
         <div class="vim-statusline">
           <span class="vs-mode">NORMAL</span>
@@ -149,6 +169,23 @@ const moreProjectsSections = outsideSections.filter((s) => s.component === 'More
     overflow-y: hidden;
     flex: 1;
     min-height: 0;
+  }
+
+  .proj-full,
+  .proj-tldr {
+    animation: proj-fade-in 0.18s ease-out;
+  }
+
+  @keyframes proj-fade-in {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .proj-full,
+    .proj-tldr {
+      animation: none;
+    }
   }
 
   .vim-statusline {
@@ -237,6 +274,58 @@ const moreProjectsSections = outsideSections.filter((s) => s.component === 'More
   .proj-window-body :global(.vs-match--current) {
     outline: 2px solid var(--text);
     outline-offset: -1px;
+  }
+
+  .win-tldr {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: transparent;
+    border: 1px solid var(--lime);
+    border-radius: 3px;
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--lime);
+    padding: 4px 8px;
+    transition: box-shadow 0.15s;
+  }
+
+  .win-tldr:hover {
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--lime) 25%, transparent);
+  }
+
+  .win-tldr-track {
+    width: 20px;
+    height: 11px;
+    border: 1px solid var(--lime);
+    border-radius: 6px;
+    position: relative;
+    flex-shrink: 0;
+    transition: background 0.15s;
+  }
+
+  .win-tldr-thumb {
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--lime);
+    transition: transform 0.15s;
+  }
+
+  .win-tldr[aria-pressed='true'] .win-tldr-track {
+    background: var(--lime);
+  }
+
+  .win-tldr[aria-pressed='true'] .win-tldr-thumb {
+    background: var(--bg0);
+    transform: translateX(9px);
   }
 
   .vs-toggle {
@@ -602,5 +691,29 @@ const moreProjectsSections = outsideSections.filter((s) => s.component === 'More
           if (e.key !== 'g') pendingG = false;
       }
     });
+
+    // --- tldr toggle ---
+    const tldrBtn = document.querySelector<HTMLButtonElement>('.win-tldr');
+    const fullEl = document.querySelector<HTMLElement>('.proj-full');
+    const tldrEl = document.querySelector<HTMLElement>('.proj-tldr');
+    if (tldrBtn && fullEl && tldrEl) {
+      tldrBtn.addEventListener('click', () => {
+        const showingTldr = tldrBtn.getAttribute('aria-pressed') === 'true';
+        const next = !showingTldr;
+        tldrBtn.setAttribute('aria-pressed', String(next));
+        fullEl.hidden = next;
+        tldrEl.hidden = !next;
+        const shown = next ? tldrEl : fullEl;
+        shown.style.animation = 'none';
+        void shown.offsetHeight;
+        shown.style.animation = '';
+        if (vimEnabled) clearMatches();
+        const before = wrapper.getBoundingClientRect().top;
+        measure();
+        const after = wrapper.getBoundingClientRect().top;
+        window.scrollBy(0, after - before);
+        onScroll();
+      });
+    }
   })();
 </script>

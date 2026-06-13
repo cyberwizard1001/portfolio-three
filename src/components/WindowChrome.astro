@@ -18,6 +18,7 @@ const { title, activeTitle, icon } = Astro.props;
     <span class="win-title">
       {title}{activeTitle && <>&nbsp;<span class="active-title">{activeTitle}</span></>}
     </span>
+    <slot name="actions" />
     {icon && <span class="win-icon">{icon}</span>}
   </div>
   <slot />
