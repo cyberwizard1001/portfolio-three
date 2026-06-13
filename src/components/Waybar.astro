@@ -157,18 +157,24 @@ const base = import.meta.env.BASE_URL;
     width: 22px;
     height: 22px;
     border-radius: 3px;
-    border: 1px solid var(--border-hi);
+    border: 1px solid var(--lime);
+    background: color-mix(in srgb, var(--lime) 14%, transparent);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--dim);
+    color: var(--lime);
     cursor: pointer;
     transition: all 0.15s;
   }
 
   .mode-toggle:hover {
     border-color: var(--lime);
-    color: var(--lime);
+    color: var(--bg);
+    background: var(--lime);
+  }
+
+  @media (max-width: 1100px) {
+    .wb-section.center { display: none; }
   }
 
   @media (max-width: 860px) {
