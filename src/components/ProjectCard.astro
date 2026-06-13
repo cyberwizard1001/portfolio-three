@@ -7,7 +7,6 @@ interface StatuslineChunk {
 interface Props {
   href: string;
   filename: string;
-  mode?: string;
   image: string;
   imageAlt: string;
   type: string;
@@ -17,7 +16,7 @@ interface Props {
   statusline: StatuslineChunk[];
 }
 
-const { href, filename, mode = 'NORMAL', image, imageAlt, type, year, title, oneliner, statusline } = Astro.props;
+const { href, filename, image, imageAlt, type, year, title, oneliner, statusline } = Astro.props;
 const base = import.meta.env.BASE_URL;
 ---
 
@@ -27,7 +26,6 @@ const base = import.meta.env.BASE_URL;
       <div class="pwc"></div><div class="pwc"></div><div class="pwc"></div>
     </div>
     <span class="pw-title">vim: <span class="fname">{filename}</span></span>
-    <span class="pw-mode">{mode}</span>
   </div>
   <div class="pw-image">
     <img src={`${base}${image.replace(/^\//, '')}`} alt={imageAlt} class="pw-img-el" />
@@ -106,9 +104,13 @@ const base = import.meta.env.BASE_URL;
 
   .pw-title {
     font-family: var(--mono);
-    font-size: 9px;
+    font-size: 12px;
     color: var(--dim);
     flex: 1;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     transition: color 0.18s;
   }
 
@@ -116,16 +118,6 @@ const base = import.meta.env.BASE_URL;
 
   .pw-title .fname { color: var(--dim); transition: color 0.18s; }
   .proj-window:hover .pw-title .fname { color: var(--text); }
-
-  .pw-mode {
-    font-family: var(--mono);
-    font-size: 9px;
-    background: var(--lime-dim);
-    color: var(--lime);
-    padding: 1px 7px;
-    border-radius: 2px;
-    border: 1px solid rgba(158,255,87,0.25);
-  }
 
   .pw-image {
     height: 210px;
@@ -165,7 +157,7 @@ const base = import.meta.env.BASE_URL;
 
   .pw-type {
     font-family: var(--mono);
-    font-size: 9px;
+    font-size: 12px;
     color: var(--lime);
     letter-spacing: 0.1em;
     text-transform: uppercase;
@@ -177,7 +169,7 @@ const base = import.meta.env.BASE_URL;
 
   .pw-year {
     font-family: var(--mono);
-    font-size: 10px;
+    font-size: 12px;
     color: var(--dim);
   }
 
@@ -207,7 +199,7 @@ const base = import.meta.env.BASE_URL;
     padding: 0 12px;
     gap: 0;
     font-family: var(--mono);
-    font-size: 9px;
+    font-size: 12px;
     flex-shrink: 0;
   }
 
@@ -234,7 +226,7 @@ const base = import.meta.env.BASE_URL;
 
   .sl-arrow {
     color: var(--lime);
-    font-size: 11px;
+    font-size: 12px;
     margin-left: auto;
     padding-right: 0;
     transition: transform 0.2s;

@@ -67,7 +67,7 @@ body {
 
 .win-title {
   font-family: var(--mono);
-  font-size: 10px;
+  font-size: 12px;
   color: var(--dim);
   flex: 1;
 }
@@ -76,7 +76,7 @@ body {
 
 .win-icon {
   font-family: var(--mono);
-  font-size: 9px;
+  font-size: 12px;
   color: var(--dim);
 }
 

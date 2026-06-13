@@ -6,7 +6,7 @@
   --border-hi:rgba(245,244,240,0.22);
   --text:     #f0ede6;
   --sub:      rgba(240,237,230,0.70);
-  --dim:      rgba(240,237,230,0.40);
+  --dim:      rgba(240,237,230,0.50);
   --lime:     #9eff57;
   --lime-dim: rgba(158,255,87,0.10);
   --mono:     'JetBrains Mono', 'Fira Code', monospace;
@@ -29,7 +29,7 @@
   --border-hi: rgba(180,190,254,0.26);
   --text:      #cdd6f4;
   --sub:       rgba(205,214,244,0.74);
-  --dim:       rgba(205,214,244,0.42);
+  --dim:       rgba(205,214,244,0.58);
   --lime:      #cba6f7;
   --lime-dim:  rgba(203,166,247,0.12);
 }
@@ -43,7 +43,7 @@
   --border-hi: rgba(235,219,178,0.24);
   --text:      #ebdbb2;
   --sub:       rgba(235,219,178,0.74);
-  --dim:       rgba(235,219,178,0.42);
+  --dim:       rgba(235,219,178,0.58);
   --lime:      #fabd2f;
   --lime-dim:  rgba(250,189,47,0.12);
 }
@@ -57,7 +57,7 @@
   --border-hi: rgba(248,248,242,0.22);
   --text:      #f8f8f2;
   --sub:       rgba(248,248,242,0.74);
-  --dim:       rgba(248,248,242,0.42);
+  --dim:       rgba(248,248,242,0.50);
   --lime:      #ff79c6;
   --lime-dim:  rgba(255,121,198,0.12);
 }
@@ -74,9 +74,9 @@
   --border-hi: rgba(20,20,20,0.22);
   --text:      #1a1a1a;
   --sub:       rgba(20,20,20,0.65);
-  --dim:       rgba(20,20,20,0.40);
-  --lime:      #5b8c00;
-  --lime-dim:  rgba(91,140,0,0.10);
+  --dim:       rgba(20,20,20,0.65);
+  --lime:      #4d7a00;
+  --lime-dim:  rgba(77,122,0,0.10);
   --term-bg:      var(--bg2);
   --term-bg2:     var(--bg0);
   --term-hover:   var(--bg1);
@@ -94,7 +94,7 @@
   --border-hi: rgba(76,79,105,0.26);
   --text:      #4c4f69;
   --sub:       rgba(76,79,105,0.74);
-  --dim:       rgba(76,79,105,0.42);
+  --dim:       rgba(76,79,105,0.85);
   --lime:      #8839ef;
   --lime-dim:  rgba(136,57,239,0.12);
   --term-bg:      var(--bg2);
@@ -114,9 +114,9 @@
   --border-hi: rgba(60,56,54,0.24);
   --text:      #3c3836;
   --sub:       rgba(80,73,69,0.78);
-  --dim:       rgba(80,73,69,0.45);
-  --lime:      #b57614;
-  --lime-dim:  rgba(181,118,20,0.12);
+  --dim:       rgba(80,73,69,0.85);
+  --lime:      #96600f;
+  --lime-dim:  rgba(150,96,15,0.12);
   --term-bg:      var(--bg2);
   --term-bg2:     var(--bg0);
   --term-hover:   var(--bg1);
@@ -134,7 +134,7 @@
   --border-hi: rgba(33,34,44,0.22);
   --text:      #21222c;
   --sub:       rgba(65,66,79,0.78);
-  --dim:       rgba(65,66,79,0.45);
+  --dim:       rgba(65,66,79,0.78);
   --lime:      #a3144d;
   --lime-dim:  rgba(163,20,77,0.10);
   --term-bg:      var(--bg2);
