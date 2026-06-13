@@ -6,9 +6,11 @@ interface Props {
 }
 
 const { title, type, year } = Astro.props;
+const base = import.meta.env.BASE_URL;
 ---
 
-<section class="proj-hero grid-bg">
+<section class="proj-hero">
+  <a href={`${base}#work`} class="proj-hero-back">&larr; Back to projects</a>
   <span class="proj-hero-meta">{type} · {year}</span>
   <h1 class="proj-hero-title">{title}</h1>
 </section>
@@ -17,6 +19,24 @@ const { title, type, year } = Astro.props;
   .proj-hero {
     padding: 3rem;
     position: relative;
+  }
+
+  .proj-hero-back,
+  .proj-hero-back:link,
+  .proj-hero-back:visited {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--sub);
+    text-decoration: none;
+    margin-bottom: 1rem;
+    transition: color 0.15s ease;
+  }
+
+  .proj-hero-back:hover {
+    color: var(--lime);
   }
 
   .proj-hero-meta {

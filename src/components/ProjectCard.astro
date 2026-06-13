@@ -18,6 +18,7 @@ interface Props {
 }
 
 const { href, filename, mode = 'NORMAL', image, imageAlt, type, year, title, oneliner, statusline } = Astro.props;
+const base = import.meta.env.BASE_URL;
 ---
 
 <a class="proj-window" href={href}>
@@ -29,7 +30,7 @@ const { href, filename, mode = 'NORMAL', image, imageAlt, type, year, title, one
     <span class="pw-mode">{mode}</span>
   </div>
   <div class="pw-image">
-    <img src={image} alt={imageAlt} class="pw-img-el" />
+    <img src={`${base}${image.replace(/^\//, '')}`} alt={imageAlt} class="pw-img-el" />
   </div>
   <div class="pw-content">
     <div class="pw-meta">

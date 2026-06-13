@@ -10,6 +10,7 @@ interface Props {
 }
 
 const { title, images } = Astro.props;
+const base = import.meta.env.BASE_URL;
 ---
 
 <section class="proj-gallery-grid">
@@ -17,7 +18,7 @@ const { title, images } = Astro.props;
   <div class="proj-gallery-grid-images">
     {images.map((img) => (
       <div class="proj-gallery-grid-item">
-        <img src={img.src} alt={img.alt} />
+        <img src={`${base}${img.src.replace(/^\//, '')}`} alt={img.alt} />
       </div>
     ))}
   </div>

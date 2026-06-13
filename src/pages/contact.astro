@@ -3,29 +3,108 @@ import Layout from '../layouts/Layout.astro';
 import Waybar from '../components/Waybar.astro';
 import Footer from '../components/Footer.astro';
 import WindowChrome from '../components/WindowChrome.astro';
+
+const base = import.meta.env.BASE_URL;
+
+const links = [
+  {
+    label: 'email',
+    value: 'nirmalkarthikeyan1503@gmail.com',
+    href: 'mailto:nirmalkarthikeyan1503@gmail.com',
+    external: false,
+  },
+  {
+    label: 'linkedin',
+    value: 'linkedin.com/in/nirmal-karthikeyan',
+    href: 'https://linkedin.com/in/nirmal-karthikeyan',
+    external: true,
+  },
+  {
+    label: 'medium',
+    value: 'medium.com/@nirmalkarthikeyan',
+    href: 'https://medium.com/@nirmalkarthikeyan',
+    external: true,
+  },
+  {
+    label: 'cv',
+    value: 'View resume / experience',
+    href: '/cv.pdf',
+    external: true,
+  },
+];
 ---
 
 <Layout title="Contact — Nirmal">
   <Waybar />
-  <section class="contact-section">
-    <div class="contact-window">
-      <WindowChrome title="~/contact — bash">
-        <div class="contact-body">
-          <p class="contact-prompt">
-            <span class="ps1">nirmal@arch ~ $</span>&nbsp;contact --open<span class="cursor-blink"></span>
-          </p>
-          <ul class="contact-list">
-            <li>
-              <span class="contact-label">email</span>
-              <a href="mailto:nirmalkarthikeyan1503@gmail.com" class="contact-link">nirmalkarthikeyan1503@gmail.com →</a>
-            </li>
-            <li>
-              <span class="contact-label">linkedin</span>
-              <a href="https://linkedin.com/in/nirmal-karthikeyan" class="contact-link">linkedin.com/in/nirmal-karthikeyan ↗</a>
-            </li>
-          </ul>
-        </div>
-      </WindowChrome>
+  <section class="contact-section grid-bg">
+    <header class="contact-header">
+      <h1 class="contact-h1">Contact</h1>
+      <p class="contact-sub">
+        No forms, no friction. If my work resonates, send me an email, scan the QR, or find me on LinkedIn.
+      </p>
+    </header>
+
+    <div class="contact-grid">
+      <div class="contact-col">
+        <WindowChrome title="~/contact — bash">
+          <div class="contact-body">
+            <p class="contact-prompt">
+              <span class="ps1">nirmal@arch ~ $</span>&nbsp;contact --open<span class="cursor-blink"></span>
+            </p>
+            <h2 class="talk-title">Let's talk</h2>
+            <p class="talk-desc">
+              Best for collaborations, design roles, product conversations, or just a good systems-and-UX chat.
+            </p>
+            <ul class="link-list">
+              {links.map((l) => (
+                <li>
+                  <a
+                    href={l.href}
+                    class="link-row"
+                    target={l.external ? '_blank' : undefined}
+                    rel={l.external ? 'noopener' : undefined}
+                  >
+                    <span class="lr-text">
+                      <span class="lr-label">{l.label}</span>
+                      <span class="lr-value">{l.value}</span>
+                    </span>
+                    <span class="lr-arrow">↗</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </WindowChrome>
+      </div>
+
+      <div class="contact-col">
+        <WindowChrome title="~/contact — neofetch">
+          <div class="fetch-body">
+            <pre class="fetch-art">{`    .--.
+   |o_o |
+   |:_/ |
+  //   \\ \\
+ (|     | )
+/'\\_   _/\`\\
+\\___)=(___/`}</pre>
+            <dl class="fetch-meta">
+              <div class="fm-row"><dt>role</dt><dd>UX Researcher &amp; Designer</dd></div>
+              <div class="fm-row"><dt>focus</dt><dd>Product, design systems, Flutter</dd></div>
+              <div class="fm-row"><dt>based</dt><dd>Remote-friendly</dd></div>
+              <div class="fm-row"><dt>status</dt><dd><span class="fm-dot"></span>Open for collaboration</dd></div>
+            </dl>
+          </div>
+        </WindowChrome>
+
+        <a
+          class="qr-card"
+          href="mailto:nirmalkarthikeyan1503@gmail.com"
+          aria-label="Email nirmalkarthikeyan1503@gmail.com"
+        >
+          <img src={`${base}images/qr-email.svg`} alt="QR code to email Nirmal" class="qr-img" />
+          <span class="qr-caption">Scan to email me</span>
+        </a>
+      </div>
     </div>
   </section>
   <Footer />
@@ -33,16 +112,41 @@ import WindowChrome from '../components/WindowChrome.astro';
 
 <style>
   .contact-section {
-    min-height: calc(100vh - var(--bar-h) - 34px);
     padding: 3rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
 
-  .contact-window {
-    width: 100%;
+  .contact-header {
     max-width: 720px;
+    margin-bottom: 2.5rem;
+  }
+
+  .contact-h1 {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    color: var(--lime);
+    margin-bottom: 1rem;
+  }
+
+  .contact-sub {
+    font-size: 1rem;
+    color: var(--sub);
+    line-height: 1.6;
+    max-width: 38rem;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 1.5rem;
+    align-items: stretch;
+  }
+
+  .contact-col {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
   }
 
   .contact-body {
@@ -61,50 +165,175 @@ import WindowChrome from '../components/WindowChrome.astro';
 
   .contact-prompt .ps1 { color: var(--dim); }
 
-  .contact-list {
+  .talk-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 0.75rem;
+  }
+
+  .talk-desc {
+    font-size: 0.9375rem;
+    color: var(--sub);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    max-width: 32rem;
+  }
+
+  .link-list {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 0.75rem;
   }
 
-  .contact-list li {
+  .link-row {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 1rem;
-    font-family: var(--mono);
-    font-size: 0.875rem;
+    padding: 1rem 1.25rem;
+    background: var(--term-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.18s, border-color 0.18s;
   }
 
-  .contact-label {
-    color: var(--dim);
-    width: 90px;
-    flex-shrink: 0;
-    text-transform: uppercase;
+  .link-row:hover {
+    background: var(--term-hover);
+    border-color: var(--lime);
+  }
+
+  .lr-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .lr-label {
+    font-family: var(--mono);
     font-size: 9px;
     letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--lime);
   }
 
-  .contact-link {
+  .lr-value {
+    font-size: 0.9375rem;
+    font-weight: 600;
     color: var(--text);
-    text-decoration: none;
-    transition: color 0.15s;
   }
 
-  .contact-link:hover { color: var(--lime); }
+  .lr-arrow {
+    color: var(--dim);
+    font-size: 1rem;
+    transition: transform 0.2s, color 0.18s;
+    flex-shrink: 0;
+  }
+
+  .link-row:hover .lr-arrow {
+    color: var(--lime);
+    transform: translate(3px, -3px);
+  }
+
+  /* neofetch panel */
+  .fetch-body {
+    padding: 2rem;
+    display: flex;
+    gap: 1.75rem;
+    align-items: center;
+    flex: 1;
+  }
+
+  .fetch-art {
+    font-family: var(--mono);
+    font-size: 11px;
+    line-height: 1.25;
+    color: var(--lime);
+    flex-shrink: 0;
+    white-space: pre;
+  }
+
+  .fetch-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    font-family: var(--mono);
+    font-size: 11px;
+  }
+
+  .fm-row {
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  .fm-row dt {
+    color: var(--dim);
+    width: 52px;
+    flex-shrink: 0;
+  }
+
+  .fm-row dd {
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .fm-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--lime);
+    display: inline-block;
+  }
+
+  /* QR card */
+  .qr-card {
+    flex: 1;
+    background: #fff;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 2rem;
+    text-decoration: none;
+    min-height: 220px;
+    transition: opacity 0.18s;
+  }
+
+  .qr-card:hover {
+    opacity: 0.92;
+  }
+
+  .qr-img {
+    width: 140px;
+    height: 140px;
+    image-rendering: pixelated;
+  }
+
+  .qr-caption {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: #0a0a0a;
+  }
 
   @media (max-width: 860px) {
     .contact-section { padding: 2rem 1.25rem; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .fetch-body { flex-direction: column; align-items: flex-start; text-align: left; }
   }
 
   @media (max-width: 480px) {
     .contact-section { padding: 1.25rem 0.75rem; }
     .contact-body { padding: 1.5rem 1.25rem; }
-    .contact-list li {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.35rem;
-    }
-    .contact-link { word-break: break-all; }
+    .link-row { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+    .lr-value { word-break: break-all; }
+    .fetch-art { font-size: 9px; }
   }
 </style>

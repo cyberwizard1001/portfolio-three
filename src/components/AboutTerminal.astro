@@ -2,7 +2,7 @@
 import WindowChrome from './WindowChrome.astro';
 ---
 
-<section class="about-section" id="about">
+<section class="about-section grid-bg" id="about">
   <div class="term-window">
     <WindowChrome title="~/about_me — bash">
       <div class="term-body">
@@ -42,6 +42,8 @@ import WindowChrome from './WindowChrome.astro';
     border-radius: 6px;
     overflow: hidden;
     border: 1px solid var(--border-hi);
+    max-width: 1320px;
+    margin: 0 auto;
   }
 
   .term-body {
@@ -208,10 +210,45 @@ import WindowChrome from './WindowChrome.astro';
       }
     }
 
+    function renderInstant() {
+      if (!area) return;
+      for (const l of lines) {
+        if (l.type === 'blank') {
+          const el = document.createElement('div');
+          el.style.height = '0.55em';
+          area.appendChild(el);
+        } else if (l.type === 'prompt') {
+          const el = document.createElement('div');
+          el.className = 'tl-cmd';
+          el.innerHTML = '<span class="tl-ps">~$ </span>';
+          const cur = document.createElement('span');
+          cur.className = 'term-cursor';
+          el.appendChild(cur);
+          area.appendChild(el);
+        } else if (l.type === 'cmd') {
+          const el = document.createElement('div');
+          el.className = 'tl-cmd';
+          el.innerHTML = `<span class="tl-ps">~$ </span><span>${l.text}</span>`;
+          area.appendChild(el);
+        } else if (l.type === 'out') {
+          for (const row of l.rows) {
+            const el = document.createElement('div');
+            el.className = 'tl-out';
+            el.textContent = row;
+            area.appendChild(el);
+          }
+        }
+      }
+    }
+
     function start() {
       if (started) return;
       started = true;
-      runLines(0);
+      if (window.matchMedia('(max-width: 860px)').matches) {
+        renderInstant();
+      } else {
+        runLines(0);
+      }
     }
 
     const obs = new IntersectionObserver(

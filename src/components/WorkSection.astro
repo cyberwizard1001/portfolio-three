@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import ProjectCard from './ProjectCard.astro';
 
 const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+const base = import.meta.env.BASE_URL;
 ---
 
 <section class="work-section" id="work">
@@ -15,7 +16,7 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
   <div class="project-grid">
     {projects.map((project) => (
       <ProjectCard
-        href={`/projects/${project.id}/`}
+        href={`${base}projects/${project.id}/`}
         filename={project.data.filename}
         mode={project.data.mode}
         image={project.data.image}

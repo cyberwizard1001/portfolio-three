@@ -94,98 +94,154 @@ body {
 }
 
 /* ═══════════════════════════════════════════════
-   BOTTOM STATUSBAR
+   FOOTER
 ═══════════════════════════════════════════════ */
-.statusbar {
-  height: 56px;
+.site-footer {
   background: var(--bg0);
   border-top: 1px solid var(--border);
+}
+
+.footer-body {
+  background: var(--bg1);
+  padding: 40px 40px 20px;
+}
+
+.footer-email-block {
   display: flex;
-  align-items: stretch;
+  align-items: baseline;
+  gap: 12px;
   font-family: var(--mono);
-  font-size: 11px;
+  padding-bottom: 28px;
+  margin-bottom: 28px;
+  border-bottom: 1px solid var(--border);
 }
 
-.sb-chunk {
-  padding: 0 24px;
-  border-right: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  color: var(--dim);
-  white-space: nowrap;
+.fb-ps {
+  color: rgba(158,255,87,0.45);
+  font-size: 16px;
 }
 
-.sb-chunk.sb-grow {
-  flex: 1;
-}
-
-.sb-chunk.lime-bg {
-  background: var(--lime-dim);
+.fb-email {
+  font-size: clamp(16px, 3vw, 26px);
+  font-weight: 600;
   color: var(--lime);
-  border-color: rgba(158,255,87,0.2);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  word-break: break-all;
+  transition: opacity 0.15s;
 }
 
-.sb-chunk.right {
-  border-right: none;
-  border-left: 1px solid var(--border);
-  margin-left: auto;
+.fb-email:hover {
+  opacity: 0.8;
 }
 
-.sb-email {
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 32px;
+  padding-bottom: 28px;
+}
+
+.footer-brand h3 {
+  font-family: var(--sans);
+  font-size: 20px;
+  font-weight: 700;
   color: var(--text);
-  text-decoration: none;
-  border-right: none;
-  border-left: 1px solid var(--border);
-  margin-left: auto;
-  transition: color 0.15s;
-  padding: 0 14px;
-  display: flex;
-  align-items: center;
+  margin: 0 0 12px;
 }
 
-.sb-email:hover { color: var(--lime); }
+.footer-brand p {
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--sub);
+  max-width: 340px;
+  margin: 0;
+}
 
-.sb-link {
+.footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-col h4 {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--lime);
+  opacity: 0.8;
+  text-transform: none;
+  margin: 0 0 4px;
+}
+
+.footer-col a {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--sub);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.footer-col a::before {
+  content: '> ';
   color: var(--dim);
-  text-decoration: none;
-  border-right: 1px solid var(--border);
-  padding: 0 24px;
+}
+
+.footer-col a:hover {
+  color: var(--lime);
+}
+
+.footer-col a:hover::before {
+  color: var(--lime);
+}
+
+.footer-bottom {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  transition: color 0.15s;
-  margin-left: auto;
+  gap: 16px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--dim);
 }
 
-.sb-link:hover { color: var(--lime); }
+@media (max-width: 768px) {
+  .footer-body {
+    padding: 20px;
+  }
 
-.sb-email {
-  padding: 0 24px;
-  margin-left: 0;
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 28px 24px;
+  }
+
+  .footer-brand {
+    grid-column: 1 / -1;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
 }
 
-@media (max-width: 640px) {
-  .sb-chunk:not(.lime-bg):not(.sb-grow),
-  .sb-link {
-    display: none;
-  }
-
-  .sb-chunk.sb-grow {
-    min-width: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .sb-email {
-    padding: 0 12px;
+@media (max-width: 480px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
   }
 }
 
 /* Smooth theme transitions */
 body, .waybar, .hero-section, .work-section, .about-section,
-.statusbar, .window, .win-bar, .proj-window, .pw-bar,
+.site-footer, .window, .win-bar, .proj-window, .pw-bar,
 .pw-image, .pw-content, .pw-statusline, .hero-win-body,
 .hero-main, .hero-split, .hs-cell, .term-window,
-.term-titlebar, .term-body, .term-left, .term-right {
+.term-titlebar, .term-body, .term-left, .term-right,
+.footer-body {
   transition: background-color 0.25s ease, border-color 0.25s ease;
 }
 .wb-logo, .wb-label, .wb-clock, .ws-pill, .hero-h1,

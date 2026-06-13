@@ -12,6 +12,7 @@ interface Props {
 }
 
 const { title, projects } = Astro.props;
+const base = import.meta.env.BASE_URL;
 ---
 
 <section class="proj-more">
@@ -21,7 +22,7 @@ const { title, projects } = Astro.props;
   </p>
   <div class="proj-more-grid">
     {projects.map((project) => (
-      <a class="proj-more-card" href={`/projects/${project.slug}`}>
+      <a class="proj-more-card" href={`${base}projects/${project.slug}`}>
         <span class="proj-more-category">{project.category}</span>
         <h3 class="proj-more-card-title">{project.title}</h3>
         <p class="proj-more-blurb">{project.blurb}</p>

@@ -1,9 +1,10 @@
 ---
+const base = import.meta.env.BASE_URL;
 ---
 
 <header class="waybar">
   <div class="wb-section wb-logo-sec">
-    <a href="/" class="wb-logo">nirmal.sh</a>
+    <a href={base} class="wb-logo">nirmal.sh</a>
   </div>
   <div class="wb-section">
     <div class="wb-workspaces">
@@ -24,6 +25,8 @@
     <span class="wb-label">portfolio — <span class="hl">UX research &amp; design · Flutter</span></span>
   </div>
   <div class="wb-section right">
+    <a href={`${base}contact`} class="wb-cta">contact</a>
+    <div class="wb-sep"></div>
     <span class="wb-label wb-hide-sm">open for collab</span>
     <div class="wb-sep wb-hide-sm"></div>
     <span class="wb-label wb-hide-sm">RAM <span class="hl">4.2G</span></span>
@@ -108,6 +111,26 @@
     font-size: 10px;
     color: var(--dim);
     white-space: nowrap;
+  }
+
+  .wb-cta {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    color: var(--bg0);
+    background: var(--lime);
+    border: 1px solid var(--lime);
+    border-radius: 3px;
+    padding: 3px 10px;
+    white-space: nowrap;
+    transition: all 0.15s;
+  }
+
+  .wb-cta:hover {
+    background: transparent;
+    color: var(--lime);
   }
 
   .wb-label .hl { color: var(--sub); }

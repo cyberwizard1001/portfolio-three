@@ -9,6 +9,7 @@ interface Props {
 }
 
 const { eyebrow, title, body, image, imageAlt, reverse = false } = Astro.props;
+const base = import.meta.env.BASE_URL;
 ---
 
 <section class:list={['proj-ti', { 'proj-ti-reverse': reverse }]}>
@@ -18,7 +19,7 @@ const { eyebrow, title, body, image, imageAlt, reverse = false } = Astro.props;
     <p class="proj-ti-body">{body}</p>
   </div>
   <div class="proj-ti-image">
-    <img src={image} alt={imageAlt} />
+    <img src={`${base}${image.replace(/^\//, '')}`} alt={imageAlt} />
   </div>
 </section>
 

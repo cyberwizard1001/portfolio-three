@@ -5,10 +5,11 @@ interface Props {
 }
 
 const { image, imageAlt } = Astro.props;
+const base = import.meta.env.BASE_URL;
 ---
 
 <section class="proj-gallery">
-  <img src={image} alt={imageAlt} class="proj-gallery-img" />
+  <img src={`${base}${image.replace(/^\//, '')}`} alt={imageAlt} class="proj-gallery-img" />
 </section>
 
 <style>

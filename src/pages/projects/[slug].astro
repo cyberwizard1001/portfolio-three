@@ -92,7 +92,22 @@ const moreProjectsSections = outsideSections.filter((s) => s.component === 'More
         <div class="vim-statusline">
           <span class="vs-mode">NORMAL</span>
           <span class="vs-chunk vs-file">case-study.md</span>
-          <span class="vs-chunk vs-grow"></span>
+          <span class="vs-chunk vs-grow">
+            <input class="vs-search" type="text" spellcheck="false" autocomplete="off" />
+          </span>
+          <details class="vs-help">
+            <summary>?</summary>
+            <div class="vs-help-panel">
+              <strong>vim mode</strong>
+              <div><kbd>j</kbd>/<kbd>k</kbd> scroll down/up</div>
+              <div><kbd>gg</kbd> / <kbd>G</kbd> top / bottom</div>
+              <div><kbd>ctrl-d</kbd> / <kbd>ctrl-u</kbd> half page</div>
+              <div><kbd>ctrl-f</kbd> / <kbd>ctrl-b</kbd> full page</div>
+              <div><kbd>i</kbd> / <kbd>v</kbd> / <kbd>esc</kbd> mode</div>
+              <div><kbd>/</kbd> search, <kbd>n</kbd>/<kbd>N</kbd> next/prev</div>
+            </div>
+          </details>
+          <button class="vs-chunk vs-toggle" type="button" aria-pressed="false">vim: off</button>
           <span class="vs-chunk">utf-8[unix]</span>
           <span class="vs-chunk">markdown</span>
           <span class="vs-chunk vs-pos">1:1</span>
@@ -185,6 +200,109 @@ const moreProjectsSections = outsideSections.filter((s) => s.component === 'More
     border-left: 1px solid var(--border);
   }
 
+  .vs-mode--insert {
+    background: var(--sub);
+  }
+
+  .vs-mode--visual {
+    background: var(--border-hi);
+  }
+
+  .vs-search {
+    display: none;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 10px;
+    padding: 0 12px;
+  }
+
+  .vs-search.is-active {
+    display: block;
+  }
+
+  .vs-search--nomatch {
+    background: var(--border-hi);
+  }
+
+  .proj-window-body :global(.vs-match) {
+    background: var(--lime);
+    color: var(--bg0);
+  }
+
+  .proj-window-body :global(.vs-match--current) {
+    outline: 2px solid var(--text);
+    outline-offset: -1px;
+  }
+
+  .vs-toggle {
+    cursor: pointer;
+    background: none;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--dim);
+  }
+
+  .vs-toggle[aria-pressed='true'] {
+    color: var(--lime);
+  }
+
+  .vs-help {
+    display: none;
+    position: relative;
+    border-right: 1px solid var(--border);
+  }
+
+  .vs-help.is-visible {
+    display: flex;
+    align-items: center;
+  }
+
+  .vs-help summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 0 12px;
+    color: var(--dim);
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
+
+  .vs-help summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .vs-help-panel {
+    position: absolute;
+    bottom: 26px;
+    right: 0;
+    background: var(--bg0);
+    border: 1px solid var(--border);
+    padding: 8px 12px;
+    white-space: nowrap;
+    line-height: 1.6;
+    color: var(--sub);
+    z-index: 10;
+  }
+
+  .vs-help-panel strong {
+    color: var(--text);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .vs-help-panel kbd {
+    background: var(--bg1);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 0 4px;
+    font-family: var(--mono);
+  }
+
   @media (max-width: 860px) {
     .proj-window { padding: 0 1.25rem 2rem; height: auto !important; }
     .proj-window :global(.window) { height: auto; position: static; }
@@ -261,5 +379,228 @@ const moreProjectsSections = outsideSections.filter((s) => s.component === 'More
       onScroll();
     });
     if (mobile()) body.addEventListener('scroll', onScroll, { passive: true });
+
+    // --- vim mode (opt-in) ---
+    const modeEl = document.querySelector<HTMLElement>('.vs-mode');
+    const toggleEl = document.querySelector<HTMLButtonElement>('.vs-toggle');
+    const helpEl = document.querySelector<HTMLElement>('.vs-help');
+    const searchEl = document.querySelector<HTMLInputElement>('.vs-search');
+    if (!modeEl || !toggleEl || !helpEl || !searchEl) return;
+
+    const STORAGE_KEY = 'vim-mode-enabled';
+    const LINE_PX = 24;
+    let vimEnabled = localStorage.getItem(STORAGE_KEY) === 'true';
+    let mode: 'NORMAL' | 'INSERT' | 'VISUAL' = 'NORMAL';
+    let lastQuery = '';
+    let pendingG = false;
+    let pendingGTimeout: ReturnType<typeof setTimeout> | null = null;
+    let matches: HTMLElement[] = [];
+    let matchIndex = -1;
+
+    const setMode = (next: typeof mode) => {
+      mode = next;
+      modeEl.textContent = mode;
+      modeEl.classList.toggle('vs-mode--insert', mode === 'INSERT');
+      modeEl.classList.toggle('vs-mode--visual', mode === 'VISUAL');
+    };
+
+    const applyVimEnabled = () => {
+      toggleEl.textContent = vimEnabled ? 'vim: on' : 'vim: off';
+      toggleEl.setAttribute('aria-pressed', String(vimEnabled));
+      helpEl.classList.toggle('is-visible', vimEnabled);
+      if (!vimEnabled) {
+        setMode('NORMAL');
+        searchEl.classList.remove('is-active');
+        searchEl.blur();
+        clearMatches();
+      }
+    };
+
+    toggleEl.addEventListener('click', () => {
+      vimEnabled = !vimEnabled;
+      localStorage.setItem(STORAGE_KEY, String(vimEnabled));
+      applyVimEnabled();
+    });
+
+    const scrollToRatio = (ratio: number) => {
+      if (mobile() || maxScroll <= 0) return;
+      const rect = wrapper.getBoundingClientRect();
+      const target = stickyTopPx() - ratio * maxScroll;
+      window.scrollBy(0, rect.top - target);
+    };
+
+    const clearMatches = () => {
+      for (const mark of matches) {
+        const parent = mark.parentNode;
+        if (!parent) continue;
+        parent.replaceChild(document.createTextNode(mark.textContent ?? ''), mark);
+        parent.normalize();
+      }
+      matches = [];
+      matchIndex = -1;
+    };
+
+    applyVimEnabled();
+
+    const buildMatches = (query: string) => {
+      clearMatches();
+      if (!query) return;
+      const needle = query.toLowerCase();
+      const walker = document.createTreeWalker(body!, NodeFilter.SHOW_TEXT, {
+        acceptNode: (node) => {
+          const parentTag = node.parentElement?.tagName;
+          if (parentTag === 'SCRIPT' || parentTag === 'STYLE') return NodeFilter.FILTER_REJECT;
+          return NodeFilter.FILTER_ACCEPT;
+        },
+      });
+
+      const textNodes: Text[] = [];
+      let node: Node | null;
+      while ((node = walker.nextNode())) textNodes.push(node as Text);
+
+      for (const textNode of textNodes) {
+        const text = textNode.textContent ?? '';
+        const lower = text.toLowerCase();
+        let from = 0;
+        let idx = lower.indexOf(needle, from);
+        if (idx === -1) continue;
+
+        const frag = document.createDocumentFragment();
+        while (idx !== -1) {
+          frag.appendChild(document.createTextNode(text.slice(from, idx)));
+          const mark = document.createElement('mark');
+          mark.className = 'vs-match';
+          mark.textContent = text.slice(idx, idx + needle.length);
+          frag.appendChild(mark);
+          matches.push(mark);
+          from = idx + needle.length;
+          idx = lower.indexOf(needle, from);
+        }
+        frag.appendChild(document.createTextNode(text.slice(from)));
+        textNode.parentNode?.replaceChild(frag, textNode);
+      }
+    };
+
+    const goToMatch = (index: number) => {
+      if (matches.length === 0) return;
+      if (matchIndex >= 0) matches[matchIndex].classList.remove('vs-match--current');
+      matchIndex = ((index % matches.length) + matches.length) % matches.length;
+      const matchEl = matches[matchIndex];
+      matchEl.classList.add('vs-match--current');
+
+      if (mobile()) {
+        matchEl.scrollIntoView({ block: 'center' });
+        return;
+      }
+      if (maxScroll <= 0) return;
+
+      const bodyRect = body!.getBoundingClientRect();
+      const matchRect = matchEl.getBoundingClientRect();
+      const targetOffset = body!.scrollTop + (matchRect.top - bodyRect.top);
+      const desiredScrollTop = Math.min(maxScroll, Math.max(0, targetOffset - body!.clientHeight / 3));
+      scrollToRatio(desiredScrollTop / maxScroll);
+    };
+
+    const flashNoMatch = () => {
+      searchEl.classList.add('vs-search--nomatch');
+      setTimeout(() => searchEl.classList.remove('vs-search--nomatch'), 300);
+    };
+
+    const openSearch = () => {
+      setMode('NORMAL');
+      searchEl.classList.add('is-active');
+      searchEl.value = '';
+      searchEl.focus();
+    };
+
+    const closeSearch = () => {
+      searchEl.classList.remove('is-active');
+      searchEl.blur();
+    };
+
+    searchEl.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        lastQuery = searchEl.value;
+        buildMatches(lastQuery);
+        if (matches.length > 0) goToMatch(0);
+        else if (lastQuery) flashNoMatch();
+        closeSearch();
+      } else if (e.key === 'Escape') {
+        closeSearch();
+      }
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if (!vimEnabled || mobile()) return;
+      const target = e.target as HTMLElement;
+      if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable) return;
+      if (e.metaKey || e.altKey) return;
+
+      if (e.key === 'Escape') {
+        setMode('NORMAL');
+        return;
+      }
+      if (e.key === 'i' && !e.ctrlKey) {
+        e.preventDefault();
+        setMode('INSERT');
+        return;
+      }
+      if (e.key === 'v' && !e.ctrlKey) {
+        e.preventDefault();
+        setMode('VISUAL');
+        return;
+      }
+      if (mode !== 'NORMAL') return;
+
+      if (e.ctrlKey) {
+        if (e.key === 'd') { e.preventDefault(); window.scrollBy(0, window.innerHeight / 2); }
+        else if (e.key === 'u') { e.preventDefault(); window.scrollBy(0, -window.innerHeight / 2); }
+        else if (e.key === 'f') { e.preventDefault(); window.scrollBy(0, window.innerHeight); }
+        else if (e.key === 'b') { e.preventDefault(); window.scrollBy(0, -window.innerHeight); }
+        return;
+      }
+
+      switch (e.key) {
+        case 'j':
+        case 'ArrowDown':
+          e.preventDefault();
+          window.scrollBy(0, LINE_PX);
+          break;
+        case 'k':
+        case 'ArrowUp':
+          e.preventDefault();
+          window.scrollBy(0, -LINE_PX);
+          break;
+        case 'g':
+          if (pendingG) {
+            e.preventDefault();
+            scrollToRatio(0);
+            pendingG = false;
+            if (pendingGTimeout) clearTimeout(pendingGTimeout);
+          } else {
+            pendingG = true;
+            pendingGTimeout = setTimeout(() => { pendingG = false; }, 400);
+          }
+          break;
+        case 'G':
+          e.preventDefault();
+          scrollToRatio(1);
+          break;
+        case '/':
+          e.preventDefault();
+          openSearch();
+          break;
+        case 'n':
+          e.preventDefault();
+          goToMatch(matchIndex + 1);
+          break;
+        case 'N':
+          e.preventDefault();
+          goToMatch(matchIndex - 1);
+          break;
+        default:
+          if (e.key !== 'g') pendingG = false;
+      }
+    });
   })();
 </script>
