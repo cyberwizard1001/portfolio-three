@@ -75,6 +75,7 @@ import WindowChrome from './WindowChrome.astro';
     padding: 1.75rem 2rem 1.75rem;
     display: flex;
     flex-direction: column;
+    position: relative;
   }
 
   #term-output-area {
@@ -82,11 +83,62 @@ import WindowChrome from './WindowChrome.astro';
     font-size: 13px;
     line-height: 1.75;
     flex: 1;
+    position: relative;
+    max-height: 360px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
   }
 
   :global(.tl-cmd) { color: var(--lime); }
-  :global(.tl-ps)  { color: rgba(158,255,87,0.45); }
-  :global(.tl-out) { color: var(--sub); padding-left: 0; }
+  :global(.tl-ps)  { color: rgba(158,255,87,0.45); margin-right: 0.5em; }
+  :global(.tl-out) { color: var(--sub); padding-left: 0; white-space: pre-wrap; }
+  :global(.tl-err) { color: #ff6b6b; }
+
+  :global(.tl-line) { display: flex; align-items: baseline; }
+
+  :global(.term-input) {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--lime);
+    caret-color: var(--lime);
+    padding: 0;
+    margin: 0;
+    min-width: 0;
+  }
+
+  :global(.term-input::placeholder) {
+    color: var(--sub);
+    opacity: 0.55;
+  }
+
+  .matrix-overlay {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 2;
+    background: var(--bg);
+    font-family: var(--mono);
+    font-size: 12px;
+    line-height: 1.1;
+  }
+
+  .matrix-col {
+    position: absolute;
+    top: -100%;
+    color: var(--lime);
+    white-space: pre;
+    animation: matrix-fall linear infinite;
+  }
+
+  @keyframes matrix-fall {
+    from { transform: translateY(0); }
+    to { transform: translateY(200%); }
+  }
 
   .term-btns {
     display: flex;
@@ -154,17 +206,24 @@ import WindowChrome from './WindowChrome.astro';
       { type: 'cmd', text: 'contact --open' },
       { type: 'out', rows: ['Opening links panel…  ✓  Ready.'] },
       { type: 'blank' },
+      { type: 'out', rows: ["This terminal is live — type 'help' and hit enter to try it."] },
+      { type: 'blank' },
       { type: 'prompt' },
     ];
 
     const area = document.getElementById('term-output-area');
     let started = false;
 
+    function scrollToBottom() {
+      if (area) area.scrollTop = area.scrollHeight;
+    }
+
     function typeChars(el: HTMLElement, text: string, speed: number, cb?: () => void) {
       let i = 0;
       (function tick() {
         if (i < text.length) {
           el.textContent += text[i++];
+          scrollToBottom();
           setTimeout(tick, speed);
         } else if (cb) cb();
       })();
@@ -178,19 +237,14 @@ import WindowChrome from './WindowChrome.astro';
         const el = document.createElement('div');
         el.style.height = '0.55em';
         area.appendChild(el);
+        scrollToBottom();
         runLines(idx + 1);
       } else if (l.type === 'prompt') {
-        const el = document.createElement('div');
-        el.className = 'tl-cmd';
-        el.innerHTML = '<span class="tl-ps">~$ </span>';
-        const cur = document.createElement('span');
-        cur.className = 'term-cursor';
-        el.appendChild(cur);
-        area.appendChild(el);
+        enableInput();
       } else if (l.type === 'cmd') {
         const el = document.createElement('div');
         el.className = 'tl-cmd';
-        el.innerHTML = '<span class="tl-ps">~$ </span>';
+        el.innerHTML = '<span class="tl-ps">~$</span>';
         const cmd = document.createElement('span');
         el.appendChild(cmd);
         area.appendChild(el);
@@ -218,17 +272,11 @@ import WindowChrome from './WindowChrome.astro';
           el.style.height = '0.55em';
           area.appendChild(el);
         } else if (l.type === 'prompt') {
-          const el = document.createElement('div');
-          el.className = 'tl-cmd';
-          el.innerHTML = '<span class="tl-ps">~$ </span>';
-          const cur = document.createElement('span');
-          cur.className = 'term-cursor';
-          el.appendChild(cur);
-          area.appendChild(el);
+          enableInput();
         } else if (l.type === 'cmd') {
           const el = document.createElement('div');
           el.className = 'tl-cmd';
-          el.innerHTML = `<span class="tl-ps">~$ </span><span>${l.text}</span>`;
+          el.innerHTML = `<span class="tl-ps">~$</span><span>${l.text}</span>`;
           area.appendChild(el);
         } else if (l.type === 'out') {
           for (const row of l.rows) {
@@ -239,6 +287,200 @@ import WindowChrome from './WindowChrome.astro';
           }
         }
       }
+      scrollToBottom();
+    }
+
+    const COWSAY_TPL = (msg: string) => {
+      const width = Math.min(Math.max(msg.length, 4), 40);
+      const wrapped = msg.length > width ? msg.slice(0, width - 1) + '…' : msg;
+      const top = ' ' + '_'.repeat(wrapped.length + 2);
+      const bottom = ' ' + '-'.repeat(wrapped.length + 2);
+      return [top, `< ${wrapped} >`, bottom, '        \\   ^__^', '         \\  (oo)\\_______', '            (__)\\       )\\/\\', "                ||----w |", "                ||     ||"];
+    };
+
+    const FORTUNES = [
+      'There are only two hard things in CS: cache invalidation, naming things, and off-by-one errors.',
+      'A UX designer walks into a bar. The bar has terrible affordances.',
+      'You will fix the bug. The bug will fix you back.',
+      '99 little bugs in the code, 99 little bugs... take one down, deploy to prod, 127 little bugs in the code.',
+      'Tip: have you tried turning it off and on again?',
+      'Design tip: if in doubt, add more whitespace.',
+      'Linux tip: arch btw.',
+    ];
+
+    const THEME_NAMES = ['1: default', '2: gruvbox', '3: catppuccin', '4: dracula'];
+
+    function setTheme(n: string) {
+      const num = parseInt(n, 10);
+      if (![1, 2, 3, 4].includes(num)) return [`theme: invalid theme '${n}', try 1-4`];
+      document.documentElement.setAttribute('data-theme', String(num));
+      localStorage.setItem('theme', String(num));
+      return [`theme set to ${THEME_NAMES[num - 1]}`];
+    }
+
+    const WHOAMI_ADJ = ['enthusiastic', 'caffeinated', 'curious', 'overworked', 'sleep-deprived', 'pixel-obsessed', 'terminally-online', 'mildly chaotic', 'suspiciously focused'];
+    const WHOAMI_ROLE = ['UX designer', 'Flutter dev', 'linux tinkerer', 'bug whisperer', 'design nerd', 'CS grad'];
+
+    function whoami(): string[] {
+      const adj = WHOAMI_ADJ[Math.floor(Math.random() * WHOAMI_ADJ.length)];
+      const role = WHOAMI_ROLE[Math.floor(Math.random() * WHOAMI_ROLE.length)];
+      fetch('https://api.ipify.org?format=json')
+        .then((r) => r.json())
+        .then((d) => appendOut([
+          `${adj} ${role} @ ${d.ip}`,
+          '(yes, that\'s your IP — any site you visit can see it, nothing special here)',
+        ]))
+        .catch(() => appendOut([`${adj} ${role} @ 0.0.0.0`, '(could not look up your IP, but sites normally can)']));
+      return ['looking up who you are...'];
+    }
+
+    function neofetch(): string[] {
+      const theme = document.documentElement.getAttribute('data-theme') || '1';
+      const mode = document.documentElement.getAttribute('data-mode') || 'dark';
+      return [
+        'nirmal@arch',
+        '------------',
+        'OS: Arch Linux btw',
+        'Shell: zsh',
+        'Editor: neovim',
+        `Theme: ${THEME_NAMES[parseInt(theme, 10) - 1] || theme} (${mode})`,
+        'Role: UX design -> Flutter dev',
+        'Uptime: still tinkering',
+      ];
+    }
+
+    function runMatrix() {
+      const wrap = area?.parentElement;
+      if (!wrap) return ['matrix: nothing to render on'];
+      const overlay = document.createElement('div');
+      overlay.className = 'matrix-overlay';
+      const cols = Math.floor(wrap.clientWidth / 14);
+      const chars = 'アイウエオカキクケコ01';
+      for (let i = 0; i < cols; i++) {
+        const col = document.createElement('div');
+        col.className = 'matrix-col';
+        col.style.left = `${i * 14}px`;
+        col.style.animationDuration = `${1 + Math.random() * 1.5}s`;
+        col.style.animationDelay = `-${Math.random() * 2}s`;
+        let text = '';
+        for (let j = 0; j < 30; j++) text += chars[Math.floor(Math.random() * chars.length)] + '\n';
+        col.textContent = text;
+        overlay.appendChild(col);
+      }
+      wrap.appendChild(overlay);
+      setTimeout(() => overlay.remove(), 4000);
+      return [];
+    }
+
+    type Cmd = { desc: string; run: (args: string) => string[] };
+
+    const COMMANDS: Record<string, Cmd> = {
+      help: { desc: 'list available commands', run: () => Object.entries(COMMANDS).map(([name, c]) => `${name.padEnd(10)} ${c.desc}`) },
+      about: { desc: 'about nirmal', run: () => ['CS grad who moved from building software to designing it.', 'I still write Flutter when the occasion calls for it. Tinkering with Linux', 'desktop environments as a teenager is probably where the design obsession', "started, though I wouldn't have called it that at the time."] },
+      skills: { desc: 'list skills', run: () => ['UX research  ·  UX design', 'Flutter developer  ·  Linux enthusiast'] },
+      contact: { desc: 'show contact links', run: () => ['github:   github.com/cyberwizard1001', 'linkedin: linkedin.com/in/nirmal-karthikeyan', 'Opening links panel…  ✓  Ready.'] },
+      whoami: { desc: 'who is using this terminal', run: whoami },
+      ls: { desc: 'list site sections', run: () => ['about.md', 'work/', 'contact.txt', '(scroll the page to explore each section)'] },
+      neofetch: { desc: 'show system info (sort of)', run: neofetch },
+      cowsay: { desc: 'cowsay <message>', run: (args) => COWSAY_TPL(args || 'moo') },
+      fortune: { desc: 'random one-liner', run: () => [FORTUNES[Math.floor(Math.random() * FORTUNES.length)]] },
+      theme: { desc: 'theme [1-4] — list or switch theme', run: (args) => (args ? setTheme(args.trim()) : ['available themes:', ...THEME_NAMES, 'usage: theme <number>']) },
+      matrix: { desc: 'wake up, neo', run: runMatrix },
+      sudo: { desc: 'sudo <cmd>', run: () => ['Permission denied: nice try.'] },
+      clear: { desc: 'clear the terminal', run: () => [] },
+      reset: { desc: 'reset the terminal to its initial state', run: () => [] },
+      history: { desc: 'show command history', run: () => (cmdHistory.length ? cmdHistory.map((h, i) => `${i + 1}  ${h}`) : ['no history yet']) },
+    };
+    COMMANDS['?'] = COMMANDS.help;
+
+    const cmdHistory: string[] = [];
+    let historyIdx = -1;
+
+    function appendOut(rows: string[]) {
+      if (!area) return;
+      for (const row of rows) {
+        const el = document.createElement('div');
+        el.className = 'tl-out';
+        el.textContent = row;
+        area.appendChild(el);
+      }
+      scrollToBottom();
+    }
+
+    function executeCommand(raw: string) {
+      const trimmed = raw.trim();
+      if (!trimmed) return true;
+      cmdHistory.push(trimmed);
+      historyIdx = cmdHistory.length;
+
+      const spaceIdx = trimmed.indexOf(' ');
+      const cmd = (spaceIdx === -1 ? trimmed : trimmed.slice(0, spaceIdx)).toLowerCase();
+      const args = spaceIdx === -1 ? '' : trimmed.slice(spaceIdx + 1).trim();
+
+      if (cmd === 'clear') {
+        if (area) area.innerHTML = '';
+        return true;
+      }
+
+      if (cmd === 'reset') {
+        if (area) area.innerHTML = '';
+        cmdHistory.length = 0;
+        historyIdx = -1;
+        if (window.matchMedia('(max-width: 860px)').matches) {
+          renderInstant();
+        } else {
+          runLines(0);
+        }
+        return false;
+      }
+
+      const command = COMMANDS[cmd];
+      if (!command) {
+        appendOut([`command not found: ${cmd}`, "try 'help' for a list of commands"]);
+        return true;
+      }
+      const out = command.run(args);
+      if (out.length) appendOut(out);
+      return true;
+    }
+
+    function enableInput() {
+      if (!area) return;
+      const line = document.createElement('div');
+      line.className = 'tl-cmd tl-line';
+      line.innerHTML = '<span class="tl-ps">~$</span>';
+      const input = document.createElement('input');
+      input.className = 'term-input';
+      input.autocomplete = 'off';
+      input.spellcheck = false;
+      input.placeholder = 'type a command…';
+      line.appendChild(input);
+      area.appendChild(line);
+      input.focus();
+      scrollToBottom();
+
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          const val = input.value;
+          line.classList.remove('tl-line');
+          const echo = document.createElement('span');
+          echo.textContent = val;
+          line.appendChild(input.value ? echo : document.createTextNode(''));
+          input.remove();
+          if (executeCommand(val)) enableInput();
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          if (historyIdx > 0) historyIdx--;
+          input.value = cmdHistory[historyIdx] ?? '';
+        } else if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          if (historyIdx < cmdHistory.length) historyIdx++;
+          input.value = cmdHistory[historyIdx] ?? '';
+        }
+      });
+
+      area.scrollIntoView({ block: 'nearest' });
+      area.parentElement?.addEventListener('click', () => input.focus());
     }
 
     function start() {
