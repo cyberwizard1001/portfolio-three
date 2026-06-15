@@ -34,7 +34,7 @@ body {
   transition: border-color 0.2s;
 }
 
-.window:hover { border-color: rgba(245,244,240,0.35); }
+.window:hover { border-color: var(--lime); }
 
 .win-bar {
   height: 34px;

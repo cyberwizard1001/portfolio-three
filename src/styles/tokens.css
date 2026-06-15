@@ -1,3 +1,4 @@
+/* ── Theme 1: Default ── */
 :root {
   --bg:       #0a0a0a;
   --bg1:      #111111;
@@ -9,6 +10,7 @@
   --dim:      rgba(240,237,230,0.50);
   --lime:     #9eff57;
   --lime-dim: rgba(158,255,87,0.10);
+  --lime-contrast: #0a0a0a;
   --mono:     'JetBrains Mono', 'Fira Code', monospace;
   --sans:     'Space Grotesk', -apple-system, sans-serif;
   --bar-h:    42px;
@@ -19,50 +21,6 @@
   --term-hover2:  #161616;
   --term-overlay: rgba(10,10,10,0.6);
 }
-
-/* ── Theme 2: Catppuccin Mocha ── */
-[data-theme="2"] {
-  --bg:        #1e1e2e;
-  --bg1:       #181825;
-  --bg2:       #313244;
-  --border:    rgba(180,190,254,0.10);
-  --border-hi: rgba(180,190,254,0.26);
-  --text:      #cdd6f4;
-  --sub:       rgba(205,214,244,0.74);
-  --dim:       rgba(205,214,244,0.58);
-  --lime:      #cba6f7;
-  --lime-dim:  rgba(203,166,247,0.12);
-}
-
-/* ── Theme 3: Gruvbox ── */
-[data-theme="3"] {
-  --bg:        #282828;
-  --bg1:       #1d2021;
-  --bg2:       #3c3836;
-  --border:    rgba(235,219,178,0.10);
-  --border-hi: rgba(235,219,178,0.24);
-  --text:      #ebdbb2;
-  --sub:       rgba(235,219,178,0.74);
-  --dim:       rgba(235,219,178,0.58);
-  --lime:      #fabd2f;
-  --lime-dim:  rgba(250,189,47,0.12);
-}
-
-/* ── Theme 4: Dracula ── */
-[data-theme="4"] {
-  --bg:        #282a36;
-  --bg1:       #1e1f29;
-  --bg2:       #44475a;
-  --border:    rgba(248,248,242,0.10);
-  --border-hi: rgba(248,248,242,0.22);
-  --text:      #f8f8f2;
-  --sub:       rgba(248,248,242,0.74);
-  --dim:       rgba(248,248,242,0.50);
-  --lime:      #ff79c6;
-  --lime-dim:  rgba(255,121,198,0.12);
-}
-
-/* ── Light variants ── */
 
 /* Theme 1 Light */
 [data-theme="1"][data-mode="light"] {
@@ -82,6 +40,20 @@
   --term-hover:   var(--bg1);
   --term-hover2:  var(--bg0);
   --term-overlay: var(--bg1);
+}
+
+/* ── Theme 2: Catppuccin Mocha ── */
+[data-theme="2"] {
+  --bg:        #1e1e2e;
+  --bg1:       #181825;
+  --bg2:       #313244;
+  --border:    rgba(180,190,254,0.10);
+  --border-hi: rgba(180,190,254,0.26);
+  --text:      #cdd6f4;
+  --sub:       rgba(205,214,244,0.74);
+  --dim:       rgba(205,214,244,0.58);
+  --lime:      #cba6f7;
+  --lime-dim:  rgba(203,166,247,0.12);
 }
 
 /* Theme 2 Light — Catppuccin Latte */
@@ -104,6 +76,20 @@
   --term-overlay: var(--bg1);
 }
 
+/* ── Theme 3: Gruvbox ── */
+[data-theme="3"] {
+  --bg:        #282828;
+  --bg1:       #1d2021;
+  --bg2:       #3c3836;
+  --border:    rgba(235,219,178,0.10);
+  --border-hi: rgba(235,219,178,0.24);
+  --text:      #ebdbb2;
+  --sub:       rgba(235,219,178,0.74);
+  --dim:       rgba(235,219,178,0.58);
+  --lime:      #fabd2f;
+  --lime-dim:  rgba(250,189,47,0.12);
+}
+
 /* Theme 3 Light — Gruvbox Light */
 [data-theme="3"][data-mode="light"] {
   --bg:        #fbf1c7;
@@ -124,6 +110,20 @@
   --term-overlay: var(--bg1);
 }
 
+/* ── Theme 4: Dracula ── */
+[data-theme="4"] {
+  --bg:        #282a36;
+  --bg1:       #1e1f29;
+  --bg2:       #44475a;
+  --border:    rgba(248,248,242,0.10);
+  --border-hi: rgba(248,248,242,0.22);
+  --text:      #f8f8f2;
+  --sub:       rgba(248,248,242,0.74);
+  --dim:       rgba(248,248,242,0.50);
+  --lime:      #ff79c6;
+  --lime-dim:  rgba(255,121,198,0.12);
+}
+
 /* Theme 4 Light — Alucard */
 [data-theme="4"][data-mode="light"] {
   --bg:        #f7f7f7;
@@ -137,6 +137,41 @@
   --dim:       rgba(65,66,79,0.78);
   --lime:      #a3144d;
   --lime-dim:  rgba(163,20,77,0.10);
+  --term-bg:      var(--bg2);
+  --term-bg2:     var(--bg0);
+  --term-hover:   var(--bg1);
+  --term-hover2:  var(--bg0);
+  --term-overlay: var(--bg1);
+}
+
+/* ── Theme 5: High Contrast ── */
+[data-theme="5"] {
+  --bg:        #000000;
+  --bg1:       #0a0a0a;
+  --bg2:       #161616;
+  --border:    rgba(255,255,255,0.25);
+  --border-hi: rgba(255,255,255,0.5);
+  --text:      #ffffff;
+  --sub:       rgba(255,255,255,0.85);
+  --dim:       rgba(255,255,255,0.70);
+  --lime:      #ffff00;
+  --lime-dim:  rgba(255,255,0,0.15);
+}
+
+/* Theme 5 Light — High Contrast Light */
+[data-theme="5"][data-mode="light"] {
+  --bg:        #ffffff;
+  --bg0:       #ffffff;
+  --bg1:       #ffffff;
+  --bg2:       #e0e0e0;
+  --border:    rgba(0,0,0,0.25);
+  --border-hi: rgba(0,0,0,0.5);
+  --text:      #000000;
+  --sub:       rgba(0,0,0,0.85);
+  --dim:       rgba(0,0,0,0.70);
+  --lime:      #0000ee;
+  --lime-dim:  rgba(0,0,238,0.12);
+  --lime-contrast: #ffffff;
   --term-bg:      var(--bg2);
   --term-bg2:     var(--bg0);
   --term-hover:   var(--bg1);

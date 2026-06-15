@@ -7,21 +7,23 @@ import WindowChrome from './WindowChrome.astro';
     <WindowChrome title="~/about_me — bash">
       <div class="term-body">
         <div class="term-left">
-          <pre class="term-ascii"> _  _ ___ ____  _  _   __   _
-| \| |_ _|  _ \| \| | / _\ | |
-|  ` || || |_) |  ` || |_| | |__
-|_|\_|___|_|__/|_|\_| \__/ |____|
+          <pre class="term-ascii"> _  _ ___ ___ __  __   _   _
+| \| |_ _| _ \  \/  | /_\ | |
+| .` || ||   / |\/| |/ _ \| |__
+|_|\_|___|_|_\_|  |_/_/ \_\____|
 
-
-      /\
-     /  \
-    /\  /\
-   /  \/  \
-  /________\
-
- arch btw
-
-[nirmal@arch ~]$</pre>
+ _  __   _   ___ _____ _  _ ___ _  _______   ___   _  _
+| |/ /  /_\ | _ \_   _| || |_ _| |/ / __\ \ / /_\ | \| |
+| ' &lt;  / _ \|   / | | | __ || || ' &lt;| _| \ V / _ \| .` |
+|_|\_\/_/ \_\_|_\ |_| |_||_|___|_|\_\___| |_/_/ \_\_|\_|</pre>
+          <pre class="term-ascii term-tux">
+      .--.
+     |o_o |
+     |:_/ |
+    //   \ \
+   (|     | )
+  /'\_   _/`\
+  \___)=(___/</pre>
         </div>
         <div class="term-right">
           <div id="term-output-area"></div>
@@ -48,7 +50,7 @@ import WindowChrome from './WindowChrome.astro';
 
   .term-body {
     display: grid;
-    grid-template-columns: 260px 1fr;
+    grid-template-columns: 360px 1fr;
     background: var(--bg1);
     min-height: 360px;
   }
@@ -57,18 +59,26 @@ import WindowChrome from './WindowChrome.astro';
     border-right: 1px solid var(--border);
     padding: 2rem 1.25rem;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     background: var(--bg);
+    overflow: hidden;
   }
 
   .term-ascii {
     font-family: var(--mono);
-    font-size: 12px;
+    font-size: 9px;
     color: var(--lime);
     line-height: 1.45;
     white-space: pre;
     opacity: 0.80;
+  }
+
+  .term-tux {
+    font-size: 13px;
+    line-height: 1.3;
+    margin-top: 0.75rem;
   }
 
   .term-right {
@@ -161,7 +171,7 @@ import WindowChrome from './WindowChrome.astro';
   }
 
   .term-btn-p { background: var(--lime); color: var(--bg); font-weight: 600; }
-  .term-btn-s { background: var(--lime-dim); color: var(--lime); border: 1px solid rgba(158,255,87,0.25); }
+  .term-btn-s { background: var(--lime-dim); color: var(--lime); border: 1px solid color-mix(in srgb, var(--lime) 25%, transparent); }
   .term-btn-p:hover, .term-btn-s:hover { opacity: 0.75; }
 
   @media (max-width: 860px) {
@@ -173,7 +183,8 @@ import WindowChrome from './WindowChrome.astro';
     .about-section { padding: 0 0.75rem 1.5rem; }
     .term-left,
     .term-right { padding: 1.25rem 1rem; }
-    .term-ascii { font-size: 9px; }
+    .term-ascii { font-size: 6px; }
+    .term-tux { font-size: 12px; }
   }
 </style>
 
@@ -308,14 +319,20 @@ import WindowChrome from './WindowChrome.astro';
       'Linux tip: arch btw.',
     ];
 
-    const THEME_NAMES = ['1: default', '2: gruvbox', '3: catppuccin', '4: dracula'];
+    const THEME_NAMES: Record<number, string> = {
+      1: '1: default',
+      2: '2: gruvbox',
+      3: '3: catppuccin',
+      4: '4: dracula',
+      5: '5: high contrast',
+    };
 
     function setTheme(n: string) {
       const num = parseInt(n, 10);
-      if (![1, 2, 3, 4].includes(num)) return [`theme: invalid theme '${n}', try 1-4`];
+      if (![1, 2, 3, 4, 5].includes(num)) return [`theme: invalid theme '${n}', try 1-5`];
       document.documentElement.setAttribute('data-theme', String(num));
       localStorage.setItem('theme', String(num));
-      return [`theme set to ${THEME_NAMES[num - 1]}`];
+      return [`theme set to ${THEME_NAMES[num]}`];
     }
 
     const WHOAMI_ADJ = ['enthusiastic', 'caffeinated', 'curious', 'overworked', 'sleep-deprived', 'pixel-obsessed', 'terminally-online', 'mildly chaotic', 'suspiciously focused'];
@@ -343,7 +360,7 @@ import WindowChrome from './WindowChrome.astro';
         'OS: Arch Linux btw',
         'Shell: zsh',
         'Editor: neovim',
-        `Theme: ${THEME_NAMES[parseInt(theme, 10) - 1] || theme} (${mode})`,
+        `Theme: ${THEME_NAMES[parseInt(theme, 10)] || theme} (${mode})`,
         'Role: UX design -> Flutter dev',
         'Uptime: still tinkering',
       ];
@@ -384,7 +401,7 @@ import WindowChrome from './WindowChrome.astro';
       neofetch: { desc: 'show system info (sort of)', run: neofetch },
       cowsay: { desc: 'cowsay <message>', run: (args) => COWSAY_TPL(args || 'moo') },
       fortune: { desc: 'random one-liner', run: () => [FORTUNES[Math.floor(Math.random() * FORTUNES.length)]] },
-      theme: { desc: 'theme [1-4] — list or switch theme', run: (args) => (args ? setTheme(args.trim()) : ['available themes:', ...THEME_NAMES, 'usage: theme <number>']) },
+      theme: { desc: 'theme [1-5] — list or switch theme', run: (args) => (args ? setTheme(args.trim()) : ['available themes:', ...THEME_NAMES, 'usage: theme <number>']) },
       matrix: { desc: 'wake up, neo', run: runMatrix },
       sudo: { desc: 'sudo <cmd>', run: () => ['Permission denied: nice try.'] },
       clear: { desc: 'clear the terminal', run: () => [] },
@@ -398,11 +415,13 @@ import WindowChrome from './WindowChrome.astro';
 
     function appendOut(rows: string[]) {
       if (!area) return;
+      const activeLine = area.querySelector('.tl-line');
       for (const row of rows) {
         const el = document.createElement('div');
         el.className = 'tl-out';
         el.textContent = row;
-        area.appendChild(el);
+        if (activeLine) area.insertBefore(el, activeLine);
+        else area.appendChild(el);
       }
       scrollToBottom();
     }

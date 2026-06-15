@@ -26,10 +26,6 @@ const { title = 'Nirmal — Portfolio', bodyClass } = Astro.props;
       (function () {
         var saved = localStorage.getItem('theme');
         var mode = localStorage.getItem('mode');
-        if (saved === '5') {
-          saved = '1';
-          mode = 'light';
-        }
         if (saved) document.documentElement.setAttribute('data-theme', saved);
         document.documentElement.setAttribute('data-mode', mode === 'light' ? 'light' : 'dark');
       })();

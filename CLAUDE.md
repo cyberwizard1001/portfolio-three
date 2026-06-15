@@ -35,7 +35,7 @@ If a project has no `sections`, a default minimal set (`ProjectHero`, `ProjectGa
 
 ### Theming (`src/styles/tokens.css`)
 
-Themes are CSS variable sets selected via `[data-theme="N"]` on `<html>`, persisted to `localStorage` (`theme`, `mode`) and applied via inline script in `Layout.astro` before paint to avoid flash. Theme 5 has been retired and remaps to theme 1 (light mode).
+Themes are CSS variable sets selected via `[data-theme="N"]` on `<html>`, persisted to `localStorage` (`theme`, `mode`) and applied via inline script in `Layout.astro` before paint to avoid flash. Themes are numbered 1-5: 1 default, 2 Catppuccin Mocha, 3 Gruvbox, 4 Dracula, 5 High Contrast. Each theme has a dark (default) and light (`[data-mode="light"]`) variant defined in `tokens.css`, grouped together in numeric order.
 
 ### WindowChrome (`src/components/WindowChrome.astro`)
 

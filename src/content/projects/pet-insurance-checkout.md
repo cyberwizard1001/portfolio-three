@@ -4,9 +4,9 @@ filename: checkout-redesign.md
 mode: NORMAL
 type: UI / UX
 year: "2026"
-image: /images/img_01_before_after.svg
-imageAlt: Pet Insurance checkout before and after
-oneliner: The review screen was losing users right at conversion. Rebuilt it around what 11 internal interviews actually said, within FCA constraints.
+image: /images/pet-insurance/cover.jpg
+imageAlt: Perfect Pet quote review page, framed and rotated
+oneliner: People insuring a pet are committing real money to something they care about, and they want to feel understood before they hand it over. I redesigned the review page so it does a better job of showing them they are.
 statusline:
   - label: NORMAL
     lime: true
@@ -18,12 +18,12 @@ order: 1
 sections:
   - component: ProjectHero
     props:
-      title: Pet insurance checkout page redesign
+      title: Pet Insurance Review/Checkout Page Redesign
       type: UI / UX
       year: "2026"
   - component: ProjectGallery
     props:
-      image: /images/img_01_before_after.svg
+      image: /images/pet-insurance/hero.jpg
       imageAlt: The Review Details page — where most users were quietly giving up
   - component: ProjectMeta
     props:
@@ -37,43 +37,43 @@ sections:
   - component: ProjectIntro
     props:
       eyebrow: Perfect Pet Insurance — Case study 01
-      title: Pet insurance checkout page redesign
+      title: Pet Insurance Review/Checkout Page Redesign
       summary: >-
-        Insuring your pet is an emotional exercise. You hand over a fair bit of money every
-        month hoping the insurer takes the financial — and mental — stress off your hands
-        when your pet isn't at its best. So when you've never heard of a brand and the first
-        thing it shows you is a wall of policy text, would you buy? I probably wouldn't.
-        This is what customers were faced with when they landed on Perfect Pet's 'Review
-        Quote' page: they'd come through aggregators like Compare the Market and Money
-        Super Market, and were met with the exact same wall of text. Given that aggregators
-        are our main source of sales, getting this right could make a genuine difference
-        for customers as well as the business.
+        Insuring a pet is an emotional decision as much as a financial one. You commit a fair
+        amount of money each month in the hope that the insurer takes the stress off your hands
+        on the day your pet is unwell. So when the brand is one you have never heard of, and the
+        first thing it shows you is a wall of policy text, would you go ahead and buy? I am not
+        sure I would. That was roughly the experience waiting for customers on Perfect Pet's
+        Review Quote page, most of whom had arrived through aggregators such as Compare the
+        Market and Money Super Market. Since aggregators are the main source of sales, getting
+        this page right stood to make a real difference to both customers and the business.
 
-        I was allocated one sprint — 2 weeks. I went in thinking it was a tidy-up job —
-        make a dated page look like it belonged in the modern world, no copy changes. I
-        decided to begin with a competitor review, went through Hotjar recordings of the
-        existing page, came up with a redesign and then sat down with eleven colleagues
-        from claims, complaints, finance and renewals for testing. Recruiting internally
-        was a time-crunch call, and yes, conventional wisdom states that people who deal
-        with pet insurance all day make poor stand-in users, but halfway through the first
-        interview, I realised I should go down a different angle. It was obvious they knew
-        exactly what happens when this page doesn't do its job — and the interviews quietly
-        turned a visual refresh into something more interesting.
+        I had a single two-week sprint, and I went in expecting a largely cosmetic exercise, a
+        way to make a dated page feel modern without altering its layout or copy. I began with a
+        competitor review, studied Hotjar recordings of people using the live page, built a
+        prototype to improve how easily it could be scanned, and tested it with colleagues from
+        across the business. Recruiting internally was a decision the timeline forced on me, and
+        the conventional wisdom is that people who work in pet insurance make poor stand-in users.
+        By the middle of the first interview it was clear I had that backwards. These were the
+        people who understood precisely what happens when the page fails to do its job, since they
+        are the ones who handle the complaints and the declined claims afterwards.
   - component: ProjectProblemKeyInfo
     props:
       problemBody: >-
         The review page is the last thing someone sees before they hand over their payment
-        details. And for the aggregator traffic that makes up most of Perfect Pet's sales,
-        it's usually the first time they've seen the brand at all. So it has an awkward
-        double job: explain the product and earn trust at the same time, for a user who's
-        never heard of the brand. Hotjar recordings showed people regularly spending
-        upwards of five minutes on the page, opening policy PDFs mid-flow, and in quite a
-        few cases wandering off to the main site for something and never making it back.
+        details, and because most of Perfect Pet's sales come through aggregators, it is usually
+        the first time that person has encountered the brand at all. That leaves the page with two
+        tasks to perform at once. It has to explain the product and earn trust simultaneously, for
+        someone who has no particular reason yet to believe it. The Hotjar recordings bore this
+        out. People regularly spent five minutes or more on the page, opening policy PDFs partway
+        through to make sense of what they were reading, and a number of them left for the main
+        site to check something and did not return.
       contextBody: >-
-        I had two weeks to redesign the page, working with technical BAs, the Head of
-        Product, Compliance and a developer. Two constraints shaped everything: it had to
-        be buildable in the MudBlazor component framework, and all the existing policy copy
-        had to stay for compliance reasons.
+        I had a single two-week sprint to redesign it, working alongside technical BAs, the Head
+        of Product, someone from Compliance, and a developer. Two constraints shaped every
+        decision. Whatever I designed had to be buildable in the MudBlazor component framework,
+        and every line of the existing policy copy had to remain exactly where it was for
+        compliance reasons.
       infoItems:
         - label: Objective
           value: >-
@@ -92,89 +92,96 @@ sections:
       steps:
         - title: Competitor UX audit
           body: >-
-            I looked at how other pet insurers handle the review step for aggregator
-            traffic. The better ones share some fairly consistent patterns, and working out
-            why they do what they do was a useful starting point considering the timeline.
+            I began by examining how other pet insurers handle the review step for aggregator
+            traffic. The stronger ones converge on a similar set of patterns, and with so little
+            time available, understanding the reasoning behind those choices was the fastest way to
+            orient myself.
         - title: Heuristic evaluation
           body: >-
-            I conducted a heuristic evaluation of the existing page using Nielsen Norman's
-            framework — useful for turning a vague sense that something's off into a
-            specific, actionable list. I also worked through what was structurally
-            achievable in MudBlazor with the BA and developer, so most layout calls were
-            made before anything hit Figma.
+            I ran a heuristic evaluation of the existing page against Nielsen's ten usability
+            heuristics, which turned a general sense that something was wrong into a specific,
+            actionable list. In parallel I worked with the BA and the developer to establish what
+            was realistic in MudBlazor, so most of the layout decisions were settled before
+            anything reached Figma.
         - title: Hotjar session analysis
           body: >-
-            I went through recordings of aggregator-referred users, watching where they
-            paused and where they gave up. One user spent nearly nine minutes before
-            selecting anything — and it wasn't an idle cursor, they were actively
-            highlighting different bits of text trying to make sense of it.
+            I worked through recordings of users who had arrived from aggregators, paying close
+            attention to where they paused and where they abandoned the page. One person spent close
+            to nine minutes before selecting anything, and the recording showed no idle cursor. They
+            were highlighting different passages of text, clearly working to understand what they
+            were buying.
         - title: Internal usability sessions
           body: >-
-            Eleven moderated one-to-one walkthroughs of the prototype, each followed by a
-            semi-structured interview, recorded and coded into themes. The testers came
-            from claims, complaints, finance and renewals — the people who spend their days
-            cleaning up after a customer has misunderstood what they bought — which is
-            exactly why their feedback turned out to be far more than a stopgap.
+            I ran eleven moderated walkthroughs of the prototype, each followed by a
+            semi-structured interview that I recorded and coded into themes. The participants came
+            from claims, complaints, finance, and renewals, the teams that deal with the
+            consequences when a customer has misunderstood what they bought. I had expected them to
+            make poor stand-in users, and the reverse proved true.
   - component: ProjectFindingsGrid
     props:
       title: What good looks like — competitor and heuristic review
       items:
         - title: Trust comes before the ask
           body: >-
-            On our competitors' sites, Trustpilot ratings, customer numbers and claim stats
-            were all front-loaded. They spend the first part of the page earning your
-            trust, and only then ask you to commit to anything.
-        - title: Policy information you can actually scan
+            Across our competitors' sites the Trustpilot ratings, customer numbers, and claim
+            statistics all sat near the top of the page. They use the opening stretch to earn the
+            customer's trust, and only once that is established do they ask for any commitment.
+        - title: Scannable policy information
           body: >-
-            Tables instead of dense paragraphs, everything built into the flow rather than
-            buried in a linked PDF, and a price and CTA that stayed visible the whole way
-            down — so there was never a moment where you had to leave the page to work out
-            what you were buying.
+            They favour tables over dense paragraphs, build the detail into the flow rather than
+            hiding it in a linked PDF, and keep the price and the call to action visible throughout.
+            At no point does the customer have to leave the page to work out what they are paying
+            for.
         - title: Our page had a hierarchy problem
           body: >-
-            The heuristic audit gave me specific things to point at: four different button
-            styles, benefit details hidden behind low-contrast links, unmarked mandatory
-            fields, and a payment step that gave no sign it was processing. Small frictions
-            individually, but they cluster exactly when users are least sure about
-            continuing.
+            The heuristic audit produced a concrete list. There were four different button styles,
+            benefit details hidden behind low-contrast links, mandatory fields that were not marked
+            as such, and a payment step that gave no indication it was working once submitted. None
+            of these matters greatly on its own, but they accumulate at precisely the moment a user
+            is least certain about continuing.
   - component: ProjectFindingsGrid
     props:
       title: What the research surfaced
       items:
         - title: Pre-existing conditions, not the visuals, was the real problem
           body: >-
-            Every one of the eleven participants raised pre-existing conditions, unprompted,
-            as the main driver of complaints and declined claims. The core misunderstanding:
-            customers assume "pre-existing" means a formally diagnosed condition, not
-            symptoms already noted in the vet's history — and that gap is where a large
-            share of disputes start. It changed what the project was actually about.
+            Every one of the eleven raised pre-existing conditions without prompting, and all of
+            them identified it as the principal cause of complaints and declined claims. The
+            misunderstanding sits in a single place. Customers assume a pre-existing condition means
+            something a vet has formally diagnosed, when in practice it also covers symptoms already
+            noted in the pet's history. That gap is where a large share of the disputes begin, and
+            it reshaped what the project was really about.
         - title: The numbers that matter were missing
           body: >-
-            Nine of eleven flagged it. The excess wasn't on the first page despite being one
-            of the lowest in the market — Kerry from Claims pointed out that's a selling
-            point we were hiding. Age limits, how co-payment works in practice, and the
-            per-condition vet-fee limit were all missing or explained too vaguely to help.
+            Nine of the eleven noted that the figures a customer actually decides on were not on the
+            page at all. The excess did not appear until later in the flow, despite being one of the
+            lowest in the market, which one of the claims handlers described as a selling point we
+            were hiding. The age limits, the way the co-payment works in practice, and the
+            per-condition vet-fee limit were either absent or explained so vaguely that they offered
+            little help.
         - title: The lifetime cover headline overpromises
           body: >-
-            Tom in Claims — himself a practising vet — flagged that "any veterinary
-            treatment for illnesses and injuries is covered during your pet's lifetime"
-            reads as unconditional. Since pre-existing conditions are the most common reason
-            a claim is declined, that sentence sets up the exact expectation the policy
-            can't always meet.
-        - title: Trust signals land harder than you'd think from the inside
+            One of the claims handlers, a practising vet himself, picked up on the line stating that
+            any veterinary treatment for illnesses and injuries is covered throughout the pet's
+            lifetime. Taken at face value, it reads as entirely unconditional. And because
+            pre-existing conditions are the most common reason a claim is declined, that single
+            sentence establishes precisely the expectation the policy cannot always meet.
+        - title: Trust signals carry more weight than they appear to
           body: >-
-            The Trustpilot integration went down well, and Rochelle from finance mentioned
-            she hadn't heard of Perfect Pet before working here — a fair proxy for how most
-            first-time aggregator visitors feel. Users who left to find missing information
-            on the main site mostly didn't come back, so getting trust and detail right on
-            the page itself matters more than it looks.
+            The Trustpilot integration was well received in the sessions, and someone from finance
+            mentioned that she had not heard of Perfect Pet until she came to work here, which is a
+            reasonable proxy for how most first-time aggregator visitors arrive. Since the users who
+            left for the main site to find missing information largely did not return, getting both
+            the trust and the detail right on the page itself matters more than it might appear from
+            the inside.
   - component: ProjectQuote
     props:
       quote: >-
-        Claim-stage problems are pre-sold at quote stage. The people processing complaints
-        and declined claims were asking, almost in unison, for sales-stage honesty about the
-        things they see go wrong most often.
-      attribution: Synthesis from eleven internal stakeholder sessions — claims, complaints, finance, and renewals
+        The problems that surface at the claim stage are largely created at the quote stage.
+        Almost in unison, the people who process complaints and declined claims asked for the
+        same thing: a little more honesty up front about the issues they see go wrong most
+        often.
+      attribution: Synthesis from eleven internal stakeholder sessions across claims, complaints, finance and renewals
   - component: ProjectPersona
     props:
       eyebrow: Composite persona — derived from 11 SME interview sessions
@@ -182,27 +189,27 @@ sections:
       role: First-time pet owner, recently adopted a Labrador, arrived from a comparison aggregator
       quote: >-
         "I just want to know if he's covered if something goes wrong. I don't know what half
-        of these words mean — and I'm not sure I trust a brand I've never heard of."
+        of these words mean, and I'm not sure I trust a brand I've never heard of."
       goals:
         - Understand what the policy actually covers without reading a 40-page document
-        - Feel confident the brand is legitimate before entering card details — she's never heard of Perfect Pet
+        - Feel confident the brand is legitimate before entering card details, since she's never heard of Perfect Pet
         - Know exactly what she'll be charged each month, with no surprises on the first direct debit
         - Complete the purchase without needing to call anyone or navigate away from the page
       frustrations:
-        - Terms like co-payment, excess, and pre-existing condition with no plain-English explanation alongside them
+        - Terms like co-payment, excess and pre-existing condition with no plain-English explanation alongside them
         - Arriving on a page that looks visually disconnected from the comparison site she just came from
-        - No clear signal that signs and symptoms in her dog's vet history might count as a pre-existing condition — even without a diagnosis
+        - No clear signal that signs and symptoms in her dog's vet history might count as a pre-existing condition, even without a diagnosis
         - Uncertainty about whether the monthly price shown is exactly what will leave her account, or whether it 'may differ slightly'
       context: >-
-        Mia is built from the patterns Tracy, Kerry and Michelle described from their
-        day-to-day work. As Tracy put it: "people just don't understand — they think
-        pre-existing has to be a named condition, and sometimes pets have symptoms without
-        anyone knowing what it is until six months later." Michelle confirmed cases like
-        this make up a real chunk of the complaints she handles. The thing that makes Mia
-        worth designing for is that careful readers get caught too — linked and bilateral
-        conditions (ACL surgery on one leg, then the other) surprise even people who read
-        the wording closely. Mia leaves the flow thinking she's covered, and finds out
-        otherwise when her first claim is filed.
+        Mia is built from the patterns the claims and complaints handlers described in their daily
+        work. As one of them put it, people simply do not understand it; they assume pre-existing
+        has to be a named condition, when a pet may show symptoms for months before anyone can say
+        what is actually wrong. Another confirmed that such cases account for a substantial share
+        of the complaints she handles. What makes Mia worth designing for is that even careful
+        readers are caught out, because linked and bilateral conditions, such as ACL surgery on one
+        leg followed by the other, surprise people who have read the wording closely. Mia leaves
+        the flow certain she is covered, and discovers otherwise only when she files her first
+        claim.
       contextTags:
         - First-time buyer
         - Aggregator entry
@@ -213,94 +220,95 @@ sections:
     props:
       title: How might we…
       intro: >-
-        Three questions from the research, each pointing at a gap between what users think
-        they've bought and what the policy actually covers.
+        Three questions came out of the research, each pointing at the same kind of gap
+        between what a user believes they have bought and what the policy actually covers.
       items:
         - question: >-
             How might we make the pre-existing exclusion specific enough that customers
-            understand it covers symptoms in the vet's history, not just diagnosed
+            understand it covers symptoms in the vet's history, not only diagnosed
             conditions?
           theme: Transparency
         - question: >-
-            How might we put excess, co-payment and benefit limits in front of users while
-            they're deciding — not after they've filed a claim?
+            How might we put excess, co-payment, and benefit limits in front of users while
+            they are still deciding, rather than after they have filed a claim?
           theme: Clarity
         - question: >-
-            How might we build enough trust with someone who's never heard of Perfect Pet
-            that they're willing to commit by the end of the page?
+            How might we build enough trust with someone who has never heard of Perfect Pet
+            that they are willing to commit by the end of the page?
           theme: Trust
   - component: ProjectCallout
     props:
       variant: principle
       label: Design principle
       body: >-
-        Through every layout decision there was one question I kept dragging things back
-        to: does this make it easier for someone to understand what they're actually
-        looking at? I cared about visual consistency and brand alignment too — but
-        surfacing the right information at the right moment came first.
+        There was one question I kept returning to with every layout decision. Does this make it
+        easier for someone to understand what they are looking at? Visual consistency and brand
+        alignment mattered to me as well, but surfacing the right information at the right moment
+        always came first.
   - component: ProjectBeforeAfter
     props:
       beforeTitle: Before
       beforeBody: >-
-        A single scrolling page that piled marketing preferences, assumptions and
-        declarations, cover details and payment into one view, mostly as paragraphs of
-        text. The information was technically all there, but it expected you to read the
-        whole thing — and gave you little reason to trust the brand before asking you to
-        commit.
+        Everything sat on one long scrolling page. The marketing preferences, the assumptions and
+        declarations, the cover details, and the payment step were stacked into a single view,
+        largely as paragraphs of text. The information was all present, but the page expected the
+        customer to read the entirety of it and offered very little reason to trust the brand
+        before asking for a commitment.
       afterTitle: After
       afterBody: >-
-        A two-page flow. Page one leads with price and trust signals, then cover details,
-        warranty questions and personal information. Page two handles assumptions and
-        declarations — including an explicit, acknowledged call-out of the pre-existing
-        conditions rules — before payment. All the FCA-mandated language is still there;
-        it's just no longer cluttering the page and has been laid out so it's easier to
-        consume.
+        I split it into a two-page flow. The first page leads with the price and the trust signals,
+        then moves through the cover details, the warranty questions, and the personal information.
+        The second page handles the assumptions and declarations, including an explicit call-out of
+        the pre-existing conditions rules that the customer must acknowledge, before reaching
+        payment. All of the FCA-mandated language remains. It is no longer crowding the page, and it
+        is arranged so that it is considerably easier to absorb.
   - component: ProjectDecisionLog
     props:
       title: Key decisions
-      intro: The calls that shaped the redesign, what drove them, and what we saw.
+      intro: The decisions that shaped the redesign, what drove them, and what we observed.
       decisions:
-        - decision: Pre-existing conditions got their own page with an explicit tick-box
+        - decision: Pre-existing conditions were given their own page with an explicit tick-box
           rationale: >-
-            All eleven raised it unprompted. A checkbox buried in an assumptions section was
-            never going to fix a misunderstanding this fundamental.
+            All eleven raised it without prompting. A checkbox buried inside an assumptions section
+            could not resolve a misunderstanding this fundamental.
           outcome: >-
-            Stanley from Finance summed it up: "Having it as its own page — we're not hiding
-            it. It's quite helpful." Kerry noted it changes the claims conversation, since
-            customers have declared from the outset.
+            Someone from finance put it well: giving it its own page signals that we are not hiding
+            it, which he found reassuring. One of the claims handlers noted that it also changes the
+            claims conversation, because the customer has declared it from the outset.
           outcomeType: positive
-        - decision: Excess moved to page one
+        - decision: The excess was moved to the first page
           rationale: >-
-            It was missing entirely, which was both a clarity gap and a missed marketing
-            opportunity given it's one of the lowest excesses in the market.
+            It was absent from the page entirely, which was both a clarity gap and a missed
+            opportunity, given that we have one of the lowest excesses on the market.
           outcome: >-
-            Now visible alongside cover details, presented as a feature rather than a
-            buried disclosure.
+            It now appears alongside the cover details, presented as a feature rather than something
+            buried in the small print.
           outcomeType: positive
         - decision: A qualifier was added to the lifetime cover headline
           rationale: >-
-            The unconditional wording sets an expectation the policy can't always keep, and
-            pre-existing exclusions are the most common reason a claim is declined.
+            The unconditional wording creates an expectation the policy cannot always meet, and
+            pre-existing exclusions are the single most common reason a claim is declined.
           outcome: >-
-            Something like "subject to your pet's health history" keeps it accurate without
-            changing the meaning for most customers. Flagged to copy and compliance.
+            A light addition such as "subject to your pet's health history" keeps the line accurate
+            without changing its meaning for most customers. I have raised it with copy and
+            compliance.
           outcomeType: tradeoff
         - decision: Interactive components were standardised
           rationale: >-
-            The audit found four button styles and three expansion-panel treatments across
-            the flow — enough inconsistency to make the page feel unconsidered, which
-            doesn't help when you're trying to earn trust.
+            The audit found four button styles and three different expansion-panel treatments across
+            the flow. That degree of inconsistency makes a page feel unconsidered, which is precisely
+            the wrong impression to give when its purpose is to earn the customer's trust.
           outcome: >-
-            One token set across buttons, tooltips, modals and toggles. Engineering noted
-            it'd cut maintenance overhead too, with all components being standardised at
-            the time of writing.
+            One token set now covers the buttons, tooltips, modals, and toggles. Engineering noted
+            that it would reduce maintenance overhead as well, since the components were being
+            standardised in any case.
           outcomeType: positive
         - decision: Mobile was deferred to a follow-up sprint
           rationale: >-
-            A full responsive overhaul wasn't realistic in two weeks within MudBlazor's
-            grid, though the designs exist for when development catches up. Mobile is ~35%
-            of traffic but most completions still happen on desktop.
-          outcome: Backlogged, to be picked up once the A/B experiment gives us something to work with.
+            A full responsive overhaul was not realistic within two weeks given MudBlazor's grid,
+            though the designs exist for when development is ready. Mobile accounts for around 35% of
+            traffic, but most completions still occur on desktop.
+          outcome: Backlogged, to be taken up once the A/B experiment provides usable data.
           outcomeType: tradeoff
   - component: ProjectMetricsBand
     props:
@@ -318,22 +326,22 @@ sections:
       title: What I took from it
       points:
         - >-
-          The most useful finding was that this isn't only a conversion problem. The review
-          page is where the complaints and declined claims of six months' time are quietly
-          being set up — and getting it right has effects you'll never see in a completion
-          rate. They show up much later, in call volumes and cancellations, long after
-          anyone's looking at this page.
+          The most valuable thing I took away is that this was never only a conversion problem. The
+          review page quietly sets up the complaints and declined claims of six months later, and
+          getting it right has effects that never show up in a completion rate. They surface much
+          later, in call volumes and cancellations, long after anyone is still looking at the page.
         - >-
-          The sessions left a clear backlog: pre-existing wording that explicitly covers
-          symptoms in the vet's history and bilateral conditions, co-payment shown with a
-          worked example, and the monthly-versus-annual price difference explained somewhere
-          visible.
+          The sessions left me with a clear backlog. The pre-existing wording needs to state that it
+          covers symptoms in the vet's history as well as bilateral conditions, the co-payment needs
+          a worked example so customers can see how it applies in practice, and the difference
+          between the monthly and the annual price needs explaining somewhere a customer will
+          reliably see it.
         - >-
-          Four variants are live in Amplitude — two desktop, two mobile — each testing where
-          navigation and the CTA sit relative to the cover details. A parallel segment was
-          already running with real users during the sprint, so some layout calls were
-          partly validated before I finished. Once it's run long enough to mean something,
-          I'll update this with the real numbers.
+          Four variants are now live in Amplitude, two on desktop and two on mobile, each testing
+          where the navigation and the call to action sit relative to the cover details. A parallel
+          segment was already running with real users while the sprint was still under way, so
+          several of the layout decisions were partly validated before I had finished. Once it has
+          run long enough to be meaningful, I will return and update this with the actual figures.
   - component: MoreProjects
     props:
       title: More projects
@@ -341,15 +349,13 @@ sections:
         - title: Perro Onboarding & Subscription
           blurb: >-
             A shorter, value-first onboarding and subscription redesign that reduced
-            drop-offs and lifted conversion — implemented directly in Flutter.
+            drop-offs and lifted conversion, implemented directly in Flutter.
           slug: perro-onboarding
           category: UX / Flutter
         - title: Crafting Counselling Companions
           blurb: >-
-            Co-designing a session-planning tool with counsellors — from research through
-            prototype — to reduce the admin overhead that gets in the way of client work.
+            Co-designing a session-planning tool with counsellors, from research through
+            prototype, to reduce the admin overhead that gets in the way of client work.
           slug: counselling-companions
           category: UX Research
 ---
-
-More detail on the Pet Insurance Checkout Redesign project goes here.

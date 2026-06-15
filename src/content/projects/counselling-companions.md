@@ -4,15 +4,15 @@ filename: counselling-companions.md
 mode: NORMAL
 type: UX Research
 year: "2025"
-image: /images/counselling/hero_ambient.jpg
-imageAlt: Counselling companions research
-oneliner: Mental health practitioners spend 15–20 minutes of every session on admin. This MSc dissertation asked what a tool built specifically for them could do about it.
+image: /images/counselling/counselling_cover.jpg
+imageAlt: Practitioner AI settings and the home dashboard from the final Figma prototype, framed and rotated
+oneliner: Mental health practitioners in solo and small practices spend 15 to 20 minutes of every 40-minute session on administration. My MSc dissertation explored what a tool built specifically for counselling work, rather than borrowed from elsewhere, could give back.
 statusline:
   - label: NORMAL
     lime: true
   - label: ux research
   - label: "2025"
-  - label: parasocial · trust · AI
+  - label: co-design · RRI · trust
 order: 3
 sections:
   - component: ProjectHero
@@ -22,8 +22,8 @@ sections:
       year: "2025"
   - component: ProjectGallery
     props:
-      image: /images/counselling/hero_ambient.jpg
-      imageAlt: Mental health practitioners carry both the clinical and administrative weight of their practice — this project asked what digital tools could lift
+      image: /images/counselling/counselling_hero.jpg
+      imageAlt: Mental health practitioners carry both the clinical and the administrative weight of their practice. This project asked what a purpose-built tool could lift.
   - component: ProjectMeta
     props:
       statusline:
@@ -31,161 +31,180 @@ sections:
           lime: true
         - label: ux research
         - label: "2025"
-        - label: parasocial · trust · AI
+        - label: co-design · RRI · trust
   - component: ProjectIntro
     props:
       eyebrow: MSc Dissertation — Case study 03
       title: Crafting Counselling Companions
       summary: >-
-        My MSc dissertation in Human–Computer Interaction at Newcastle University combined
-        semi-structured interviews with seven practitioners, a low-contact co-design
-        workshop, iterative Figma prototyping, and an RRI ethical review — producing a
-        validated concept for a practitioner-centred practice dashboard and voice assistant.
+        My MSc dissertation in Human–Computer Interaction at Newcastle University looked at
+        where mental health practitioners' time goes, and whether a purpose-built tool could
+        give some of it back. The work moved through semi-structured interviews, a week-long
+        co-design workshop I ran entirely by post and email so as to respect how little spare
+        time practitioners have, and a Figma prototype of a practice dashboard and voice
+        assistant. Before I considered the concept sound, I tested it through heuristic
+        evaluation, a think-aloud session, and a Responsible Research and Innovation review.
   - component: ProjectProblemKeyInfo
     props:
       problemBody: >-
-        Mental health practitioners are under intense pressure worldwide. In the UK and
-        India, counsellors and therapists in solo or small practices rely on a patchwork of
-        generic tools — email, WhatsApp, spreadsheets, Google Drive — to manage scheduling,
-        client records, resources, and billing. None of these tools were designed for the
-        clinical context, and the result is fragmented information, duplicated effort, and
-        administrative overhead that can eat 15–20 minutes out of every 40-minute session.
+        Most counsellors and therapists work in solo or small practices, without the IT and
+        administrative support that larger institutions take for granted. To run their day they
+        rely on a mix of familiar, general-purpose tools: email for formal contact, WhatsApp for
+        quick check-ins, Zoom or Google Meet for sessions, a calendar for bookings, a spreadsheet
+        or notebook for records, and Google Drive for the worksheets they share with clients. Each
+        tool does its job well enough on its own, but they were never designed to work together, so
+        a single client's information ends up spread across several places and practitioners spend
+        real time reassembling the full picture. One person I interviewed put the cost in plain
+        terms. For every 40-minute session, 15 to 20 minutes goes on administration.
       contextBody: >-
-        This project set out to understand whether bespoke, practitioner-centred digital
-        tools could reduce that burden and improve both the quality of care and quality of
-        life for therapists — without compromising the fundamentally human nature of the
-        therapeutic relationship. The focus was deliberately on the back-office layer of
-        practice, not on patient-facing apps or clinical decision-support.
+        I wanted to find out whether a tool built specifically for counselling management could
+        return some of that time, while protecting the human relationship the whole profession
+        rests on. For that reason I deliberately set aside the crowded and ethically complex space
+        of patient-facing apps and chatbots, and focused on the practitioner's back office instead.
+        Scheduling, notes, resources, and billing are rarely designed for with much care, yet this
+        is where a great deal of the profession's burnout risk quietly accumulates.
       infoItems:
         - label: Research question
           value: >-
-            How can tailored digital tools reduce administrative burden for mental health
-            practitioners while supporting — not replacing — the therapeutic relationship?
-        - label: Scope
-          value: Discovery research, co-design, prototyping, and RRI ethical review
+            How can tailored digital tools reduce the administrative burden on mental health
+            practitioners while supporting, rather than replacing, the therapeutic
+            relationship?
+        - label: My role
+          value: Sole researcher and designer — discovery, co-design, prototyping, evaluation, ethics
         - label: Participants
           value: >-
-            7 practitioners: counsellors, psychologists, mental health social workers across
-            India and the UK
-        - label: Ethical framework
-          value: Responsible Research and Innovation (RRI)
+            7 practitioners — counsellors, psychologists, and mental health social workers. Six
+            based in India across private, academic, and counselling-institution settings, and
+            one social-work MSc student in London.
+        - label: Methods
+          value: Semi-structured interviews · reflexive thematic analysis · low-contact co-design · Figma · heuristic evaluation · think-aloud · RRI review
   - component: ProjectCallout
     props:
       variant: principle
-      label: Research aim
+      label: The aim
       body: >-
-        Design a practical, practitioner-centred tool that streamlines administrative tasks
-        and supports mental health professionals before, during and after counselling
-        sessions — without compromising the therapeutic relationship or introducing ethical
-        risk.
+        Design a practical, practitioner-centred tool that streamlines administrative work
+        before, during, and after counselling sessions, so practitioners can spend more of
+        their time on care, without compromising the therapeutic relationship or introducing
+        ethical risk through careless use of AI.
   - component: ProjectProcessSteps
     props:
-      title: How the research was structured
+      title: How the research ran
       steps:
         - title: Semi-structured interviews
           body: >-
-            Seven practitioners participated in 60-minute phone or video sessions.
-            Interviews explored current tool use, daily admin workflows, pain points, and
-            attitudes toward AI assistance. Sensitive sections on AI and ethics were made
-            optional, and participants could retract statements after review.
+            Seven practitioners took part, around an hour each, by phone or video according to
+            their preference. We discussed the tools they use day to day, how a typical day is
+            structured, where the friction sits, and how they feel about AI. The questions on AI
+            and ethics were optional, and one participant chose to skip them, feeling they did not
+            yet know enough to comment. Everyone was free to retract anything they had said after
+            the fact.
         - title: Reflexive thematic analysis
           body: >-
-            Using Clarke and Braun's reflexive thematic analysis, I coded all interview
-            transcripts independently, generating 47 codes which were iteratively grouped
-            into 7 themes. Analysis was reflexive — surfacing not just practitioner concerns
-            but also assumptions I brought to the research.
+            I analysed the transcripts using Clarke and Braun's reflexive thematic analysis, which
+            produced 47 codes that I grouped into seven themes. The reflexive element mattered to
+            me, because it meant examining the assumptions I brought to the coding rather than only
+            what the practitioners said, and that made the findings more trustworthy.
         - title: Low-contact co-design workshop
           body: >-
-            To accommodate practitioners' limited time, I designed an asynchronous one-week
-            co-design workshop using Google Workspace (Gmail, Keep, Sheets, Calendar, Drive).
-            Participants completed seven structured activities and documented their ideas
-            using a physical printed toolkit. A dedicated GitHub Pages site hosted all
-            digital materials.
+            Practitioners have very little spare time, so a conventional workshop was never
+            realistic, and I ran it asynchronously over a week instead. I built a working version
+            of the proposed tool from Google Workspace, using Gmail, Keep, Sheets, Calendar, and
+            Drive wired together with a little AppScript so the parts shared data, and I posted each
+            participant a physical toolkit of printed screens, sticky notes, and stationery. They
+            worked through seven activities in their own time, annotated the prints with their
+            feedback, and we discussed the results afterwards. All the materials also lived on a
+            GitHub Pages site I kept up to date.
         - title: Figma prototyping
           body: >-
-            Workshop outputs were translated into medium–high fidelity Figma prototypes of a
-            practice-management dashboard and a complementary voice assistant. The design
-            went through two explicit iteration cycles — one driven by heuristic evaluation,
-            one by practitioner usability testing.
+            Once the co-design feedback was in, I designed the tool properly in Figma at
+            medium-to-high fidelity, as a practice dashboard with a companion voice assistant. It
+            went through two iteration cycles, the first driven by heuristic evaluation and the
+            second by the practitioner usability session.
         - title: Heuristic evaluation
           body: >-
-            A peer and I walked through the prototype using Nielsen's ten heuristics. Issues
-            around consistency, spacing, visibility of system status, and label clarity were
-            documented and addressed before the practitioner session.
+            Before putting anything in front of a practitioner, a classmate and I walked the
+            prototype against Nielsen's usability heuristics. That surfaced the less visible
+            problems, such as inconsistent spacing and highlighting, weak use of whitespace, and
+            confusing copy, and I resolved them first so the usability session could focus on the
+            design itself rather than rough edges.
         - title: RRI ethical review
           body: >-
-            Using established RRI prompts and Moral IT cards, I systematically mapped all
-            stakeholders (practitioners, clients, regulators, researchers, support staff) and
-            interrogated data flows, consent boundaries, and AI usage. This informed concrete
-            design decisions around transparency, user control, and privacy.
+            After ideation I ran the whole concept through a Responsible Research and Innovation
+            review, using the RRI prompts and practice cards alongside the Moral IT cards. I mapped
+            every stakeholder I could identify, from practitioners and clients to regulators,
+            researchers, and support staff, and worked through where sensitive data would flow,
+            where consent sat, and what role AI should and should not play. That review went on to
+            change the design.
   - component: ProjectFindingsGrid
     props:
-      title: 7 themes from the interviews
+      title: Seven themes from the interviews
       items:
-        - title: Poorly integrated digital tools
+        - title: Poorly integrated tools
           body: >-
-            Practitioners toggle between Zoom, WhatsApp, email, and calendar apps depending
-            on client needs, producing fragmented records and constant context switching.
-        - title: Documentation and record-keeping
+            Practitioners move between Zoom, WhatsApp, Google Meet, email, and calendar apps
+            depending on what each client is comfortable with. The flexibility protects the
+            relationship, but it leaves records fragmented and keeps practitioners switching
+            context throughout the day.
+        - title: Documentation by hand
           body: >-
-            Many still handwrite notes to preserve eye contact during sessions, then struggle
-            to index and search them. Digital searchability is attractive but typing
-            in-session feels intrusive.
-        - title: Progress tracking and goal setting
+            Many still take notes on paper during sessions, not out of preference but because
+            typing in front of a client breaks eye contact. The trade-off is that those notes are
+            then very hard to search later, and digitising them becomes a task in itself.
+        - title: Progress and goal tracking
           body: >-
-            Goal-setting is central to therapy but tracking is often informal. Practitioners
-            want lightweight, structured tools — not rigid clinical scales that feel clinical
-            and impersonal.
-        - title: Care vs administration
+            Therapy is built around goals, yet tracking against them tends to be informal and
+            conversational. Practitioners were open to something more structured, provided it
+            stayed light and did not reduce the relationship to a set of metrics.
+        - title: Care versus admin
           body: >-
-            Admin can consume 15–20 minutes of every 40-minute session, covering preparation,
-            notes, scheduling, billing, and follow-up. This directly reduces time available
-            for care.
-        - title: Resource maintenance and sharing
+            Administration takes 15 to 20 minutes out of a 40-minute session once preparation,
+            notes, scheduling, billing, and follow-up are counted. That time comes directly out of
+            care.
+        - title: Resources everywhere and nowhere
           body: >-
-            Practitioners curate worksheets, articles, and videos but lack a centralised,
-            searchable library. Resources are often duplicated and emailed rather than shared
-            from a single source.
-        - title: Adapting to varied contexts
+            Everyone curates worksheets, articles, and videos for clients, but these live across
+            Drive folders, email attachments, and bookmarks, often duplicated, and rarely anywhere
+            they can be found at the moment they are needed.
+        - title: Every setting is different
           body: >-
-            School counselling, private practice, and institutional settings have very
-            different workflows. One-size-fits-all software consistently fails because it
-            can't accommodate the variation.
-        - title: Ethics, privacy, and human connection
+            School counselling, private practice, and institutional work involve genuinely
+            different workflows, and even different ways of speaking to clients. One-size-fits-all
+            software keeps failing because it cannot bend to that variation.
+        - title: Ethics and the human connection
           body: >-
-            Practitioners expressed real anxiety about AI replacing human therapists,
-            commercial misuse of sensitive data, and the risk of depersonalising care through
-            over-automation.
+            There was real concern here, from a fear of AI replacing human therapists, to sensitive
+            data being misused commercially, to over-automation gradually stripping the humanity out
+            of care.
   - component: ProjectQuote
     props:
       quote: >-
-        "I mean, I feel like if it was digital, it would be a lot easier to find things."
-      attribution: Interview participant — on searching handwritten notes
+        "I mean, I feel like if it was digital, it would be a lot easier to find things.
+        Sometimes I look at my notes, I know it is organised, but still a keyword search… you've
+        become so used to finding things very fast — that would help."
+      attribution: Interview participant, on searching handwritten notes
   - component: ProjectPersona
     props:
-      eyebrow: Practitioner persona
-      name: Priya Mehta
-      role: Private-practice counsellor, 8 years experience, solo practitioner in Bangalore
+      eyebrow: Composite persona, synthesised from the interviews rather than a single participant
+      name: The solo private-practice counsellor
+      role: Independent counsellor running their own small practice, comfortable with everyday tech, sceptical of anything that depersonalises the work
       quote: >-
-        "I spend so much time after sessions just trying to organise things. By the time
-        I've written my notes, sent the resource, and updated my calendar, I'm exhausted
-        before the next client."
+        "For every 40-minute session, 15 minutes to 20 minutes would be admin work."
       goals:
-        - Prepare for each session quickly without switching between five different tools
-        - Send worksheets and resources to clients without hunting through email folders
-        - Keep structured notes that are searchable and securely stored
-        - Spend less time on scheduling, billing, and follow-up chasing
+        - Get ready for the next client at a glance, without opening five different apps
+        - Send a worksheet to a client without digging through email and Drive
+        - Keep notes that are searchable later, without typing during the session
+        - Spend less of the day on scheduling, billing, and chasing follow-ups
       frustrations:
-        - No single tool that combines her session notes, calendar, and client records
-        - Physical notes that are impossible to search retrospectively
-        - Resources scattered across Google Drive, email attachments, and browser bookmarks
-        - Scheduling and billing still handled by separate, unconnected apps
+        - No single place that holds notes, calendar, and client records together
+        - Handwritten notes that cannot be searched after the fact
+        - Resources scattered across Drive, email attachments, and bookmarks
+        - Scheduling and payments handled in separate, disconnected tools
       context: >-
-        Priya works with 8–10 clients per week across video and in-person sessions. She is
-        comfortable with digital tools but deeply sceptical of anything that feels like it
-        might depersonalise her practice. She is willing to invest in a tool if it genuinely
-        reduces friction, but will not tolerate anything that adds steps to her current
-        workflow.
+        This persona stands in for the independent practitioners I interviewed, most of them
+        India-based. They are willing to invest in something that genuinely removes friction, but
+        they will abandon anything that adds steps to a day that is already full, and they remain
+        quietly protective of the relationship at the centre of their work.
       contextTags:
         - Solo practitioner
         - High trust stakes
@@ -193,148 +212,160 @@ sections:
         - Privacy-conscious
   - component: ProjectPersona
     props:
-      eyebrow: Practitioner persona
-      name: James Okafor
-      role: Mental health social worker, NHS-adjacent organisation, team of four
+      eyebrow: Composite persona, synthesised from the interviews rather than a single participant
+      name: The institution-based practitioner
+      role: Works inside a school, academic, or counselling-institution setting, often alongside others, follows the AI debate closely
       quote: >-
-        "I don't mind AI if I understand what it's doing and I'm the one who decides what
-        gets sent. The moment it starts acting on its own, I'm out."
+        "AI was introduced… ChatGPT came out last year officially, it's been a very short time.
+        I feel like they're just doing things too fast before we have enough time to understand
+        them."
       goals:
-        - Quickly brief himself on a returning client's history before a session
-        - Share session summaries and referral documents with colleagues securely
-        - Understand what the tool is doing with data before he commits to using it
-        - Reduce the time spent manually tracking client progress between sessions
+        - Adapt the same toolkit to a setting with its own rules and rhythms
+        - Hand a client off or refer them on without losing the context
+        - Understand exactly what any AI feature is doing before trusting it
+        - Track progress in a shared, structured way rather than in personal notes
       frustrations:
-        - No transparent audit trail for AI-generated outputs in clinical contexts
-        - Having to explain sensitive client context repeatedly when referring to colleagues
-        - Progress data held in his personal notes rather than a shared, structured format
-        - Generic consent forms that don't address AI-assisted features specifically
+        - Generic software that cannot bend to a school or institutional workflow
+        - Re-explaining sensitive client context every time a referral happens
+        - No transparency about how AI features are trained or what they do with data
+        - The pace of AI moving faster than anyone's ability to make sense of it
       context: >-
-        James manages a small caseload alongside a team, so collaboration and handoff are
-        central concerns. He is moderately tech-savvy, follows debates about AI in
-        healthcare, and sets a high bar for explainability and control before he adopts any
-        tool.
+        This persona reflects the practitioners working in schools and institutions, and the UK
+        social-work perspective in the sample. They are not anti-technology, but they set a high
+        bar for explainability and control, and they need tools that flex across very different
+        contexts.
       contextTags:
-        - Team context
-        - AI-sceptical but open
+        - Institutional context
+        - AI-cautious but curious
         - Referral-heavy
         - Transparency-first
   - component: ProjectHowMightWe
     props:
       title: How might we…
       intro: >-
-        Opportunity questions derived from research synthesis that shaped the design
-        direction.
+        The opportunity questions I drew out of the synthesis, which set the direction for the
+        design.
       items:
         - question: >-
-            How might we bring scheduling, notes, and client records into one coherent
-            interface without forcing practitioners to abandon familiar tools?
+            How might we bring scheduling, notes, and client records into one coherent place
+            without forcing practitioners to abandon the tools they already trust?
           theme: Integration
         - question: >-
-            How might we let practitioners capture in-session notes in a way that feels
-            present rather than clinical?
+            How might we let practitioners capture notes in a way that keeps them present in the
+            room rather than hunched over a keyboard?
           theme: Presence
         - question: >-
-            How might we make AI assistance feel like a controlled, transparent tool rather
-            than an autonomous decision-maker?
+            How might we make AI feel like a controlled, transparent tool the practitioner directs,
+            rather than something acting on its own?
           theme: Trust & control
         - question: >-
-            How might we surface the right client context quickly at the start of a session
-            without requiring manual preparation?
+            How might we surface the right client context at the start of a session without
+            anyone having to prepare it by hand?
           theme: Preparation
         - question: >-
-            How might we design for the full diversity of practice settings without building
-            an overly complex system?
+            How might we support the full range of practice settings without building something so
+            complex nobody wants to use it?
           theme: Configurability
         - question: >-
-            How might we make sharing resources and referral materials feel as easy as
-            sending a message?
+            How might we make sharing a resource or a referral feel as easy as sending a message?
           theme: Sharing
   - component: ProjectTextImage
     props:
       eyebrow: Design solution
-      title: A practitioner-centred practice dashboard
+      title: A practice dashboard built around the back office
       body: >-
-        The proposed solution integrates with existing office suites (Google Workspace or
-        Microsoft 365) to bring communication, scheduling, documentation, finances, and a
-        resource library into a single coherent interface. A complementary voice assistant
-        lets practitioners issue multi-step instructions in natural language — scheduling a
-        follow-up, sending a worksheet, and setting a pre-session reminder in a single spoken
-        command — with each action shown as an editable checklist item before anything is
-        executed.
+        The synthesis kept returning to the same five jobs that consumed practitioners' time:
+        communication, scheduling, documentation, finances, and the keeping and sharing of
+        resources. The design brings all five into a single interface that sits on top of an office
+        suite the practitioner already uses, whether Google Workspace or Microsoft 365, so nothing
+        has to be torn out. Alongside it is a voice assistant for the kind of multi-step
+        administration that would otherwise take a string of separate actions. A practitioner can
+        ask it to book a follow-up, send a worksheet, and set a reminder in one instruction, and
+        rather than acting straight away it presents the breakdown as an editable checklist and
+        waits for approval before anything runs.
       image: /images/counselling/workshop_gmail.jpg
-      imageAlt: Co-design workshop — email drafts configured by a participant during Activity 2
+      imageAlt: Co-design workshop — email drafts a participant configured during one of the seven activities
   - component: ProjectFindingsGrid
     props:
-      title: Core features
+      title: The core of the dashboard
       items:
-        - title: Home dashboard
+        - title: Home
           body: >-
-            Upcoming sessions, key client details for the next appointment, a live tasks
-            list, and an embedded email panel — all on one screen to reduce context switching
-            before a session.
+            The day's sessions, the details of whoever is next, a live task list, and an email
+            panel sit together on one screen, so the full picture is ready before a client arrives
+            rather than spread across several tabs.
         - title: Schedule
           body: >-
-            Week and month calendar views showing all sessions and events. Session cards open
-            into details and direct actions: reschedule, contact client, or view notes from
-            the previous session.
+            A calendar that switches between week and month views. Every session and event appears
+            here, and selecting one opens its details and the actions that go with it, whether that
+            is rescheduling, contacting the client, or reviewing the previous session's notes.
         - title: People
           body: >-
-            A searchable client list with each profile showing session history, payments,
-            shared resources, and a secure document store for consent forms. Optional
-            AI-generated case summaries, controlled by a per-client toggle.
+            A searchable, alphabetised client list. Each profile holds the session history with
+            payment records, shared resources, communication, and a secure store for consent forms,
+            along with an optional AI summary controlled by a per-client toggle.
         - title: Library
           body: >-
-            A structured repository for documents, worksheets, articles, and media,
-            filterable by resource type. Planned browser extension support for capturing
-            resources from the web, similar to Zotero.
+            A single repository for documents, worksheets, articles, and media, filterable by type
+            and readable inside the tool. I also sketched a browser extension for clipping resources
+            from the web, much as Zotero does, though that remained a concept.
         - title: Notes
           body: >-
-            Hybrid note-taking supporting typed templates and scanned handwritten notes, with
-            tagging, categorisation, and search. Attachment support for images and videos
-            reflects the embodied nature of some therapeutic exercises.
+            Hybrid note-taking. A practitioner can type into a template or scan in a sheet written
+            by hand, then tag it, search across everything, and revisit earlier versions. Images
+            and videos can be attached, since some therapeutic exercises are visual.
         - title: Voice assistant
           body: >-
-            A cross-screen overlay for multi-step natural-language instructions. The system
-            parses requests into discrete, editable checklist items and executes only what
-            the practitioner explicitly approves.
+            A cross-screen overlay for multi-step spoken instructions. It interprets what was said
+            as discrete, editable checklist items and runs only those the practitioner explicitly
+            approves.
   - component: ProjectImageGalleryGrid
     props:
-      title: Co-design workshop outputs
+      title: The co-design workshop, run by post
       images:
         - src: /images/counselling/codesign_activity_physical.jpg
           alt: >-
-            Activity 2 — participant working through email task with sticky-note annotations
+            A participant working through the email activity, annotated with sticky notes from the
+            posted toolkit
         - src: /images/counselling/workshop_calendar_booking.jpg
           alt: >-
-            Google Calendar bookable appointment schedule — participant-configured session
-            availability
+            Google Calendar set up as a bookable appointment schedule, configured by a participant
         - src: /images/counselling/codesign_sheets_physical.jpg
           alt: >-
-            Activity 3 — Google Sheets session tracker with participant feedback: "Well
-            thought out. Easy to store all the details."
+            The session-tracker activity with handwritten participant feedback on the printed screen
         - src: /images/counselling/workshop_sheets.jpg
-          alt: Session history sheet — client records, payment status, and session log
+          alt: Session-history sheet — client records, payment status, and a session log
         - src: /images/counselling/workshop_drive.jpg
           alt: >-
-            Google Drive resource library — worksheets, reading materials, and client folders
+            Google Drive standing in as the resource library — worksheets, reading, and client folders
         - src: /images/counselling/codesign_calendar_physical.jpg
-          alt: 'Activity 1 — participant note: "Feels like an invisible non-living assistant"'
+          alt: A participant's note on one of the printed activity sheets
+  - component: ProjectCallout
+    props:
+      variant: insight
+      label: On the co-design format
+      body: >-
+        Four of the six practitioners invited to the workshop returned photographs of their
+        annotated activity sheets, and two preferred to talk it through with me on a call. Running
+        it asynchronously by post proved effective. Several fitted the activities into breaks in
+        their day, and many asked to be kept informed of the project afterwards. The real cost was
+        time. Responses came back one to two weeks later than planned, and there was some confusion
+        about what each activity was asking for. A short live briefing at the start would have
+        resolved most of that.
   - component: ProjectTextImage
     props:
       eyebrow: The final prototype
       title: From a feel for it to the finished thing
       body: >-
-        The co-design workshop was really about getting a feel for things. I gave people a
-        version of the tool stitched together out of Google Workspace so they could live in
-        it for a week and tell me where it pinched, and once I had those findings I sat down
-        and designed the thing properly in Figma. This is what came out of that. The home
-        screen was the part I cared about most, because it is the first thing a practitioner
-        sees before a session and it is where the fragmentation problem shows up worst. So I
-        put the day's sessions, the details of whoever is next, the running task list, and
-        the inbox all on one screen. The idea was that you could glance at it for ten seconds
-        before a client walks in and actually feel ready, instead of opening four tabs to
-        piece the same picture together yourself.
+        The co-design workshop was about developing a feel for what the tool needed to do. I gave
+        participants a version stitched together from Google Workspace so they could live with it
+        for a week and tell me where it fell short, and once those findings were in I designed the
+        tool properly in Figma. The home screen mattered most to me, because it is the first thing
+        a practitioner sees before a session and the place where the fragmentation problem shows up
+        most sharply. So I brought the day's sessions, the details of whoever is next, the running
+        task list, and the inbox onto a single screen. The intention was that a ten-second glance
+        before a client arrives would be enough to feel prepared, rather than opening several tabs
+        to reassemble the same picture by hand.
       image: /images/counselling/home.jpg
       imageAlt: >-
         Home dashboard — the day's sessions, the next client's details, the task list, and the
@@ -345,8 +376,8 @@ sections:
       images:
         - src: /images/counselling/schedule-week.jpg
           alt: >-
-            Week view — every session laid out against the working day, with cards that open
-            into reschedule, contact the client, or notes from last time
+            Week view — every session laid out against the working day, with cards that open into
+            reschedule, contact the client, or notes from last time
         - src: /images/counselling/schedule.jpg
           alt: Month view — the same schedule zoomed out, so the weeks ahead can be read at a glance
   - component: ProjectTextImage
@@ -354,245 +385,247 @@ sections:
       eyebrow: People
       title: The client record, and where the AI lives
       body: >-
-        Every client gets a profile, and this is where most of the AI questions from the
-        interviews ended up living. There is the session history, the resources you have
-        shared, a secure spot for consent forms, and an AI-written summary of where things
-        stand. The part I kept coming back to is the toggle at the top. AI is off unless the
-        practitioner turns it on, and they turn it on per client rather than once for the
-        whole practice. Some of the people I spoke to were wary of AI in a room this
-        sensitive and some were keen, and a single switch buried in settings did not respect
-        either view. Letting them decide client by client felt a lot closer to how they
-        actually think about consent and trust.
+        Every client has a profile, and this is where most of the AI questions from the interviews
+        ended up being answered. It holds the session history with payments, the resources shared
+        with that client, a secure place for consent forms, and an AI-written summary of where
+        things stand, which is genuinely useful when someone returns for a one-off session after a
+        long gap. The detail I kept returning to is the toggle at the top. AI stays off until the
+        practitioner turns it on, and they turn it on for one client at a time rather than once
+        across the whole practice. Some of the people I spoke to were wary of AI in a room this
+        sensitive and others were keen, and a single switch buried in settings would have respected
+        neither view. Letting practitioners decide client by client sits much closer to how they
+        already think about consent and trust. That toggle exists because of the ethics review.
       image: /images/counselling/people.jpg
       imageAlt: >-
-        Client profile — session history, shared resources, consent storage, and a per-client
-        toggle that keeps AI off until the practitioner turns it on
+        Client profile — session history, shared resources, consent storage, and a per-client toggle
+        that keeps AI off until the practitioner turns it on
       reverse: true
   - component: ProjectTextImage
     props:
       eyebrow: Notes
-      title: Notes that do not pull you out of the room
+      title: Notes that keep you present in the room
       body: >-
-        A lot of practitioners told me they still write their notes by hand, not because they
-        love paper but because typing in front of a client breaks the eye contact the whole
-        session depends on. So the notes screen had to hold both. You can type into a
-        template or scan in the sheet you wrote during the session, then tag it, search
-        across all of it, and look back through earlier versions when you need to. The AI
-        summary sits off to the side as something you ask for, not something that quietly
-        happens to your notes while you are not looking. That small distinction mattered more
-        than I expected once people started using it.
+        Many practitioners told me they still write their notes by hand, not because they prefer
+        paper but because typing in front of a client breaks the eye contact a session depends on.
+        The notes screen therefore had to support both. A practitioner can type into a template or
+        scan in the sheet written during the session, then tag it, search across all of it, and look
+        back through earlier versions. After the usability session I added support for images and
+        videos as well, since some therapeutic exercises involve sketching and other visual work.
+        The AI summary sits to one side as something a practitioner asks for, never something that
+        happens to their notes unprompted. That distinction mattered more than I had expected.
       image: /images/counselling/session-notes.jpg
       imageAlt: >-
-        Session notes — typed templates or scanned handwriting, tagged and searchable, with an
-        AI summary you ask for rather than one that happens to you
+        Session notes — typed templates or scanned handwriting, tagged and searchable, with an AI
+        summary you ask for rather than one that happens to you
   - component: ProjectTextImage
     props:
       eyebrow: Library
       title: One place for everything you share
       body: >-
-        Almost everyone I interviewed was quietly keeping their own little library of
-        worksheets and articles and videos, scattered across Drive folders and email
-        attachments and browser bookmarks, and nobody could find anything when they needed
-        it. The library pulls all of that into one place you can filter by type and read
-        inside the tool itself. I also sketched out a browser extension for clipping things
-        off the web as you come across them, the way Zotero does for academic papers, though
-        I should be honest that this stayed a concept rather than something I built.
+        Almost everyone I interviewed was keeping a personal library of worksheets, articles, and
+        videos, spread across Drive folders, email attachments, and browser bookmarks, with little
+        hope of finding the right thing at the right moment. One participant described repeatedly
+        re-downloading the same files from Drive to send to clients, exactly the kind of small,
+        repeated waste that adds up over a week. The library gathers all of this into one place that
+        can be filtered by type and read inside the tool, and it keeps track of what has been shared
+        with whom. I also sketched a browser extension for clipping resources from the web as they
+        are found, much as Zotero does for academic papers, though this remained a concept rather
+        than something I built.
       image: /images/counselling/resources.jpg
       imageAlt: >-
-        Library — worksheets, articles, and media in one place, filterable by type and
-        readable inside the tool
+        Library — worksheets, articles, and media in one place, filterable by type and readable inside
+        the tool
       reverse: true
   - component: ProjectTextImage
     props:
       eyebrow: Artificial intelligence
       title: Where the AI explains itself
       body: >-
-        This screen probably would not exist if I had not done the ethical review first.
-        Once you have mapped out everywhere sensitive data could flow, it becomes obvious
-        that the AI cannot just work quietly in the background and hope nobody asks. So there
-        is a settings area that does nothing clever on its own. It tells you when AI has been
-        used, it lets you review and approve any summary before it goes anywhere near a
-        client record, and it shows you why a particular suggestion was made. None of that
-        makes the tool smarter. It makes it legible, and for the people I spoke to that was
-        the thing standing between being curious about it and actually trusting it.
+        This screen would probably not exist had I not carried out the ethical review first. Once you
+        have mapped where sensitive data could travel, it becomes clear that AI cannot simply operate
+        in the background unannounced. So there is a settings area whose whole purpose is transparency.
+        It records when AI has been used, it lets the practitioner review and approve any summary
+        before it reaches a client record, and it explains why a particular suggestion was made. The
+        review also drew firm lines around what AI may touch at all: non-clinical work only,
+        summarising and scheduling prompts, and nothing resembling diagnosis. None of this makes the
+        tool cleverer, but it does make it legible, and for the people I spoke to that legibility was
+        what separated curiosity from genuine trust.
       image: /images/counselling/artificial-intelligence.jpg
       imageAlt: >-
-        AI transparency settings — usage notifications, review-and-approve before anything
-        reaches a client record, and visibility into why a suggestion was made
+        AI transparency settings — usage notifications, review-and-approve before anything reaches a
+        client record, and visibility into why a suggestion was made
   - component: ProjectDecisionLog
     props:
-      title: Key design decisions
+      title: The decisions I had to defend
       intro: >-
-        Decisions shaped by the tension between capability and trust in a sensitive,
-        high-stakes context.
+        The choices that came out of the tension between what the tool could do and what it should do
+        in a setting this sensitive.
       decisions:
-        - decision: AI features made opt-in on a per-client basis, not globally
+        - decision: AI made opt-in per client, not once for the whole practice
           rationale: >-
-            Practitioners had strong and varied views on AI in clinical contexts. A single
-            on/off toggle felt too blunt; per-client control let each practitioner calibrate
-            based on their own clinical judgement and the nature of each therapeutic
-            relationship.
+            Practitioners held strong and often opposing views on AI in a therapy room, and a single
+            global on-off was too blunt to respect that range. Per-client control lets each practitioner
+            make the decision relationship by relationship, which mirrors how they already think about
+            consent.
           outcome: >-
-            Usability session participant responded positively to the granularity. The
-            toggle became a visible signal of practitioner agency, not just a compliance
-            checkbox.
+            This came directly out of the RRI review, and it became the clearest signal of practitioner
+            agency in the interface rather than a compliance checkbox buried in settings.
           outcomeType: positive
-        - decision: Voice assistant outputs shown as editable checklists before execution
+        - decision: The voice assistant shows an editable checklist before it does anything
           rationale: >-
-            Early thinking around voice-first interfaces assumed direct execution would feel
-            faster. Research made clear that practitioners need to see and approve what the
-            system intends to do before it acts — especially for anything client-facing.
+            My initial assumption was that direct execution would feel faster. The research made clear
+            that practitioners need to see and approve what the system intends to do before it acts,
+            particularly for anything that reaches a client.
           outcome: >-
-            The checklist model removed the core fear of automated errors in clinical
-            communication. Participants described it as the feature that made the voice
-            assistant feel trustworthy rather than risky.
+            In the think-aloud session the voice assistant was among the most warmly received parts of
+            the design, and the approval step was a large part of why. It made the feature feel like a
+            tool rather than a risk.
           outcomeType: positive
-        - decision: >-
-            Low-contact asynchronous co-design workshop format instead of synchronous sessions
+        - decision: Run the co-design workshop asynchronously, by post
           rationale: >-
-            Mental health practitioners have almost no availability for time-intensive
-            research participation. A one-week asynchronous format using Google Workspace
-            tools they already knew lowered the barrier significantly.
+            Practitioners have very little time for research. A one-week asynchronous format, built on
+            Google Workspace tools they already knew and supported by a physical toolkit in the post,
+            lowered the barrier enough for people to take part.
           outcome: >-
-            Higher participation rate than anticipated. Some delay and occasional confusion
-            about instructions, suggesting that a short synchronous briefing call at the
-            start would improve a future iteration.
+            Engagement was stronger than I had expected and participants felt real ownership of the
+            result. Responses did arrive one to two weeks late, however, and some activities caused
+            confusion. A short synchronous briefing at the start would address that next time.
           outcomeType: neutral
-        - decision: Focused on practitioner back-office tools, not patient-facing features
+        - decision: Design for the practitioner's back office, not for patients
           rationale: >-
-            Patient-facing mental health apps are a crowded and ethically complex space.
-            Practitioner tools are underrepresented in both the market and in HCI research.
-            The scope decision was both strategic and principled.
+            Patient-facing mental health apps are a crowded and ethically loaded space, and the
+            BetterHelp data-sharing case is a clear warning. Practitioner tooling is underrepresented in
+            both the market and in HCI research, so the gap was real and worth addressing.
           outcome: >-
-            Kept the research focused and gave the design a clearer value proposition. The
-            practitioner-as-primary-user framing also produced sharper, more actionable
-            findings than a broader scope would have allowed.
+            The decision kept the research focused and gave the design a sharper value proposition than a
+            broader scope would have allowed. Treating the practitioner as the primary user also produced
+            more actionable findings.
           outcomeType: positive
   - component: ProjectCallout
     props:
       variant: warning
-      label: RRI ethical review
+      label: The RRI review, and what it changed
       body: >-
-        Using RRI prompts and Moral IT cards, I mapped all stakeholders and systematically
-        interrogated data flows, consent boundaries, and AI usage risks. Key outcomes: AI
-        limited to non-diagnostic roles only (summarisation, scheduling prompts); per-client
-        AI toggles required; on-device or privacy-preserving architectures favoured; explicit
-        practitioner approval required before any client-facing action.
+        Using the RRI prompts and practice cards alongside the Moral IT cards, I mapped every
+        stakeholder and worked through the data flows, consent boundaries, and AI risks. Several
+        concrete decisions came out of it. AI was confined to non-clinical roles and never diagnosis,
+        a per-client AI toggle was introduced, informed consent from both client and practitioner became
+        a requirement before AI could touch session notes, open-source and on-device or
+        privacy-preserving components were favoured given the sensitivity of the data, and explicit
+        practitioner approval was required before any client-facing action could run.
   - component: ProjectAccessibilityAudit
     props:
-      title: Accessibility and usability issues found
+      title: What the heuristic evaluation caught
       intro: >-
-        Issues surfaced during heuristic evaluation (Nielsen's ten heuristics) and addressed
-        before practitioner testing.
+        A classmate and I walked the prototype against Nielsen's heuristics before the usability session.
+        These are the issues we found and fixed in the second iteration.
       issues:
         - issue: Inconsistent spacing and visual hierarchy across screens
           description: >-
-            Card padding, heading sizes, and label styles varied across the dashboard, making
-            it harder to scan quickly — a significant issue for practitioners working under
-            time pressure.
+            Card padding, heading sizes, and label styles drifted from screen to screen, which makes a
+            tool harder to scan quickly, and that matters for someone reading it in the moments before a
+            client arrives.
           severity: serious
-          wcagCriterion: 'Nielsen H4: Consistency and Standards'
+          wcagCriterion: 'Nielsen H4 — Consistency and standards'
           fix: >-
-            Standardised spacing tokens and type scale applied across all screens in the
-            second iteration.
-        - issue: Unclear copy on AI-enabled actions
+            Standardised the spacing and type scale across every screen in the second iteration.
+        - issue: Inconsistent highlighting and weak use of whitespace
           description: >-
-            Labels on AI-generated outputs did not make it obvious that the content was
-            AI-produced, or that it required practitioner review before use.
+            Emphasis and selected states were applied unevenly, and cramped layouts made it harder to
+            tell what was grouped with what.
+          severity: moderate
+          wcagCriterion: 'Nielsen H8 — Aesthetic and minimalist design'
+          fix: >-
+            Reworked the layouts to give content room to breathe and applied highlighting consistently.
+        - issue: Confusing copy, especially around AI actions
+          description: >-
+            Some labels did not make clear what an action would do, and AI-generated content was not
+            obviously marked as something to review before sending.
           severity: serious
-          wcagCriterion: 'Nielsen H1: Visibility of System Status'
+          wcagCriterion: 'Nielsen H1 — Visibility of system status'
           fix: >-
-            Explicit "AI-generated — review before sending" labels added to all AI outputs,
-            with a distinct visual treatment separating them from practitioner-authored
-            content.
-        - issue: Weak visual affordance on interactive elements
+            Rewrote the unclear labels and gave AI-generated output a distinct treatment that flags it for review.
+        - issue: Missing AI scheduling prompts surfaced in the usability session
           description: >-
-            Several action buttons and session cards did not communicate their interactivity
-            clearly, leading the usability participant to hesitate before interacting.
+            The practitioner pointed out that the easiest admin to forget is booking the next session, and
+            that the tool could prompt for it instead of leaving it to memory.
           severity: moderate
-          wcagCriterion: 'Nielsen H7: Flexibility and Efficiency / 2.4.7 Focus Visible'
+          wcagCriterion: 'Nielsen H6 — Recognition rather than recall'
           fix: >-
-            Hover and focus states added. Primary actions given stronger visual weight with
-            filled button styles.
-        - issue: No system feedback after voice commands
-          description: >-
-            The initial voice assistant prototype gave no visible feedback that a command had
-            been received or understood, leaving practitioners uncertain whether to repeat
-            themselves.
-          severity: moderate
-          wcagCriterion: 'Nielsen H1: Visibility of System Status'
-          fix: >-
-            A brief animated confirmation state added between command input and checklist
-            generation, confirming the assistant had processed the instruction.
-  - component: ProjectQuote
+            Added AI scheduling prompts and a basic resource-sharing mechanism in the final iteration.
+  - component: ProjectCallout
     props:
-      quote: >-
-        "The dashboard would genuinely save me time before every session. If the AI summary
-        is accurate and I can trust it, I would use it every day."
-      attribution: Private-practice therapist — think-aloud usability session
+      variant: insight
+      label: The usability session
+      body: >-
+        A private-practice practitioner worked through the prototype using the think-aloud protocol. Their
+        overall view was that it improved clearly on the collection of tools they currently use, largely
+        because of how the parts connect, and the voice assistant was well received. The feedback that
+        shaped the final iteration was practical. They wanted prompts to schedule follow-ups so none were
+        forgotten, the ability to add images and videos to session notes for visual exercises, an easy way
+        to share resources and notes with another practitioner when referring a client, and continued work
+        on goal-setting and progress tracking, which still needs development.
   - component: ProjectMetricsBand
     props:
       items:
         - value: "7"
           label: Practitioners interviewed across India and the UK
         - value: "47"
-          label: Unique codes generated from thematic analysis
+          label: Codes generated through reflexive thematic analysis
         - value: "7"
-          label: Themes shaping the design direction
+          label: Themes that shaped the design direction
         - value: "2"
-          label: Prototype iteration rounds before practitioner session
+          label: Prototype iterations, driven by heuristics then usability testing
   - component: ProjectLearnings
     props:
       title: What I took away
       points:
         - >-
-          Low-contact co-design is a genuinely viable format for engaging time-poor
-          professional groups — but it requires more scaffolding than in-person sessions. A
-          short synchronous briefing call at the start would resolve most of the confusion
-          participants experienced.
+          Low-contact co-design works well for time-poor professionals, but it needs more scaffolding than
+          an in-person session, not less. Almost all the friction my participants met would have been
+          avoided by a short live briefing at the start, and that is the first thing I would change.
         - >-
-          Practitioner tools are underrepresented in HCI research relative to their
-          importance. The administrative layer of professional practice is where significant
-          burnout risk lives, and it's a compelling design space.
+          The administrative layer of professional practice is badly underserved by design. It is
+          unglamorous, it is where a good deal of burnout begins, and there is real room to help, which
+          makes it a more interesting space to work in than the crowded patient-facing one most products
+          gravitate toward.
         - >-
-          AI features in sensitive contexts need to feel like controlled tools, not
-          autonomous agents. The per-client toggle and checklist approval model were both
-          responses to this — and both were validated by research participants.
+          AI in a sensitive context has to feel like a tool the practitioner is holding rather than an
+          agent acting on its own. The per-client toggle and the approve-before-execution pattern were both
+          responses to that, and both were the parts people responded to most strongly.
         - >-
-          Reflexive thematic analysis forced me to examine what assumptions I brought to the
-          coding process, not just what the data said. This made the findings more honest and
-          the design rationale more defensible.
+          Reflexive thematic analysis required me to account for what I brought to the data, not only what
+          was in it. That discomfort is the point of the method, and it made the design rationale more
+          defensible.
         - >-
-          The RRI review surfaced risks and trade-offs I would not have found through
-          usability testing alone — particularly around data flows, consent, and AI scope. It
-          should be a standard part of any health-adjacent design process.
+          The RRI review surfaced risks I would never have found through usability testing alone,
+          particularly around data flows and the proper scope of AI. I now consider it a standard part of
+          any health-adjacent design process.
   - component: ProjectCallout
     props:
       variant: insight
-      label: Limitations and future work
+      label: Limits, and what comes next
       body: >-
-        The sample of seven practitioners provided rich qualitative insight but limits
-        generalisability. The low-contact workshop introduced delays and occasional
-        ambiguity. The current output is at the prototype and concept-validation stage;
-        future work would involve building an MVP integrated with real Google or Microsoft
-        APIs, trialling it in practice with a small cohort, and adding quantitative usability
-        measurement alongside the qualitative methods.
+        Seven practitioners gave me rich and detailed insight, but it is a small qualitative sample and I
+        would not claim it generalises. The asynchronous workshop introduced delays and some ambiguity. The
+        output is a validated concept and prototype rather than a shipping product. The natural next steps
+        are to build an MVP against the real Google Workspace and Microsoft Graph APIs, trial it with a
+        small cohort in practice, and measure the effect on practitioner time and wellbeing quantitatively
+        alongside the qualitative work.
   - component: MoreProjects
     props:
       title: More projects
       projects:
         - title: Perro Onboarding & Subscription
           blurb: >-
-            A shorter, value-first onboarding and subscription redesign that reduced
-            drop-offs and lifted conversion — implemented directly in Flutter.
+            A shorter, value-first onboarding and subscription redesign that reduced drop-offs and lifted
+            conversion, implemented directly in Flutter.
           slug: perro-onboarding
           category: UX / Flutter
         - title: Pet Insurance Checkout Redesign
           blurb: >-
-            Redesigning the Review Details stage of the Perfect Pet Insurance quote flow to
-            reduce friction and support confident decision-making.
+            Redesigning the Review Details stage of the Perfect Pet Insurance quote flow to reduce friction
+            and support confident decision-making.
           slug: pet-insurance-checkout
           category: UI/UX
 ---
-
-More detail on the Crafting Counselling Companions project goes here.

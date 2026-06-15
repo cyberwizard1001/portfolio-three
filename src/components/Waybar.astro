@@ -8,10 +8,11 @@ const base = import.meta.env.BASE_URL;
   </div>
   <div class="wb-section">
     <div class="wb-workspaces">
-      <div class="ws-pill" title="Theme: Default">1</div>
-      <div class="ws-pill" title="Theme: Catppuccin Mocha">2</div>
-      <div class="ws-pill active" title="Theme: Gruvbox">3</div>
-      <div class="ws-pill" title="Theme: Dracula">4</div>
+      <div class="ws-pill" data-tooltip="Default">1</div>
+      <div class="ws-pill" data-tooltip="Catppuccin Mocha">2</div>
+      <div class="ws-pill active" data-tooltip="Gruvbox">3</div>
+      <div class="ws-pill" data-tooltip="Dracula">4</div>
+      <div class="ws-pill" data-tooltip="High Contrast">5</div>
     </div>
   </div>
   <div class="wb-section">
@@ -99,6 +100,36 @@ const base = import.meta.env.BASE_URL;
 
   .ws-pill:active {
     transform: scale(0.92);
+  }
+
+  .ws-pill[data-tooltip] {
+    position: relative;
+  }
+
+  .ws-pill[data-tooltip]::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--bg2);
+    border: 1px solid var(--border-hi);
+    color: var(--text);
+    font-size: 11px;
+    font-family: var(--mono);
+    white-space: nowrap;
+    padding: 3px 7px;
+    border-radius: 3px;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.12s, visibility 0.12s;
+    z-index: 200;
+  }
+
+  .ws-pill[data-tooltip]:hover::after {
+    opacity: 1;
+    visibility: visible;
   }
 
   .wb-logo {
@@ -218,7 +249,7 @@ const base = import.meta.env.BASE_URL;
 
     const setTheme = (theme: string) => {
       document.documentElement.setAttribute('data-theme', theme);
-      pills.forEach((p) => p.classList.toggle('active', p.textContent?.trim() === theme));
+      pills.forEach((p) => p.classList.toggle('active', (p.dataset.theme ?? p.textContent?.trim()) === theme));
       localStorage.setItem('theme', theme);
     };
 
@@ -231,17 +262,12 @@ const base = import.meta.env.BASE_URL;
     let savedTheme = localStorage.getItem('theme');
     let savedMode = localStorage.getItem('mode');
 
-    if (savedTheme === '5') {
-      savedTheme = '1';
-      savedMode = 'light';
-    }
-
     if (savedTheme) setTheme(savedTheme);
     setMode(savedMode === 'light' ? 'light' : 'dark');
 
     pills.forEach((pill) => {
       pill.addEventListener('click', () => {
-        setTheme(pill.textContent?.trim() ?? '1');
+        setTheme(pill.dataset.theme ?? pill.textContent?.trim() ?? '1');
       });
     });
 
