@@ -10,6 +10,10 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.0.0"
+    "astro": "^5.0.0",
+    "mimetext": "^3.0.28"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20260617.1"
   }
 }
