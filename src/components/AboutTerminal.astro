@@ -317,7 +317,7 @@ const base = import.meta.env.BASE_URL;
       '99 little bugs in the code, 99 little bugs... take one down, deploy to prod, 127 little bugs in the code.',
       'Tip: have you tried turning it off and on again?',
       'Design tip: if in doubt, add more whitespace.',
-      'Linux tip: arch btw.',
+      'Linux tip: tab completion saves keystrokes.',
     ];
 
     const THEME_NAMES: Record<number, string> = {
@@ -356,9 +356,9 @@ const base = import.meta.env.BASE_URL;
       const theme = document.documentElement.getAttribute('data-theme') || '1';
       const mode = document.documentElement.getAttribute('data-mode') || 'dark';
       return [
-        'nirmal@arch',
+        'nirmal@dev',
         '------------',
-        'OS: Arch Linux btw',
+        'OS: Linux',
         'Shell: zsh',
         'Editor: neovim',
         `Theme: ${THEME_NAMES[parseInt(theme, 10)] || theme} (${mode})`,

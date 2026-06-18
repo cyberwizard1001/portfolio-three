@@ -442,7 +442,7 @@ const moreProjectsSections = outsideSections.filter((s) => s.component === 'More
     const updatePct = (ratio: number) => {
       line = Math.max(1, Math.round(ratio * 240) + 1);
       posEl.textContent = `${line}:1`;
-      pctEl.textContent = ratio <= 0 ? 'Top' : ratio >= 0.98 ? 'Bot' : `${Math.round(ratio * 100)}%`;
+      pctEl.textContent = ratio <= 0 ? 'Top' : `${Math.round(ratio * 100)}%`;
     };
 
     const onScroll = () => {

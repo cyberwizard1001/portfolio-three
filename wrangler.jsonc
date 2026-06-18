@@ -11,5 +11,11 @@
     {
       "name": "SEND_EMAIL"
     }
+  ],
+  "kv_namespaces": [
+    {
+      "binding": "FEEDBACK_RATE_LIMIT",
+      "id": "fd82d11ac36742c2af0b37876b86129c"
+    }
   ]
 }
