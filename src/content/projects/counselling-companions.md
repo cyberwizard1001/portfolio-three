@@ -13,7 +13,7 @@ statusline:
   - label: ux research
   - label: "2025"
   - label: co-design · RRI · trust
-order: 4
+order: 3
 sections:
   - component: ProjectHero
     props:

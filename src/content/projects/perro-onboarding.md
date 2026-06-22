@@ -14,7 +14,7 @@ statusline:
   - label: "2025"
   - label: Dart · Figma
   - label: qual research
-order: 3
+order: 2
 sections:
   - component: ProjectHero
     props:

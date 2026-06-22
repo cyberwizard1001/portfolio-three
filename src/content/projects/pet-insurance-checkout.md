@@ -14,7 +14,7 @@ statusline:
   - label: "2026"
   - label: MudBlazor · FCA
   - label: Hotjar · heuristics
-order: 2
+order: 1
 sections:
   - component: ProjectHero
     props:
