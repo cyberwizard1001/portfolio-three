@@ -8,7 +8,7 @@ const base = import.meta.env.BASE_URL;
     <WindowChrome title="~/about_me — bash">
       <div class="term-body">
         <div class="term-left">
-          <pre class="term-ascii"> _  _ ___ ___ __  __   _   _
+          <pre class="term-ascii" aria-hidden="true"> _  _ ___ ___ __  __   _   _
 | \| |_ _| _ \  \/  | /_\ | |
 | .` || ||   / |\/| |/ _ \| |__
 |_|\_|___|_|_\_|  |_/_/ \_\____|
@@ -17,7 +17,7 @@ const base = import.meta.env.BASE_URL;
 | |/ /  /_\ | _ \_   _| || |_ _| |/ / __\ \ / /_\ | \| |
 | ' &lt;  / _ \|   / | | | __ || || ' &lt;| _| \ V / _ \| .` |
 |_|\_\/_/ \_\_|_\ |_| |_||_|___|_|\_\___| |_/_/ \_\_|\_|</pre>
-          <pre class="term-ascii term-tux">
+          <pre class="term-ascii term-tux" aria-hidden="true">
       .--.
      |o_o |
      |:_/ |
@@ -27,7 +27,7 @@ const base = import.meta.env.BASE_URL;
   \___)=(___/</pre>
         </div>
         <div class="term-right">
-          <div id="term-output-area"></div>
+          <div id="term-output-area" aria-live="polite"></div>
           <div class="term-btns">
             <a href={`${base}Resume.pdf`} target="_blank" rel="noopener" class="term-btn-p">&#8595; View CV</a>
             <a href="https://linkedin.com/in/nirmal-karthikeyan" target="_blank" rel="noopener" class="term-btn-s">LinkedIn &#8599;</a>
@@ -117,7 +117,13 @@ const base = import.meta.env.BASE_URL;
     color: var(--lime);
     caret-color: var(--lime);
     padding: 0;
-    margin: 0;
+    margin-right: 0.75rem;
+  }
+
+  :global(.term-input:focus-visible) {
+    outline: 1px solid var(--lime);
+    outline-offset: 2px;
+    margin-right: 0.75rem;
     min-width: 0;
   }
 
@@ -446,7 +452,7 @@ const base = import.meta.env.BASE_URL;
         if (area) area.innerHTML = '';
         cmdHistory.length = 0;
         historyIdx = -1;
-        if (window.matchMedia('(max-width: 860px)').matches) {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || window.matchMedia('(max-width: 860px)').matches) {
           renderInstant();
         } else {
           runLines(0);
@@ -474,9 +480,10 @@ const base = import.meta.env.BASE_URL;
       input.autocomplete = 'off';
       input.spellcheck = false;
       input.placeholder = 'type a command…';
+      input.setAttribute('aria-label', 'Terminal command input');
       line.appendChild(input);
       area.appendChild(line);
-      input.focus();
+      input.focus({ preventScroll: true });
       scrollToBottom();
 
       input.addEventListener('keydown', (e) => {
@@ -499,20 +506,22 @@ const base = import.meta.env.BASE_URL;
         }
       });
 
-      area.scrollIntoView({ block: 'nearest' });
-      area.parentElement?.addEventListener('click', () => input.focus());
+      area.parentElement?.addEventListener('click', () => input.focus({ preventScroll: true }));
     }
 
     function start() {
       if (started) return;
       started = true;
-      if (window.matchMedia('(max-width: 860px)').matches) {
+      // skip the typing animation for reduced-motion users and on mobile (no room to watch it play out)
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reducedMotion || window.matchMedia('(max-width: 860px)').matches) {
         renderInstant();
       } else {
         runLines(0);
       }
     }
 
+    // don't run the animation until the terminal scrolls into view
     const obs = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting) {

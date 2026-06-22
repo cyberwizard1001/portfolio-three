@@ -1,4 +1,6 @@
 ---
+import { jargonify } from '../../lib/jargon';
+
 interface DecisionItem {
   decision: string;
   rationale: string;
@@ -31,7 +33,7 @@ const outcomeLabels: Record<string, string> = {
         <div class:list={['proj-dlog-card', `proj-dlog-card-${type}`]}>
           <div class="proj-dlog-head">
             <span class="proj-dlog-num">{i + 1}</span>
-            <h3 class="proj-dlog-decision">{d.decision}</h3>
+            <h3 class="proj-dlog-decision" set:html={jargonify(d.decision)} />
             <span class:list={['proj-dlog-chip', `proj-dlog-${type}`]}>{outcomeLabels[type]}</span>
           </div>
           <div class="proj-dlog-body">

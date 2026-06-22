@@ -1,4 +1,6 @@
 ---
+import { jargonify } from '../../lib/jargon';
+
 interface HmwItem {
   question: string;
   theme?: string;
@@ -25,7 +27,7 @@ const { items, title = 'How might we…', intro } = Astro.props;
     {items.map((item) => (
       <div class="proj-hmw-card">
         <span class="proj-hmw-quote-mark">"</span>
-        <p class="proj-hmw-question">{item.question}</p>
+        <p class="proj-hmw-question" set:html={jargonify(item.question)} />
         {item.theme && <span class="proj-hmw-theme">{item.theme}</span>}
       </div>
     ))}

@@ -1,4 +1,6 @@
 ---
+import { jargonify } from '../../lib/jargon';
+
 interface InfoItem {
   label: string;
   value: string;
@@ -24,7 +26,7 @@ const { problemBody, contextBody, infoItems } = Astro.props;
     {infoItems.map((item) => (
       <div class="proj-pki-info-item">
         <span class="proj-pki-info-label">{item.label}</span>
-        <span class="proj-pki-info-value">{item.value}</span>
+        <span class="proj-pki-info-value" set:html={jargonify(item.value)} />
       </div>
     ))}
   </div>

@@ -1,0 +1,33 @@
+---
+interface Props {
+  filename: string;
+  filetype?: string;
+}
+
+const { filename, filetype = 'markdown' } = Astro.props;
+---
+
+<div class="vim-statusline">
+  <span class="vs-mode">NORMAL</span>
+  <span class="vs-chunk vs-file">{filename}</span>
+  <span class="vs-chunk vs-grow">
+    <input class="vs-search" type="text" spellcheck="false" autocomplete="off" />
+  </span>
+  <details class="vs-help">
+    <summary>?</summary>
+    <div class="vs-help-panel">
+      <strong>vim mode</strong>
+      <div><kbd>j</kbd>/<kbd>k</kbd> scroll down/up</div>
+      <div><kbd>gg</kbd> / <kbd>G</kbd> top / bottom</div>
+      <div><kbd>ctrl-d</kbd> / <kbd>ctrl-u</kbd> half page</div>
+      <div><kbd>ctrl-f</kbd> / <kbd>ctrl-b</kbd> full page</div>
+      <div><kbd>i</kbd> / <kbd>v</kbd> / <kbd>esc</kbd> mode</div>
+      <div><kbd>/</kbd> search, <kbd>n</kbd>/<kbd>N</kbd> next/prev</div>
+    </div>
+  </details>
+  <button class="vs-chunk vs-toggle" type="button" aria-pressed="false">vim: off</button>
+  <span class="vs-chunk">utf-8[unix]</span>
+  <span class="vs-chunk">{filetype}</span>
+  <span class="vs-chunk vs-pos">1:1</span>
+  <span class="vs-mode vs-pct">Top</span>
+</div>

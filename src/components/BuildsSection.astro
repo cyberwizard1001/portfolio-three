@@ -1,0 +1,82 @@
+---
+import { getCollection } from 'astro:content';
+import BuildCard from './BuildCard.astro';
+
+const builds = (await getCollection('builds')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<section class="builds-section" id="builds">
+  <div class="builds-container">
+    <div class="builds-header">
+      <span class="builds-label">things_ive_built</span>
+      <span class="builds-count">{String(builds.length).padStart(2, '0')} builds</span>
+    </div>
+
+    <div class="builds-grid">
+      {builds.map((build) => (
+        <BuildCard
+          title={build.data.title}
+          description={build.data.description}
+          link={build.data.link}
+          tags={build.data.tags}
+        />
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .builds-section {
+    padding: 1rem 3rem 5rem;
+    position: relative;
+  }
+
+  .builds-container {
+    max-width: 1320px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .builds-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+  }
+
+  .builds-label {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--dim);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .builds-label::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 1px;
+    background: var(--border-hi);
+  }
+
+  .builds-count {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--dim);
+  }
+
+  .builds-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  @media (max-width: 860px) {
+    .builds-section { padding: 1rem 1.25rem 2rem; }
+    .builds-grid { grid-template-columns: 1fr; }
+  }
+</style>

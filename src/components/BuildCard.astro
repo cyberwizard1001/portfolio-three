@@ -1,0 +1,166 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  link: string;
+  tags?: string[];
+}
+
+const { title, description, link, tags = [] } = Astro.props;
+---
+
+<a class="build-window" href={link} target="_blank" rel="noopener">
+  <div class="bw-bar">
+    <div class="bw-controls">
+      <div class="bwc"></div><div class="bwc"></div><div class="bwc"></div>
+    </div>
+    <span class="bw-title">vim: <span class="fname">{title.toLowerCase().replace(/\s+/g, '-')}</span></span>
+  </div>
+  <div class="bw-content">
+    <h3 class="bw-title-text">{title}</h3>
+    <p class="bw-desc">{description}</p>
+    {tags.length > 0 && (
+      <ul class="bw-tags">
+        {tags.map((tag) => (
+          <li class="bw-tag">{tag}</li>
+        ))}
+      </ul>
+    )}
+  </div>
+  <div class="bw-statusline">
+    <span class="sl-arrow">↗</span>
+  </div>
+</a>
+
+<style>
+  .build-window {
+    background: var(--bg1);
+    border: 1px solid var(--border-hi);
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.18s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .build-window::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1.5px solid transparent;
+    pointer-events: none;
+    transition: border-color 0.18s;
+  }
+
+  .build-window:hover::after { border-color: var(--lime); }
+  .build-window:hover { background: var(--term-hover); }
+
+  .bw-bar {
+    height: 32px;
+    background: var(--term-bg);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    gap: 8px;
+    flex-shrink: 0;
+    transition: background 0.18s;
+  }
+
+  .build-window:hover .bw-bar { background: var(--term-hover2); }
+
+  .bw-controls { display: flex; gap: 5px; }
+
+  .bwc {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    border: 1px solid rgba(245,244,240,0.10);
+    background: rgba(245,244,240,0.04);
+    transition: background 0.18s, border-color 0.18s;
+  }
+
+  .build-window:hover .bwc:nth-child(1) { background: #ff5f57; border-color: #ff5f57; }
+  .build-window:hover .bwc:nth-child(2) { background: #febc2e; border-color: #febc2e; }
+  .build-window:hover .bwc:nth-child(3) { background: #28c840; border-color: #28c840; }
+
+  .bw-title {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--dim);
+    flex: 1;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: color 0.18s;
+  }
+
+  .build-window:hover .bw-title { color: var(--sub); }
+  .bw-title .fname { color: var(--dim); transition: color 0.18s; }
+  .build-window:hover .bw-title .fname { color: var(--text); }
+
+  .bw-content {
+    padding: 1.5rem 1.75rem 1.25rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .bw-title-text {
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    color: var(--text);
+    margin-bottom: 0.6rem;
+  }
+
+  .bw-desc {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--sub);
+    line-height: 1.55;
+    flex: 1;
+    margin-bottom: 0.875rem;
+  }
+
+  .bw-tags {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .bw-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--lime);
+    background: var(--lime-dim);
+    border: 1px solid rgba(158,255,87,0.2);
+    padding: 2px 8px;
+    border-radius: 2px;
+  }
+
+  .bw-statusline {
+    height: 26px;
+    background: var(--term-bg2);
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    flex-shrink: 0;
+  }
+
+  .sl-arrow {
+    color: var(--lime);
+    font-size: 12px;
+    margin-left: auto;
+    transition: transform 0.2s;
+  }
+
+  .build-window:hover .sl-arrow { transform: translate(3px, -3px); }
+</style>

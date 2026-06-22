@@ -56,4 +56,15 @@ const projectTldrs = defineCollection({
   schema: z.object({}).passthrough(),
 });
 
-export const collections = { projects, projectTldrs };
+const builds = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/builds' }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    link: z.string(),
+    tags: z.array(z.string()).optional(),
+    order: z.number().default(0),
+  }),
+});
+
+export const collections = { projects, projectTldrs, builds };

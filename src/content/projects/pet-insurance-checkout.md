@@ -85,7 +85,7 @@ sections:
             cancellation and complaint volume
         - label: Constraints
           value: >-
-            FCA compliance, MudBlazor component framework, legacy platform, 2-week sprint
+            [[fca|FCA]] compliance, MudBlazor component framework, legacy platform, 2-week sprint
   - component: ProjectProcessSteps
     props:
       title: How I approached it
@@ -145,7 +145,7 @@ sections:
       items:
         - title: Pre-existing conditions, not the visuals, was the real problem
           body: >-
-            Every one of the eleven raised pre-existing conditions without prompting, and all of
+            Every one of the eleven raised [[pre-existing condition|pre-existing conditions]] without prompting, and all of
             them identified it as the principal cause of complaints and declined claims. The
             misunderstanding sits in a single place. Customers assume a pre-existing condition means
             something a vet has formally diagnosed, when in practice it also covers symptoms already
@@ -154,9 +154,9 @@ sections:
         - title: The numbers that matter were missing
           body: >-
             Nine of the eleven noted that the figures a customer actually decides on were not on the
-            page at all. The excess did not appear until later in the flow, despite being one of the
+            page at all. The [[excess]] did not appear until later in the flow, despite being one of the
             lowest in the market, which one of the claims handlers described as a selling point we
-            were hiding. The age limits, the way the co-payment works in practice, and the
+            were hiding. The age limits, the way the [[co-payment]] works in practice, and the
             per-condition vet-fee limit were either absent or explained so vaguely that they offered
             little help.
         - title: The lifetime cover headline overpromises
@@ -229,7 +229,7 @@ sections:
             conditions?
           theme: Transparency
         - question: >-
-            How might we put excess, co-payment, and benefit limits in front of users while
+            How might we put excess, co-payment, and [[benefit limit|benefit limits]] in front of users while
             they are still deciding, rather than after they have filed a claim?
           theme: Clarity
         - question: >-
@@ -284,7 +284,7 @@ sections:
             It now appears alongside the cover details, presented as a feature rather than something
             buried in the small print.
           outcomeType: positive
-        - decision: A qualifier was added to the lifetime cover headline
+        - decision: A qualifier was added to the [[lifetime cover]] headline
           rationale: >-
             The unconditional wording creates an expectation the policy cannot always meet, and
             pre-existing exclusions are the single most common reason a claim is declined.

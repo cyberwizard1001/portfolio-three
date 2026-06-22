@@ -1,0 +1,131 @@
+---
+import WindowChrome from './WindowChrome.astro';
+
+const base = import.meta.env.BASE_URL;
+
+const links = [
+  {
+    title: '~/about — whoami',
+    teaser: "Background, what I've worked on, what I'm looking for next.",
+    href: `${base}about`,
+    label: 'About me',
+  },
+  {
+    title: '~/ai — how_i_use_it',
+    teaser: 'Where it speeds me up, where I keep it out of the decision.',
+    href: `${base}ai`,
+    label: 'How I use AI',
+    isNew: true,
+  },
+];
+---
+
+<section class="more-about">
+  <div class="grid-bg more-about-grid-bg"></div>
+  <div class="more-about-grid">
+    {links.map((item) => (
+      <div class="ma-window">
+        <WindowChrome title={item.title}>
+          {item.isNew && (
+            <span slot="actions" class="ma-new-badge">NEW</span>
+          )}
+          <div class="ma-body">
+            <p class="ma-teaser">{item.teaser}</p>
+            <a href={item.href} class="ma-btn">{item.label} →</a>
+          </div>
+        </WindowChrome>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .more-about {
+    padding: 0 3rem 4rem;
+    position: relative;
+  }
+
+  .more-about-grid-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.5;
+  }
+
+  .more-about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    max-width: 1320px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .ma-window :global(.window) {
+    background: var(--bg1);
+  }
+
+  .ma-new-badge {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    padding: 2px 8px;
+    border-radius: 3px;
+    background: var(--lime);
+    color: var(--bg1);
+    margin-right: 8px;
+    animation: ma-new-pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes ma-new-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--lime) 55%, transparent); }
+    50% { box-shadow: 0 0 0 5px color-mix(in srgb, var(--lime) 0%, transparent); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ma-new-badge { animation: none; }
+  }
+
+  .ma-body {
+    padding: 1.5rem 1.75rem;
+  }
+
+  .ma-teaser {
+    font-size: 0.9375rem;
+    color: var(--sub);
+    line-height: 1.6;
+    margin-bottom: 0.85rem;
+  }
+
+  .ma-btn {
+    font-family: var(--mono);
+    font-size: 12px;
+    padding: 4px 14px;
+    border-radius: 2px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--lime-dim);
+    color: var(--lime);
+    border: 1px solid color-mix(in srgb, var(--lime) 25%, transparent);
+    transition: opacity 0.15s;
+  }
+
+  .ma-btn:hover,
+  .ma-btn:focus-visible {
+    opacity: 0.75;
+  }
+
+  @media (max-width: 860px) {
+    .more-about { padding: 0 1.25rem 2rem; }
+    .more-about-grid { grid-template-columns: 1fr; gap: 1.25rem; }
+  }
+
+  @media (max-width: 480px) {
+    .more-about { padding: 0 0.75rem 1.5rem; }
+    .ma-body { padding: 1.25rem 1.25rem; }
+  }
+</style>

@@ -33,6 +33,12 @@ Sections are split into:
 
 If a project has no `sections`, a default minimal set (`ProjectHero`, `ProjectGallery`, `ProjectMeta`) is generated from top-level frontmatter fields.
 
+### Grid background vs. vim window
+
+`grid-bg` (defined in `src/styles/global.css`) marks empty/structural space — page padding, hero areas, CTA strips. Any new prose content (paragraphs, body text) should NOT sit directly on `grid-bg`; it goes inside a `WindowChrome` "vim window" (see `colophon.astro`, `accessibility.astro`, `ai.astro` for the pattern: sticky scroll-jacked window + `vim-statusline` footer). Never apply `grid-bg` to the window or its body — only to the page-level wrapper around it.
+
+`grid-bg` is just a CSS background-image — it does not stop at child element boundaries. `.window` itself has no opaque background (only `.win-bar` does), so if the content slotted into `WindowChrome` is transparent, a `grid-bg` ancestor's grid lines show straight through the window body. This is why every window-body content block in this codebase sets its own `background: var(--bg1)` (e.g. `.colo-window-body` in colophon.astro, `ProjectDecisionLog.astro`, `ProjectFindingsGrid.astro`, and the panel classes in `about.astro`). When adding a new panel/section that lives inside a `WindowChrome`, always give its content wrapper an explicit `background: var(--bg1)` — don't rely on `.window`'s border to visually seal it off.
+
 ### Theming (`src/styles/tokens.css`)
 
 Themes are CSS variable sets selected via `[data-theme="N"]` on `<html>`, persisted to `localStorage` (`theme`, `mode`) and applied via inline script in `Layout.astro` before paint to avoid flash. Themes are numbered 1-5: 1 default, 2 Catppuccin Mocha, 3 Gruvbox, 4 Dracula, 5 High Contrast. Each theme has a dark (default) and light (`[data-mode="light"]`) variant defined in `tokens.css`, grouped together in numeric order.

@@ -14,6 +14,24 @@ body {
   padding-top: var(--bar-h);
 }
 
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0.5rem;
+  z-index: 1000;
+  background: var(--lime);
+  color: var(--lime-contrast, var(--bg0));
+  padding: 0.5rem 1rem;
+  border-radius: 0 0 4px 4px;
+  font-family: var(--mono);
+  font-size: 12px;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  top: var(--bar-h);
+}
+
 /* ═══════════════════════════════════════════════
    GLOBAL GRID BG
 ═══════════════════════════════════════════════ */
@@ -137,7 +155,7 @@ body {
 
 .footer-grid {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
   gap: 32px;
   padding-bottom: 28px;
 }
@@ -233,6 +251,173 @@ body {
   .footer-grid {
     grid-template-columns: 1fr;
   }
+}
+
+/* ═══════════════════════════════════════════════
+   VIM STATUSLINE
+   Shared by every "sticky vim window" page (ai, accessibility,
+   colophon, tokens, project case studies). Markup lives in
+   VimStatusline.astro; scroll/keyboard behaviour in lib/vim-window.ts.
+═══════════════════════════════════════════════ */
+.vim-statusline {
+  height: 26px;
+  background: var(--bg0);
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: stretch;
+  font-family: var(--mono);
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+.vs-mode {
+  background: var(--lime);
+  color: var(--lime-contrast);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+}
+
+.vs-chunk {
+  padding: 0 12px;
+  border-right: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  color: var(--dim);
+  white-space: nowrap;
+}
+
+.vs-file {
+  color: var(--sub);
+  border-right: none;
+}
+
+.vs-grow {
+  flex: 1;
+  border-right: none;
+}
+
+.vs-pos {
+  border-right: none;
+}
+
+.vs-pct {
+  border-right: none;
+  border-left: 1px solid var(--border);
+}
+
+.vs-mode--insert {
+  background: var(--sub);
+}
+
+.vs-mode--visual {
+  background: var(--border-hi);
+}
+
+.vs-search {
+  display: none;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 12px;
+  padding: 0 12px;
+}
+
+.vs-search.is-active {
+  display: block;
+}
+
+.vs-search:focus-visible {
+  outline: 1px solid var(--lime);
+  outline-offset: -2px;
+}
+
+.vs-search--nomatch {
+  background: var(--border-hi);
+}
+
+.vim-window-body .vs-match {
+  background: var(--lime);
+  color: var(--bg0);
+}
+
+.vim-window-body .vs-match--current {
+  outline: 2px solid var(--text);
+  outline-offset: -1px;
+}
+
+.vs-toggle {
+  cursor: pointer;
+  background: none;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--dim);
+}
+
+.vs-toggle[aria-pressed='true'] {
+  color: var(--lime);
+}
+
+.vs-help {
+  display: none;
+  position: relative;
+  border-right: 1px solid var(--border);
+}
+
+.vs-help.is-visible {
+  display: flex;
+  align-items: center;
+}
+
+.vs-help summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 0 12px;
+  color: var(--dim);
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.vs-help summary::-webkit-details-marker {
+  display: none;
+}
+
+.vs-help-panel {
+  position: absolute;
+  bottom: 26px;
+  right: 0;
+  background: var(--bg0);
+  border: 1px solid var(--border);
+  padding: 8px 12px;
+  white-space: nowrap;
+  line-height: 1.6;
+  color: var(--sub);
+  z-index: 10;
+}
+
+.vs-help-panel strong {
+  color: var(--text);
+  display: block;
+  margin-bottom: 4px;
+}
+
+.vs-help-panel kbd {
+  background: var(--bg1);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 0 4px;
+  font-family: var(--mono);
+}
+
+@media (max-width: 860px) {
+  .vim-statusline { display: none; }
 }
 
 /* Smooth theme transitions */

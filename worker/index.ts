@@ -44,7 +44,10 @@ async function handleFeedback(request: Request, env: Env): Promise<Response> {
   const theme = typeof body.theme === "string" ? body.theme.slice(0, 50) : "unknown";
 
   const ip = request.headers.get("CF-Connecting-IP") ?? "unknown";
-  const rateLimitKey = `fb:${ip}:${path}`;
+  // Keyed on IP only, not path: path is client-supplied and an attacker
+  // varying it per request would otherwise get a fresh rate-limit bucket
+  // every time, bypassing the limit entirely.
+  const rateLimitKey = `fb:${ip}`;
 
   const alreadyVoted = await env.FEEDBACK_RATE_LIMIT.get(rateLimitKey);
   if (alreadyVoted) {

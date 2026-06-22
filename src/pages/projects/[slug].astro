@@ -24,6 +24,8 @@ import ProjectImageGalleryGrid from '../../components/project-blocks/ProjectImag
 import ProjectAccessibilityAudit from '../../components/project-blocks/ProjectAccessibilityAudit.astro';
 import MoreProjects from '../../components/project-blocks/MoreProjects.astro';
 import WindowChrome from '../../components/WindowChrome.astro';
+import VimStatusline from '../../components/VimStatusline.astro';
+import '../../styles/jargon.css';
 
 export async function getStaticPaths() {
   const projects = await getCollection('projects');
@@ -76,22 +78,30 @@ const moreProjectsSections = outsideSections.filter((s) => s.component === 'More
 
 <Layout title={`${project.data.title} — Nirmal`}>
   <Waybar />
+  <main id="main-content">
   <div class="proj-page">
     {heroSections.map((section) => {
       const Component = blockComponents[section.component];
       return <Component {...(section.props ?? {})} />;
     })}
-    <div class="proj-window">
+    <div class="proj-window vim-window">
       <WindowChrome title="case-study.md" activeTitle="[+]" icon="UTF-8">
         <Fragment slot="actions">
           {TldrContent && (
-            <button class="win-tldr" type="button" aria-pressed="false">
-              <span class="win-tldr-label">tldr</span>
-              <span class="win-tldr-track"><span class="win-tldr-thumb"></span></span>
-            </button>
+            <div class="tldr-hint-wrap">
+              <button class="win-tldr" type="button" aria-pressed="false">
+                <span class="win-tldr-label">tldr</span>
+                <span class="win-tldr-track"><span class="win-tldr-thumb"></span></span>
+              </button>
+              <div class="tldr-hint" id="tldr-hint" role="status">
+                <span class="tldr-hint-dot">●</span>
+                <span class="tldr-hint-text">too long? flip this for the short version</span>
+                <button class="tldr-hint-close" id="tldr-hint-close" type="button" aria-label="Dismiss hint">×</button>
+              </div>
+            </div>
           )}
         </Fragment>
-        <div class="proj-window-body">
+        <div class="proj-window-body vim-window-body">
           <div class="proj-full">
             {bodySections.map((section) => {
               const Component = blockComponents[section.component];
@@ -109,30 +119,7 @@ const moreProjectsSections = outsideSections.filter((s) => s.component === 'More
             </div>
           )}
         </div>
-        <div class="vim-statusline">
-          <span class="vs-mode">NORMAL</span>
-          <span class="vs-chunk vs-file">case-study.md</span>
-          <span class="vs-chunk vs-grow">
-            <input class="vs-search" type="text" spellcheck="false" autocomplete="off" />
-          </span>
-          <details class="vs-help">
-            <summary>?</summary>
-            <div class="vs-help-panel">
-              <strong>vim mode</strong>
-              <div><kbd>j</kbd>/<kbd>k</kbd> scroll down/up</div>
-              <div><kbd>gg</kbd> / <kbd>G</kbd> top / bottom</div>
-              <div><kbd>ctrl-d</kbd> / <kbd>ctrl-u</kbd> half page</div>
-              <div><kbd>ctrl-f</kbd> / <kbd>ctrl-b</kbd> full page</div>
-              <div><kbd>i</kbd> / <kbd>v</kbd> / <kbd>esc</kbd> mode</div>
-              <div><kbd>/</kbd> search, <kbd>n</kbd>/<kbd>N</kbd> next/prev</div>
-            </div>
-          </details>
-          <button class="vs-chunk vs-toggle" type="button" aria-pressed="false">vim: off</button>
-          <span class="vs-chunk">utf-8[unix]</span>
-          <span class="vs-chunk">markdown</span>
-          <span class="vs-chunk vs-pos">1:1</span>
-          <span class="vs-mode vs-pct">Top</span>
-        </div>
+        <VimStatusline filename="case-study.md" />
       </WindowChrome>
     </div>
     {moreProjectsSections.map((section) => {
@@ -140,6 +127,7 @@ const moreProjectsSections = outsideSections.filter((s) => s.component === 'More
       return <Component {...(section.props ?? {})} />;
     })}
   </div>
+  </main>
   <Footer />
 </Layout>
 
@@ -188,92 +176,8 @@ const moreProjectsSections = outsideSections.filter((s) => s.component === 'More
     }
   }
 
-  .vim-statusline {
-    height: 26px;
-    background: var(--bg0);
-    border-top: 1px solid var(--border);
-    display: flex;
-    align-items: stretch;
-    font-family: var(--mono);
-    font-size: 12px;
-    flex-shrink: 0;
-  }
-
-  .vs-mode {
-    background: var(--lime);
-    color: var(--lime-contrast);
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    padding: 0 12px;
-    display: flex;
-    align-items: center;
-  }
-
-  .vs-chunk {
-    padding: 0 12px;
-    border-right: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    color: var(--dim);
-    white-space: nowrap;
-  }
-
-  .vs-file {
-    color: var(--sub);
-    border-right: none;
-  }
-
-  .vs-grow {
-    flex: 1;
-    border-right: none;
-  }
-
-  .vs-pos {
-    border-right: none;
-  }
-
-  .vs-pct {
-    border-right: none;
-    border-left: 1px solid var(--border);
-  }
-
-  .vs-mode--insert {
-    background: var(--sub);
-  }
-
-  .vs-mode--visual {
-    background: var(--border-hi);
-  }
-
-  .vs-search {
-    display: none;
-    width: 100%;
-    height: 100%;
-    background: transparent;
-    border: none;
-    outline: none;
-    color: var(--text);
-    font-family: var(--mono);
-    font-size: 12px;
-    padding: 0 12px;
-  }
-
-  .vs-search.is-active {
-    display: block;
-  }
-
-  .vs-search--nomatch {
-    background: var(--border-hi);
-  }
-
-  .proj-window-body :global(.vs-match) {
-    background: var(--lime);
-    color: var(--bg0);
-  }
-
-  .proj-window-body :global(.vs-match--current) {
-    outline: 2px solid var(--text);
-    outline-offset: -1px;
+  .tldr-hint-wrap {
+    position: relative;
   }
 
   .win-tldr {
@@ -292,6 +196,83 @@ const moreProjectsSections = outsideSections.filter((s) => s.component === 'More
     color: var(--lime);
     padding: 4px 8px;
     transition: box-shadow 0.15s;
+  }
+
+  .win-tldr.attn {
+    animation: tldr-pulse 1.6s ease-out 2;
+  }
+
+  @keyframes tldr-pulse {
+    0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--lime) 55%, transparent); }
+    100% { box-shadow: 0 0 0 8px color-mix(in srgb, var(--lime) 0%, transparent); }
+  }
+
+  .tldr-hint {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--bg2);
+    border: 1px solid var(--lime);
+    border-radius: 3px;
+    padding: 6px 8px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text);
+    white-space: nowrap;
+    z-index: 150;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-4px);
+    transition: opacity 0.2s, transform 0.2s, visibility 0.2s;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.35);
+  }
+
+  .tldr-hint::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    right: 10px;
+    width: 8px;
+    height: 8px;
+    background: var(--bg2);
+    border-left: 1px solid var(--lime);
+    border-top: 1px solid var(--lime);
+    transform: rotate(45deg);
+  }
+
+  .tldr-hint.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .tldr-hint-dot {
+    color: var(--lime);
+    font-size: 9px;
+  }
+
+  .tldr-hint-close {
+    background: none;
+    border: none;
+    color: var(--dim);
+    font-family: var(--mono);
+    font-size: 13px;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0 0 0 4px;
+  }
+
+  .tldr-hint-close:hover { color: var(--lime); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .win-tldr.attn { animation: none; }
+  }
+
+  @media (max-width: 860px) {
+    .tldr-hint { display: none; }
   }
 
   .win-tldr:hover {
@@ -328,75 +309,10 @@ const moreProjectsSections = outsideSections.filter((s) => s.component === 'More
     transform: translateX(9px);
   }
 
-  .vs-toggle {
-    cursor: pointer;
-    background: none;
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--dim);
-  }
-
-  .vs-toggle[aria-pressed='true'] {
-    color: var(--lime);
-  }
-
-  .vs-help {
-    display: none;
-    position: relative;
-    border-right: 1px solid var(--border);
-  }
-
-  .vs-help.is-visible {
-    display: flex;
-    align-items: center;
-  }
-
-  .vs-help summary {
-    list-style: none;
-    cursor: pointer;
-    padding: 0 12px;
-    color: var(--dim);
-    display: flex;
-    align-items: center;
-    height: 100%;
-  }
-
-  .vs-help summary::-webkit-details-marker {
-    display: none;
-  }
-
-  .vs-help-panel {
-    position: absolute;
-    bottom: 26px;
-    right: 0;
-    background: var(--bg0);
-    border: 1px solid var(--border);
-    padding: 8px 12px;
-    white-space: nowrap;
-    line-height: 1.6;
-    color: var(--sub);
-    z-index: 10;
-  }
-
-  .vs-help-panel strong {
-    color: var(--text);
-    display: block;
-    margin-bottom: 4px;
-  }
-
-  .vs-help-panel kbd {
-    background: var(--bg1);
-    border: 1px solid var(--border);
-    border-radius: 2px;
-    padding: 0 4px;
-    font-family: var(--mono);
-  }
-
   @media (max-width: 860px) {
     .proj-window { padding: 0 1.25rem 2rem; height: auto !important; }
     .proj-window :global(.window) { height: auto; position: static; }
     .proj-window-body { overflow-y: visible; flex: none; }
-    .vim-statusline { display: none; }
   }
 
   @media (max-width: 480px) {
@@ -405,315 +321,99 @@ const moreProjectsSections = outsideSections.filter((s) => s.component === 'More
 </style>
 
 <script>
+  import { initVimWindow } from '../../lib/vim-window';
+  initVimWindow();
+</script>
+
+<script>
   (function () {
-    const posEl = document.querySelector<HTMLElement>('.vs-pos');
-    const pctEl = document.querySelector<HTMLElement>('.vs-pct');
-    const body = document.querySelector<HTMLElement>('.proj-window-body');
-    const wrapper = document.querySelector<HTMLElement>('.proj-window');
-    const windowEl = document.querySelector<HTMLElement>('.proj-window .window');
-    if (!posEl || !pctEl || !body || !wrapper || !windowEl) return;
+    const buttons = document.querySelectorAll<HTMLButtonElement>('.jargon-term');
+    if (buttons.length === 0) return;
 
-    const mobile = () => window.matchMedia('(max-width: 860px)').matches;
-    const STICKY_TOP = 'calc(var(--bar-h) + 1rem)';
+    const isTouch = () => window.matchMedia('(hover: none)').matches;
+    const GAP = 8;
+    const EDGE = 8;
 
-    let maxScroll = 0;
+    let openButton: HTMLButtonElement | null = null;
 
-    const measure = () => {
-      if (mobile()) {
-        wrapper.style.height = '';
-        maxScroll = 0;
+    const tipFor = (button: HTMLButtonElement) => {
+      const id = button.getAttribute('aria-describedby');
+      return id ? document.getElementById(id) : null;
+    };
+
+    const position = (button: HTMLButtonElement, tip: HTMLElement) => {
+      const btnRect = button.getBoundingClientRect();
+      const tipRect = tip.getBoundingClientRect();
+
+      let top = btnRect.top - tipRect.height - GAP;
+      if (top < EDGE) top = btnRect.bottom + GAP;
+
+      let left = btnRect.left + btnRect.width / 2 - tipRect.width / 2;
+      left = Math.max(EDGE, Math.min(left, window.innerWidth - tipRect.width - EDGE));
+
+      tip.style.top = `${top}px`;
+      tip.style.left = `${left}px`;
+    };
+
+    const close = (button: HTMLButtonElement | null) => {
+      if (!button) return;
+      const tip = tipFor(button);
+      button.setAttribute('aria-expanded', 'false');
+      tip?.classList.remove('open');
+      if (tip) {
+        tip.style.top = '-9999px';
+        tip.style.left = '-9999px';
+      }
+      if (openButton === button) openButton = null;
+    };
+
+    const open = (button: HTMLButtonElement) => {
+      const tip = tipFor(button);
+      if (!tip) return;
+      if (openButton && openButton !== button) close(openButton);
+      button.setAttribute('aria-expanded', 'true');
+      tip.classList.add('open');
+      position(button, tip);
+      openButton = button;
+    };
+
+    buttons.forEach((button) => {
+      if (isTouch()) {
+        button.addEventListener('click', (e) => {
+          e.stopPropagation();
+          if (openButton === button) close(button);
+          else open(button);
+        });
         return;
       }
-      maxScroll = Math.max(0, body.scrollHeight - body.clientHeight);
-      const windowHeight = windowEl.getBoundingClientRect().height;
-      wrapper.style.height = `${windowHeight + maxScroll}px`;
-    };
 
-    const stickyTopPx = () => {
-      const probe = document.createElement('div');
-      probe.style.cssText = `position: fixed; visibility: hidden; top: ${STICKY_TOP};`;
-      document.body.appendChild(probe);
-      const top = probe.getBoundingClientRect().top;
-      probe.remove();
-      return top;
-    };
-
-    let line = 1;
-    const updatePct = (ratio: number) => {
-      line = Math.max(1, Math.round(ratio * 240) + 1);
-      posEl.textContent = `${line}:1`;
-      pctEl.textContent = ratio <= 0 ? 'Top' : `${Math.round(ratio * 100)}%`;
-    };
-
-    const onScroll = () => {
-      if (mobile() || maxScroll <= 0) {
-        const ratio = mobile() && body.scrollHeight > body.clientHeight
-          ? body.scrollTop / (body.scrollHeight - body.clientHeight)
-          : 0;
-        updatePct(ratio);
-        return;
-      }
-      const rect = wrapper.getBoundingClientRect();
-      const progress = Math.min(1, Math.max(0, (stickyTopPx() - rect.top) / maxScroll));
-      body.scrollTop = progress * maxScroll;
-      updatePct(progress);
-    };
-
-    measure();
-    onScroll();
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', () => {
-      measure();
-      onScroll();
-    });
-    if (mobile()) body.addEventListener('scroll', onScroll, { passive: true });
-
-    // --- vim mode (opt-in) ---
-    const modeEl = document.querySelector<HTMLElement>('.vs-mode');
-    const toggleEl = document.querySelector<HTMLButtonElement>('.vs-toggle');
-    const helpEl = document.querySelector<HTMLElement>('.vs-help');
-    const searchEl = document.querySelector<HTMLInputElement>('.vs-search');
-    if (!modeEl || !toggleEl || !helpEl || !searchEl) return;
-
-    const STORAGE_KEY = 'vim-mode-enabled';
-    const LINE_PX = 24;
-    let vimEnabled = localStorage.getItem(STORAGE_KEY) === 'true';
-    let mode: 'NORMAL' | 'INSERT' | 'VISUAL' = 'NORMAL';
-    let lastQuery = '';
-    let pendingG = false;
-    let pendingGTimeout: ReturnType<typeof setTimeout> | null = null;
-    let matches: HTMLElement[] = [];
-    let matchIndex = -1;
-
-    const setMode = (next: typeof mode) => {
-      mode = next;
-      modeEl.textContent = mode;
-      modeEl.classList.toggle('vs-mode--insert', mode === 'INSERT');
-      modeEl.classList.toggle('vs-mode--visual', mode === 'VISUAL');
-    };
-
-    const applyVimEnabled = () => {
-      toggleEl.textContent = vimEnabled ? 'vim: on' : 'vim: off';
-      toggleEl.setAttribute('aria-pressed', String(vimEnabled));
-      helpEl.classList.toggle('is-visible', vimEnabled);
-      if (!vimEnabled) {
-        setMode('NORMAL');
-        searchEl.classList.remove('is-active');
-        searchEl.blur();
-        clearMatches();
-      }
-    };
-
-    toggleEl.addEventListener('click', () => {
-      vimEnabled = !vimEnabled;
-      localStorage.setItem(STORAGE_KEY, String(vimEnabled));
-      applyVimEnabled();
-    });
-
-    const scrollToRatio = (ratio: number) => {
-      if (mobile() || maxScroll <= 0) return;
-      const rect = wrapper.getBoundingClientRect();
-      const target = stickyTopPx() - ratio * maxScroll;
-      window.scrollBy(0, rect.top - target);
-    };
-
-    const clearMatches = () => {
-      for (const mark of matches) {
-        const parent = mark.parentNode;
-        if (!parent) continue;
-        parent.replaceChild(document.createTextNode(mark.textContent ?? ''), mark);
-        parent.normalize();
-      }
-      matches = [];
-      matchIndex = -1;
-    };
-
-    applyVimEnabled();
-
-    const buildMatches = (query: string) => {
-      clearMatches();
-      if (!query) return;
-      const needle = query.toLowerCase();
-      const walker = document.createTreeWalker(body!, NodeFilter.SHOW_TEXT, {
-        acceptNode: (node) => {
-          const parentTag = node.parentElement?.tagName;
-          if (parentTag === 'SCRIPT' || parentTag === 'STYLE') return NodeFilter.FILTER_REJECT;
-          return NodeFilter.FILTER_ACCEPT;
-        },
+      button.addEventListener('mouseenter', () => open(button));
+      button.addEventListener('mouseleave', () => {
+        if (document.activeElement !== button) close(button);
       });
+      button.addEventListener('focus', () => open(button));
+      button.addEventListener('blur', () => close(button));
+    });
 
-      const textNodes: Text[] = [];
-      let node: Node | null;
-      while ((node = walker.nextNode())) textNodes.push(node as Text);
-
-      for (const textNode of textNodes) {
-        const text = textNode.textContent ?? '';
-        const lower = text.toLowerCase();
-        let from = 0;
-        let idx = lower.indexOf(needle, from);
-        if (idx === -1) continue;
-
-        const frag = document.createDocumentFragment();
-        while (idx !== -1) {
-          frag.appendChild(document.createTextNode(text.slice(from, idx)));
-          const mark = document.createElement('mark');
-          mark.className = 'vs-match';
-          mark.textContent = text.slice(idx, idx + needle.length);
-          frag.appendChild(mark);
-          matches.push(mark);
-          from = idx + needle.length;
-          idx = lower.indexOf(needle, from);
-        }
-        frag.appendChild(document.createTextNode(text.slice(from)));
-        textNode.parentNode?.replaceChild(frag, textNode);
-      }
-    };
-
-    const goToMatch = (index: number) => {
-      if (matches.length === 0) return;
-      if (matchIndex >= 0) matches[matchIndex].classList.remove('vs-match--current');
-      matchIndex = ((index % matches.length) + matches.length) % matches.length;
-      const matchEl = matches[matchIndex];
-      matchEl.classList.add('vs-match--current');
-
-      if (mobile()) {
-        matchEl.scrollIntoView({ block: 'center' });
-        return;
-      }
-      if (maxScroll <= 0) return;
-
-      const bodyRect = body!.getBoundingClientRect();
-      const matchRect = matchEl.getBoundingClientRect();
-      const targetOffset = body!.scrollTop + (matchRect.top - bodyRect.top);
-      const desiredScrollTop = Math.min(maxScroll, Math.max(0, targetOffset - body!.clientHeight / 3));
-      scrollToRatio(desiredScrollTop / maxScroll);
-    };
-
-    const flashNoMatch = () => {
-      searchEl.classList.add('vs-search--nomatch');
-      setTimeout(() => searchEl.classList.remove('vs-search--nomatch'), 300);
-    };
-
-    const openSearch = () => {
-      setMode('NORMAL');
-      searchEl.classList.add('is-active');
-      searchEl.value = '';
-      searchEl.focus();
-    };
-
-    const closeSearch = () => {
-      searchEl.classList.remove('is-active');
-      searchEl.blur();
-    };
-
-    searchEl.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        lastQuery = searchEl.value;
-        buildMatches(lastQuery);
-        if (matches.length > 0) goToMatch(0);
-        else if (lastQuery) flashNoMatch();
-        closeSearch();
-      } else if (e.key === 'Escape') {
-        closeSearch();
-      }
+    document.addEventListener('click', (e) => {
+      if (!openButton) return;
+      if (e.target instanceof Node && openButton.contains(e.target)) return;
+      close(openButton);
     });
 
     window.addEventListener('keydown', (e) => {
-      if (!vimEnabled || mobile()) return;
-      const target = e.target as HTMLElement;
-      if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable) return;
-      if (e.metaKey || e.altKey) return;
-
-      if (e.key === 'Escape') {
-        setMode('NORMAL');
-        return;
-      }
-      if (e.key === 'i' && !e.ctrlKey) {
-        e.preventDefault();
-        setMode('INSERT');
-        return;
-      }
-      if (e.key === 'v' && !e.ctrlKey) {
-        e.preventDefault();
-        setMode('VISUAL');
-        return;
-      }
-      if (mode !== 'NORMAL') return;
-
-      if (e.ctrlKey) {
-        if (e.key === 'd') { e.preventDefault(); window.scrollBy(0, window.innerHeight / 2); }
-        else if (e.key === 'u') { e.preventDefault(); window.scrollBy(0, -window.innerHeight / 2); }
-        else if (e.key === 'f') { e.preventDefault(); window.scrollBy(0, window.innerHeight); }
-        else if (e.key === 'b') { e.preventDefault(); window.scrollBy(0, -window.innerHeight); }
-        return;
-      }
-
-      switch (e.key) {
-        case 'j':
-        case 'ArrowDown':
-          e.preventDefault();
-          window.scrollBy(0, LINE_PX);
-          break;
-        case 'k':
-        case 'ArrowUp':
-          e.preventDefault();
-          window.scrollBy(0, -LINE_PX);
-          break;
-        case 'g':
-          if (pendingG) {
-            e.preventDefault();
-            scrollToRatio(0);
-            pendingG = false;
-            if (pendingGTimeout) clearTimeout(pendingGTimeout);
-          } else {
-            pendingG = true;
-            pendingGTimeout = setTimeout(() => { pendingG = false; }, 400);
-          }
-          break;
-        case 'G':
-          e.preventDefault();
-          scrollToRatio(1);
-          break;
-        case '/':
-          e.preventDefault();
-          openSearch();
-          break;
-        case 'n':
-          e.preventDefault();
-          goToMatch(matchIndex + 1);
-          break;
-        case 'N':
-          e.preventDefault();
-          goToMatch(matchIndex - 1);
-          break;
-        default:
-          if (e.key !== 'g') pendingG = false;
-      }
+      if (e.key !== 'Escape' || !openButton) return;
+      const button = openButton;
+      close(button);
+      button.focus();
     });
 
-    // --- tldr toggle ---
-    const tldrBtn = document.querySelector<HTMLButtonElement>('.win-tldr');
-    const fullEl = document.querySelector<HTMLElement>('.proj-full');
-    const tldrEl = document.querySelector<HTMLElement>('.proj-tldr');
-    if (tldrBtn && fullEl && tldrEl) {
-      tldrBtn.addEventListener('click', () => {
-        const showingTldr = tldrBtn.getAttribute('aria-pressed') === 'true';
-        const next = !showingTldr;
-        tldrBtn.setAttribute('aria-pressed', String(next));
-        fullEl.hidden = next;
-        tldrEl.hidden = !next;
-        const shown = next ? tldrEl : fullEl;
-        shown.style.animation = 'none';
-        void shown.offsetHeight;
-        shown.style.animation = '';
-        if (vimEnabled) clearMatches();
-        const before = wrapper.getBoundingClientRect().top;
-        measure();
-        const after = wrapper.getBoundingClientRect().top;
-        window.scrollBy(0, after - before);
-        onScroll();
-      });
-    }
+    window.addEventListener(
+      'resize',
+      () => {
+        if (openButton) close(openButton);
+      },
+      { passive: true }
+    );
   })();
 </script>

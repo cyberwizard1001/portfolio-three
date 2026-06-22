@@ -4,13 +4,17 @@ import Waybar from '../components/Waybar.astro';
 import Hero from '../components/Hero.astro';
 import WorkSection from '../components/WorkSection.astro';
 import AboutTerminal from '../components/AboutTerminal.astro';
+import MoreAboutSection from '../components/MoreAboutSection.astro';
 import Footer from '../components/Footer.astro';
 ---
 
 <Layout>
   <Waybar />
-  <Hero />
-  <WorkSection />
-  <AboutTerminal />
+  <main id="main-content">
+    <Hero />
+    <WorkSection />
+    <AboutTerminal />
+    <MoreAboutSection />
+  </main>
   <Footer />
 </Layout>

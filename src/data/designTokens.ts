@@ -1,0 +1,182 @@
+// Literal values mirrored from src/styles/tokens.css for live display on /tokens.
+// If tokens.css changes, update here too — see CLAUDE.md theming section.
+
+export interface TokenRow {
+  name: string;
+  value: string;
+}
+
+export interface ThemeTokens {
+  n: string;
+  name: string;
+  dark: TokenRow[];
+  light: TokenRow[];
+}
+
+export const themeTokens: ThemeTokens[] = [
+  {
+    n: '1',
+    name: 'Default',
+    dark: [
+      { name: 'bg', value: '#0a0a0a' },
+      { name: 'bg0', value: '#050505' },
+      { name: 'bg1', value: '#111111' },
+      { name: 'bg2', value: '#1a1a1a' },
+      { name: 'border', value: 'rgba(245,244,240,0.10)' },
+      { name: 'border-hi', value: 'rgba(245,244,240,0.22)' },
+      { name: 'text', value: '#f0ede6' },
+      { name: 'sub', value: 'rgba(240,237,230,0.70)' },
+      { name: 'dim', value: 'rgba(240,237,230,0.50)' },
+      { name: 'lime', value: '#9eff57' },
+      { name: 'lime-dim', value: 'rgba(158,255,87,0.10)' },
+      { name: 'lime-contrast', value: '#0a0a0a' },
+    ],
+    light: [
+      { name: 'bg', value: '#f5f4f0' },
+      { name: 'bg0', value: '#fbfaf7' },
+      { name: 'bg1', value: '#ffffff' },
+      { name: 'bg2', value: '#e8e6e0' },
+      { name: 'border', value: 'rgba(20,20,20,0.10)' },
+      { name: 'border-hi', value: 'rgba(20,20,20,0.22)' },
+      { name: 'text', value: '#1a1a1a' },
+      { name: 'sub', value: 'rgba(20,20,20,0.65)' },
+      { name: 'dim', value: 'rgba(20,20,20,0.65)' },
+      { name: 'lime', value: '#4d7a00' },
+      { name: 'lime-dim', value: 'rgba(77,122,0,0.10)' },
+      { name: 'lime-contrast', value: '#0a0a0a (inherited)' },
+    ],
+  },
+  {
+    n: '2',
+    name: 'Catppuccin Mocha',
+    dark: [
+      { name: 'bg', value: '#1e1e2e' },
+      { name: 'bg0', value: '#050505 (inherited)' },
+      { name: 'bg1', value: '#181825' },
+      { name: 'bg2', value: '#313244' },
+      { name: 'border', value: 'rgba(180,190,254,0.10)' },
+      { name: 'border-hi', value: 'rgba(180,190,254,0.26)' },
+      { name: 'text', value: '#cdd6f4' },
+      { name: 'sub', value: 'rgba(205,214,244,0.74)' },
+      { name: 'dim', value: 'rgba(205,214,244,0.58)' },
+      { name: 'lime', value: '#cba6f7' },
+      { name: 'lime-dim', value: 'rgba(203,166,247,0.12)' },
+      { name: 'lime-contrast', value: '#0a0a0a (inherited)' },
+    ],
+    light: [
+      { name: 'bg', value: '#eff1f5' },
+      { name: 'bg0', value: '#f5f6fa' },
+      { name: 'bg1', value: '#e6e9ef' },
+      { name: 'bg2', value: '#ccd0da' },
+      { name: 'border', value: 'rgba(76,79,105,0.12)' },
+      { name: 'border-hi', value: 'rgba(76,79,105,0.26)' },
+      { name: 'text', value: '#4c4f69' },
+      { name: 'sub', value: 'rgba(76,79,105,0.74)' },
+      { name: 'dim', value: 'rgba(76,79,105,0.85)' },
+      { name: 'lime', value: '#8839ef' },
+      { name: 'lime-dim', value: 'rgba(136,57,239,0.12)' },
+      { name: 'lime-contrast', value: '#0a0a0a (inherited)' },
+    ],
+  },
+  {
+    n: '3',
+    name: 'Gruvbox',
+    dark: [
+      { name: 'bg', value: '#282828' },
+      { name: 'bg0', value: '#050505 (inherited)' },
+      { name: 'bg1', value: '#1d2021' },
+      { name: 'bg2', value: '#3c3836' },
+      { name: 'border', value: 'rgba(235,219,178,0.10)' },
+      { name: 'border-hi', value: 'rgba(235,219,178,0.24)' },
+      { name: 'text', value: '#ebdbb2' },
+      { name: 'sub', value: 'rgba(235,219,178,0.74)' },
+      { name: 'dim', value: 'rgba(235,219,178,0.58)' },
+      { name: 'lime', value: '#fabd2f' },
+      { name: 'lime-dim', value: 'rgba(250,189,47,0.12)' },
+      { name: 'lime-contrast', value: '#0a0a0a (inherited)' },
+    ],
+    light: [
+      { name: 'bg', value: '#fbf1c7' },
+      { name: 'bg0', value: '#f9f5d7' },
+      { name: 'bg1', value: '#f9f5d7' },
+      { name: 'bg2', value: '#ebdbb2' },
+      { name: 'border', value: 'rgba(60,56,54,0.10)' },
+      { name: 'border-hi', value: 'rgba(60,56,54,0.24)' },
+      { name: 'text', value: '#3c3836' },
+      { name: 'sub', value: 'rgba(80,73,69,0.78)' },
+      { name: 'dim', value: 'rgba(80,73,69,0.85)' },
+      { name: 'lime', value: '#96600f' },
+      { name: 'lime-dim', value: 'rgba(150,96,15,0.12)' },
+      { name: 'lime-contrast', value: '#0a0a0a (inherited)' },
+    ],
+  },
+  {
+    n: '4',
+    name: 'Dracula',
+    dark: [
+      { name: 'bg', value: '#282a36' },
+      { name: 'bg0', value: '#050505 (inherited)' },
+      { name: 'bg1', value: '#1e1f29' },
+      { name: 'bg2', value: '#44475a' },
+      { name: 'border', value: 'rgba(248,248,242,0.10)' },
+      { name: 'border-hi', value: 'rgba(248,248,242,0.22)' },
+      { name: 'text', value: '#f8f8f2' },
+      { name: 'sub', value: 'rgba(248,248,242,0.74)' },
+      { name: 'dim', value: 'rgba(248,248,242,0.50)' },
+      { name: 'lime', value: '#ff79c6' },
+      { name: 'lime-dim', value: 'rgba(255,121,198,0.12)' },
+      { name: 'lime-contrast', value: '#0a0a0a (inherited)' },
+    ],
+    light: [
+      { name: 'bg', value: '#f7f7f7' },
+      { name: 'bg0', value: '#fdfdfd' },
+      { name: 'bg1', value: '#fdfdfd' },
+      { name: 'bg2', value: '#e6e6e6' },
+      { name: 'border', value: 'rgba(33,34,44,0.10)' },
+      { name: 'border-hi', value: 'rgba(33,34,44,0.22)' },
+      { name: 'text', value: '#21222c' },
+      { name: 'sub', value: 'rgba(65,66,79,0.78)' },
+      { name: 'dim', value: 'rgba(65,66,79,0.78)' },
+      { name: 'lime', value: '#a3144d' },
+      { name: 'lime-dim', value: 'rgba(163,20,77,0.10)' },
+      { name: 'lime-contrast', value: '#0a0a0a (inherited)' },
+    ],
+  },
+  {
+    n: '5',
+    name: 'High Contrast',
+    dark: [
+      { name: 'bg', value: '#000000' },
+      { name: 'bg0', value: '#050505 (inherited)' },
+      { name: 'bg1', value: '#0a0a0a' },
+      { name: 'bg2', value: '#161616' },
+      { name: 'border', value: 'rgba(255,255,255,0.25)' },
+      { name: 'border-hi', value: 'rgba(255,255,255,0.5)' },
+      { name: 'text', value: '#ffffff' },
+      { name: 'sub', value: 'rgba(255,255,255,0.85)' },
+      { name: 'dim', value: 'rgba(255,255,255,0.70)' },
+      { name: 'lime', value: '#ffff00' },
+      { name: 'lime-dim', value: 'rgba(255,255,0,0.15)' },
+      { name: 'lime-contrast', value: '#0a0a0a (inherited)' },
+    ],
+    light: [
+      { name: 'bg', value: '#ffffff' },
+      { name: 'bg0', value: '#ffffff' },
+      { name: 'bg1', value: '#ffffff' },
+      { name: 'bg2', value: '#e0e0e0' },
+      { name: 'border', value: 'rgba(0,0,0,0.25)' },
+      { name: 'border-hi', value: 'rgba(0,0,0,0.5)' },
+      { name: 'text', value: '#000000' },
+      { name: 'sub', value: 'rgba(0,0,0,0.85)' },
+      { name: 'dim', value: 'rgba(0,0,0,0.70)' },
+      { name: 'lime', value: '#0000ee' },
+      { name: 'lime-dim', value: 'rgba(0,0,238,0.12)' },
+      { name: 'lime-contrast', value: '#ffffff' },
+    ],
+  },
+];
+
+export const fontTokens: TokenRow[] = [
+  { name: 'mono', value: "'JetBrains Mono', 'Fira Code', monospace" },
+  { name: 'sans', value: "'Space Grotesk', -apple-system, sans-serif" },
+];

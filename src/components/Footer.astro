@@ -25,6 +25,8 @@ const projects = [
           <nav class="footer-col" aria-label="Navigate">
             <h4>// navigate</h4>
             <a href={base}>Home</a>
+            <a href={`${base}about`}>About</a>
+            <a href={`${base}ai`}>How I use AI</a>
             <a href={`${base}contact`}>Contact</a>
           </nav>
 
@@ -35,11 +37,18 @@ const projects = [
             ))}
           </nav>
 
+          <nav class="footer-col" aria-label="Website">
+            <h4>// website</h4>
+            <a href={`${base}colophon`}>Site documentation</a>
+            <a href={`${base}tokens`}>Token reference</a>
+            <a href={`${base}accessibility`}>Accessibility</a>
+          </nav>
+
           <nav class="footer-col" aria-label="Elsewhere">
             <h4>// elsewhere</h4>
             <a href="https://linkedin.com/in/nirmal-karthikeyan" target="_blank" rel="noopener">LinkedIn</a>
             <a href="https://medium.com/@nirmalkarthikeyan" target="_blank" rel="noopener">Medium</a>
-            <a href={`${base}cv.pdf`} target="_blank" rel="noopener">CV</a>
+            <a href={`${base}Resume.pdf`} target="_blank" rel="noopener">CV</a>
             <a href="mailto:nirmalkarthikeyan1503@gmail.com">Email</a>
           </nav>
         </div>

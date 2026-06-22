@@ -8,11 +8,11 @@ const base = import.meta.env.BASE_URL;
   </div>
   <div class="wb-section">
     <div class="wb-workspaces">
-      <div class="ws-pill" data-tooltip="Default">1</div>
-      <div class="ws-pill" data-tooltip="Catppuccin Mocha">2</div>
-      <div class="ws-pill active" data-tooltip="Gruvbox">3</div>
-      <div class="ws-pill" data-tooltip="Dracula">4</div>
-      <div class="ws-pill" data-tooltip="High Contrast">5</div>
+      <button type="button" class="ws-pill" data-tooltip="Default" aria-label="Switch to Default theme" aria-pressed="false">1</button>
+      <button type="button" class="ws-pill" data-tooltip="Catppuccin Mocha" aria-label="Switch to Catppuccin Mocha theme" aria-pressed="false">2</button>
+      <button type="button" class="ws-pill active" data-tooltip="Gruvbox" aria-label="Switch to Gruvbox theme" aria-pressed="true">3</button>
+      <button type="button" class="ws-pill" data-tooltip="Dracula" aria-label="Switch to Dracula theme" aria-pressed="false">4</button>
+      <button type="button" class="ws-pill" data-tooltip="High Contrast" aria-label="Switch to High Contrast theme" aria-pressed="false">5</button>
     </div>
     <div class="theme-hint" id="theme-hint" role="status">
       <span class="theme-hint-dot">●</span>
@@ -44,7 +44,7 @@ const base = import.meta.env.BASE_URL;
     <div class="wb-sep wb-hide-sm"></div>
     <span class="wb-clock" id="clock">--:--</span>
     <div class="wb-sep"></div>
-    <div class="mode-toggle" id="mode-toggle" title="Toggle light/dark mode">☾</div>
+    <button type="button" class="mode-toggle" id="mode-toggle" aria-label="Switch to light mode">☾</button>
   </div>
 </header>
 
@@ -151,8 +151,10 @@ const base = import.meta.env.BASE_URL;
     font-size: 12px;
     width: 26px;
     height: 22px;
+    padding: 0;
     border-radius: 3px;
     border: 1px solid var(--border-hi);
+    background: transparent;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -325,6 +327,7 @@ const base = import.meta.env.BASE_URL;
     font-size: 12px;
     width: 22px;
     height: 22px;
+    padding: 0;
     border-radius: 3px;
     border: 1px solid var(--lime);
     background: color-mix(in srgb, var(--lime) 14%, transparent);
@@ -374,13 +377,17 @@ const base = import.meta.env.BASE_URL;
 
 <script>
   (function () {
-    const FEEDBACK_WINDOW_MS = 60 * 60 * 1000; // matches worker's rate-limit window
     const container = document.getElementById('wb-feedback');
     const label = document.getElementById('fb-label');
     const buttons = document.querySelectorAll<HTMLButtonElement>('.fb-btn');
     if (!container || !label || buttons.length === 0) return;
 
-    const storageKey = `feedbackSentAt:${location.pathname}`;
+    // sitewide (not per-path) so the limit applies across every page in the session.
+    // This is UX only (avoids a flash of enabled buttons / a wasted round trip) —
+    // sessionStorage is trivially editable via devtools, so it is NOT the security
+    // boundary. The real limit (1 vote per IP per hour, sitewide) is enforced
+    // server-side in worker/index.ts and cannot be bypassed from the client.
+    const storageKey = 'feedbackSentThisSession';
 
     const showSent = (rating: string) => {
       container.classList.add('sent');
@@ -393,12 +400,11 @@ const base = import.meta.env.BASE_URL;
 
     const showLimited = () => {
       container.classList.add('limited');
-      label.textContent = 'already shared feedback here';
+      label.textContent = 'already shared feedback this session';
       buttons.forEach((b) => (b.disabled = true));
     };
 
-    const lastSent = Number(localStorage.getItem(storageKey) ?? 0);
-    if (lastSent && Date.now() - lastSent < FEEDBACK_WINDOW_MS) {
+    if (sessionStorage.getItem(storageKey)) {
       showLimited();
       return;
     }
@@ -407,7 +413,7 @@ const base = import.meta.env.BASE_URL;
       button.addEventListener('click', () => {
         const rating = button.dataset.rating ?? 'okay';
         showSent(rating);
-        localStorage.setItem(storageKey, String(Date.now()));
+        sessionStorage.setItem(storageKey, String(Date.now()));
 
         fetch('/api/feedback', {
           method: 'POST',
@@ -450,13 +456,20 @@ const base = import.meta.env.BASE_URL;
 
     const setTheme = (theme: string) => {
       document.documentElement.setAttribute('data-theme', theme);
-      pills.forEach((p) => p.classList.toggle('active', (p.dataset.theme ?? p.textContent?.trim()) === theme));
+      pills.forEach((p) => {
+        const isActive = (p.dataset.theme ?? p.textContent?.trim()) === theme;
+        p.classList.toggle('active', isActive);
+        p.setAttribute('aria-pressed', String(isActive));
+      });
       localStorage.setItem('theme', theme);
     };
 
     const setMode = (mode: string) => {
       document.documentElement.setAttribute('data-mode', mode);
-      if (modeToggle) modeToggle.textContent = mode === 'light' ? '☀' : '☾';
+      if (modeToggle) {
+        modeToggle.textContent = mode === 'light' ? '☀' : '☾';
+        modeToggle.setAttribute('aria-label', mode === 'light' ? 'Switch to dark mode' : 'Switch to light mode');
+      }
       localStorage.setItem('mode', mode);
     };
 

@@ -1,4 +1,6 @@
 ---
+import { jargonify } from '../../lib/jargon';
+
 interface FindingItem {
   title: string;
   body: string;
@@ -18,7 +20,7 @@ const { title, items } = Astro.props;
     {items.map((item) => (
       <div class="proj-findings-card">
         <h3 class="proj-findings-card-title">{item.title}</h3>
-        <p class="proj-findings-card-body">{item.body}</p>
+        <p class="proj-findings-card-body" set:html={jargonify(item.body)} />
       </div>
     ))}
   </div>
