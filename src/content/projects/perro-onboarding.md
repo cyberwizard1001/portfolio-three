@@ -4,8 +4,8 @@ filename: perro-onboarding.md
 mode: NORMAL
 type: UX / Flutter
 year: "2025"
-image: /images/perro/cover.jpg
-imageAlt: Perro onboarding and home screens, framed and rotated
+image: /images/perro/hero.svg
+imageAlt: A long cluttered before-path of six onboarding steps, against a short direct after-path of two steps to a lime home icon
 oneliner: Users were dropping off before they reached anything useful. I redesigned the flow and built it in Flutter, from research through to production.
 statusline:
   - label: NORMAL
@@ -14,7 +14,7 @@ statusline:
   - label: "2025"
   - label: Dart · Figma
   - label: qual research
-order: 2
+order: 3
 sections:
   - component: ProjectHero
     props:
@@ -23,8 +23,8 @@ sections:
       year: "2025"
   - component: ProjectGallery
     props:
-      image: /images/perro/hero.jpg
-      imageAlt: Onboarding was where most people quietly left, before they had seen what Perro could do for them
+      image: /images/perro/hero.svg
+      imageAlt: A long cluttered before-path of six onboarding steps, against a short direct after-path of two steps to a lime home icon
   - component: ProjectMeta
     props:
       statusline:

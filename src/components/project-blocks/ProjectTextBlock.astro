@@ -16,7 +16,9 @@ const { heading, body } = Astro.props;
 <style>
   .proj-text {
     padding: 0 3rem 3rem;
-    max-width: 720px;
+    width: 90%;
+    max-width: none;
+    margin: 0 auto;
   }
 
   .proj-text-heading {
@@ -37,5 +39,143 @@ const { heading, body } = Astro.props;
 
   @media (max-width: 860px) {
     .proj-text { padding: 0 1.25rem 2rem; }
+  }
+
+  /* Prose styling for markdown rendered via <Content /> in the default slot */
+  .proj-text :global(h1) {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    color: var(--text);
+    margin: 0 0 1rem;
+  }
+
+  .proj-text :global(h2) {
+    font-size: clamp(1.375rem, 3vw, 1.75rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    color: var(--text);
+    margin: 2.5rem 0 1rem;
+  }
+
+  .proj-text :global(h3) {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 2rem 0 0.75rem;
+  }
+
+  .proj-text :global(p) {
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--sub);
+    line-height: 1.75;
+    margin: 0 0 1.25rem;
+  }
+
+  .proj-text :global(em) {
+    color: var(--text);
+    font-style: italic;
+  }
+
+  .proj-text :global(strong) {
+    color: var(--text);
+    font-weight: 700;
+  }
+
+  .proj-text :global(a) {
+    color: var(--lime);
+    text-decoration: underline;
+    text-decoration-color: rgba(158,255,87,0.35);
+    text-underline-offset: 2px;
+  }
+
+  .proj-text :global(a:hover) {
+    text-decoration-color: var(--lime);
+  }
+
+  .proj-text :global(code) {
+    font-family: var(--mono);
+    font-size: 0.85em;
+    background: var(--lime-dim);
+    color: var(--lime);
+    padding: 0.1em 0.4em;
+    border-radius: 3px;
+  }
+
+  .proj-text :global(blockquote) {
+    border-left: 2px solid var(--lime);
+    margin: 1.5rem 0;
+    padding: 0.25rem 0 0.25rem 1.25rem;
+    color: var(--text);
+    font-style: italic;
+  }
+
+  .proj-text :global(hr) {
+    border: none;
+    border-top: 1px solid var(--border-hi);
+    margin: 2rem 0;
+  }
+
+  .proj-text :global(img) {
+    width: 100%;
+    display: block;
+    border: 1px solid var(--border-hi);
+    border-radius: 6px;
+    margin: 0.5rem 0 1.25rem;
+  }
+
+  .proj-text :global(.meta-card) {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 0;
+    margin: 1.5rem 0 2rem;
+    border: 1px solid var(--border-hi);
+    border-radius: 8px;
+    background: var(--bg2);
+    overflow: hidden;
+  }
+
+  .proj-text :global(.meta-card > div) {
+    display: contents;
+  }
+
+  .proj-text :global(.meta-card dt) {
+    padding: 0.85rem 1rem;
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--lime);
+    border-top: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+    background: var(--lime-dim);
+  }
+
+  .proj-text :global(.meta-card dd) {
+    padding: 0.85rem 1.25rem;
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--sub);
+    line-height: 1.55;
+    border-top: 1px solid var(--border);
+  }
+
+  .proj-text :global(.meta-card > div:first-child dt),
+  .proj-text :global(.meta-card > div:first-child dd) {
+    border-top: none;
+  }
+
+  @media (max-width: 600px) {
+    .proj-text :global(.meta-card) {
+      grid-template-columns: 1fr;
+    }
+    .proj-text :global(.meta-card dt) {
+      border-right: none;
+    }
   }
 </style>

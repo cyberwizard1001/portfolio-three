@@ -14,9 +14,10 @@ interface Props {
   title: string;
   oneliner: string;
   statusline: StatuslineChunk[];
+  isNew?: boolean;
 }
 
-const { href, filename, image, imageAlt, type, year, title, oneliner, statusline } = Astro.props;
+const { href, filename, image, imageAlt, type, year, title, oneliner, statusline, isNew } = Astro.props;
 const base = import.meta.env.BASE_URL;
 ---
 
@@ -26,6 +27,7 @@ const base = import.meta.env.BASE_URL;
       <div class="pwc"></div><div class="pwc"></div><div class="pwc"></div>
     </div>
     <span class="pw-title">vim: <span class="fname">{filename}</span></span>
+    {isNew && <span class="pw-new-badge">NEW</span>}
   </div>
   <div class="pw-image">
     <img src={`${base}${image.replace(/^\//, '')}`} alt={imageAlt} class="pw-img-el" />
@@ -118,6 +120,28 @@ const base = import.meta.env.BASE_URL;
 
   .pw-title .fname { color: var(--dim); transition: color 0.18s; }
   .proj-window:hover .pw-title .fname { color: var(--text); }
+
+  .pw-new-badge {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    padding: 2px 7px;
+    border-radius: 3px;
+    background: var(--lime);
+    color: var(--bg1);
+    flex-shrink: 0;
+    animation: pw-new-pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pw-new-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--lime) 55%, transparent); }
+    50% { box-shadow: 0 0 0 5px color-mix(in srgb, var(--lime) 0%, transparent); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pw-new-badge { animation: none; }
+  }
 
   .pw-image {
     height: 210px;

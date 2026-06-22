@@ -4,8 +4,8 @@ filename: counselling-companions.md
 mode: NORMAL
 type: UX Research
 year: "2025"
-image: /images/counselling/counselling_cover.jpg
-imageAlt: Practitioner AI settings and the home dashboard from the final Figma prototype, framed and rotated
+image: /images/counselling/hero.svg
+imageAlt: Two donut charts showing session time shifting from mostly admin to mostly client practice
 oneliner: Mental health practitioners in solo and small practices spend 15 to 20 minutes of every 40-minute session on administration. My MSc dissertation explored what a tool built specifically for counselling work, rather than borrowed from elsewhere, could give back.
 statusline:
   - label: NORMAL
@@ -13,7 +13,7 @@ statusline:
   - label: ux research
   - label: "2025"
   - label: co-design · RRI · trust
-order: 3
+order: 4
 sections:
   - component: ProjectHero
     props:
@@ -22,8 +22,8 @@ sections:
       year: "2025"
   - component: ProjectGallery
     props:
-      image: /images/counselling/counselling_hero.jpg
-      imageAlt: Mental health practitioners carry both the clinical and the administrative weight of their practice. This project asked what a purpose-built tool could lift.
+      image: /images/counselling/hero.svg
+      imageAlt: Two donut charts showing session time shifting from mostly admin to mostly client practice
   - component: ProjectMeta
     props:
       statusline:

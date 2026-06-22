@@ -74,6 +74,8 @@ const outsideSections = sections.filter((s) => s.component === 'ProjectHero' || 
 const bodySections = sections.filter((s) => s.component !== 'ProjectHero' && s.component !== 'MoreProjects');
 const heroSections = outsideSections.filter((s) => s.component === 'ProjectHero');
 const moreProjectsSections = outsideSections.filter((s) => s.component === 'MoreProjects');
+
+const caseStudyFilename = `crafting-${project.id}.md`;
 ---
 
 <Layout title={`${project.data.title} — Nirmal`}>
@@ -85,7 +87,7 @@ const moreProjectsSections = outsideSections.filter((s) => s.component === 'More
       return <Component {...(section.props ?? {})} />;
     })}
     <div class="proj-window vim-window">
-      <WindowChrome title="case-study.md" activeTitle="[+]" icon="UTF-8">
+      <WindowChrome title={caseStudyFilename} activeTitle="[+]" icon="UTF-8">
         <Fragment slot="actions">
           {TldrContent && (
             <div class="tldr-hint-wrap">
@@ -107,7 +109,7 @@ const moreProjectsSections = outsideSections.filter((s) => s.component === 'More
               const Component = blockComponents[section.component];
               return <Component {...(section.props ?? {})} />;
             })}
-            <ProjectTextBlock heading="about_this_project">
+            <ProjectTextBlock>
               <Content />
             </ProjectTextBlock>
           </div>
@@ -119,7 +121,7 @@ const moreProjectsSections = outsideSections.filter((s) => s.component === 'More
             </div>
           )}
         </div>
-        <VimStatusline filename="case-study.md" />
+        <VimStatusline filename={caseStudyFilename} />
       </WindowChrome>
     </div>
     {moreProjectsSections.map((section) => {

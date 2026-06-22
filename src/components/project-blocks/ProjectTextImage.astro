@@ -6,20 +6,22 @@ interface Props {
   image: string;
   imageAlt: string;
   reverse?: boolean;
+  raw?: boolean;
 }
 
-const { eyebrow, title, body, image, imageAlt, reverse = false } = Astro.props;
+const { eyebrow, title, body, image, imageAlt, reverse = false, raw = false } = Astro.props;
 const base = import.meta.env.BASE_URL;
+const src = raw ? image : `${base}${image.replace(/^\//, '')}`;
 ---
 
 <section class:list={['proj-ti', { 'proj-ti-reverse': reverse }]}>
   <div class="proj-ti-text">
     <span class="proj-ti-eyebrow">{eyebrow}</span>
     <h2 class="proj-ti-title">{title}</h2>
-    <p class="proj-ti-body">{body}</p>
+    <p class="proj-ti-body" set:html={body} />
   </div>
   <div class="proj-ti-image">
-    <img src={`${base}${image.replace(/^\//, '')}`} alt={imageAlt} />
+    <img src={src} alt={imageAlt} />
   </div>
 </section>
 
@@ -63,6 +65,17 @@ const base = import.meta.env.BASE_URL;
     font-weight: 500;
     color: var(--sub);
     line-height: 1.7;
+  }
+
+  .proj-ti-body :global(a) {
+    color: var(--lime);
+    text-decoration: underline;
+    text-decoration-color: rgba(158,255,87,0.35);
+    text-underline-offset: 2px;
+  }
+
+  .proj-ti-body :global(a:hover) {
+    text-decoration-color: var(--lime);
   }
 
   .proj-ti-image img {

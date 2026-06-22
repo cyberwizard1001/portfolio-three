@@ -4,8 +4,8 @@ filename: checkout-redesign.md
 mode: NORMAL
 type: UI / UX
 year: "2026"
-image: /images/pet-insurance/cover.jpg
-imageAlt: Perfect Pet quote review page, framed and rotated
+image: /images/pet-insurance/hero.svg
+imageAlt: A confidence gauge moving from anxious to confident, beside a terminal checklist of what the redesigned review page made clear
 oneliner: People insuring a pet are committing real money to something they care about, and they want to feel understood before they hand it over. I redesigned the review page so it does a better job of showing them they are.
 statusline:
   - label: NORMAL
@@ -14,7 +14,7 @@ statusline:
   - label: "2026"
   - label: MudBlazor · FCA
   - label: Hotjar · heuristics
-order: 1
+order: 2
 sections:
   - component: ProjectHero
     props:
@@ -23,8 +23,8 @@ sections:
       year: "2026"
   - component: ProjectGallery
     props:
-      image: /images/pet-insurance/hero.jpg
-      imageAlt: The Review Details page — where most users were quietly giving up
+      image: /images/pet-insurance/hero.svg
+      imageAlt: A confidence gauge moving from anxious to confident, beside a terminal checklist of what the redesigned review page made clear
   - component: ProjectMeta
     props:
       statusline:
