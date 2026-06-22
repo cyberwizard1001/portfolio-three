@@ -5,17 +5,18 @@ const base = import.meta.env.BASE_URL;
 
 const links = [
   {
-    title: '~/about — whoami',
-    teaser: "Background, what I've worked on, what I'm looking for next.",
-    href: `${base}about`,
-    label: 'About me',
-  },
-  {
     title: '~/ai — how_i_use_it',
     teaser: 'Where it speeds me up, where I keep it out of the decision.',
     href: `${base}ai`,
     label: 'How I use AI',
     isNew: true,
+    diff: { remove: 'an agent acting on its own', add: 'a tool held in your hand' },
+  },
+  {
+    title: '~/about — whoami',
+    teaser: "Background, what I've worked on, what I'm looking for next.",
+    href: `${base}about`,
+    label: 'About me',
   },
 ];
 ---
@@ -31,6 +32,12 @@ const links = [
           )}
           <div class="ma-body">
             <p class="ma-teaser">{item.teaser}</p>
+            {item.diff && (
+              <p class="ma-diff">
+                <span class="ma-diff-remove">- {item.diff.remove}</span>
+                <span class="ma-diff-add">+ {item.diff.add}</span>
+              </p>
+            )}
             <a href={item.href} class="ma-btn">{item.label} →</a>
           </div>
         </WindowChrome>
@@ -54,7 +61,7 @@ const links = [
 
   .more-about-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1.15fr 0.85fr;
     gap: 1.5rem;
     max-width: 1320px;
     margin: 0 auto;
@@ -99,6 +106,25 @@ const links = [
     margin-bottom: 0.85rem;
   }
 
+  .ma-diff {
+    font-family: var(--mono);
+    font-size: 13px;
+    line-height: 1.7;
+    margin: 0 0 1rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .ma-diff-remove {
+    color: var(--dim);
+    text-decoration: line-through;
+    opacity: 0.7;
+  }
+
+  .ma-diff-add {
+    color: var(--lime);
+  }
+
   .ma-btn {
     font-family: var(--mono);
     font-size: 12px;
@@ -127,5 +153,6 @@ const links = [
   @media (max-width: 480px) {
     .more-about { padding: 0 0.75rem 1.5rem; }
     .ma-body { padding: 1.25rem 1.25rem; }
+    .ma-diff { font-size: 12px; }
   }
 </style>
