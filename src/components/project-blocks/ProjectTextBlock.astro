@@ -8,17 +8,61 @@ const { heading, body } = Astro.props;
 ---
 
 <section class="proj-text">
-  {heading && <h2 class="proj-text-heading">{heading}</h2>}
-  {body && <p class="proj-text-body">{body}</p>}
-  <slot />
+  <div class="proj-text-col">
+    {heading && <h2 class="proj-text-heading">{heading}</h2>}
+    {body && <p class="proj-text-body">{body}</p>}
+    <slot />
+  </div>
 </section>
 
 <style>
   .proj-text {
     padding: 0 3rem 3rem;
-    width: 90%;
-    max-width: none;
-    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Prose lines are capped to ~80% width to match the ProjectTextImage
+     widgets' full (text+image) row width, not the page edge. Components
+     themselves (e.g. <ProjectTextImage>, rendered as direct-child
+     <section>s from markdown) are left full-width. */
+  .proj-text-col > :global(h1),
+  .proj-text-col > :global(h2),
+  .proj-text-col > :global(h3),
+  .proj-text-col > :global(p),
+  .proj-text-col > :global(ul),
+  .proj-text-col > :global(ol),
+  .proj-text-col > :global(blockquote),
+  .proj-text-col > :global(.meta-card) {
+    max-width: 80%;
+  }
+
+  /* ProjectTextImage/ProjectImageCarousel carry their own 3rem side
+     padding for use as full-bleed page sections. Nested here inside
+     .proj-text's own 3rem padding, that double-indents their left edge
+     vs. prose — cancel just the left side so content lines up, leaving
+     the right edge (and overall width) untouched. */
+  .proj-text-col > :global(section.proj-ti),
+  .proj-text-col > :global(section.proj-car) {
+    margin-left: -3rem;
+  }
+
+  @media (max-width: 860px) {
+    .proj-text-col > :global(section.proj-ti),
+    .proj-text-col > :global(section.proj-car) {
+      margin-left: -1.25rem;
+    }
+
+    .proj-text-col > :global(h1),
+    .proj-text-col > :global(h2),
+    .proj-text-col > :global(h3),
+    .proj-text-col > :global(p),
+    .proj-text-col > :global(ul),
+    .proj-text-col > :global(ol),
+    .proj-text-col > :global(blockquote),
+    .proj-text-col > :global(.meta-card) {
+      max-width: none;
+    }
   }
 
   .proj-text-heading {

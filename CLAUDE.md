@@ -11,6 +11,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 No test suite or linter is configured.
 
+## Visual debugging
+
+Don't reach for Playwright, headless Chrome, or other browser automation to inspect layout/spacing issues when the user has already provided a screenshot or a clear description of the visual problem. Diagnose from the code (CSS box model, margins/padding, component structure) and the provided image/description first. Only fall back to a real browser if the code-level analysis can't explain what's shown.
+
 ## Architecture
 
 This is an Astro 5 portfolio site styled as a desktop OS / window-manager UI (waybar, window chrome, vim-style statusline). Deployed to GitHub Pages under base path `/portfolio-three/` (see `astro.config.mjs`); `site`/`base` must stay in sync with the GH Pages repo name.
@@ -46,3 +50,11 @@ Themes are CSS variable sets selected via `[data-theme="N"]` on `<html>`, persis
 ### WindowChrome (`src/components/WindowChrome.astro`)
 
 Shared "window" wrapper (title bar + body) used for the project case-study window. Has a named `actions` slot in the title bar (used by the TLDR toggle) and a default slot for body content.
+
+### Project-block layout gotchas (eyebrow/title/image grids)
+
+Several `project-blocks` components (`ProjectTextImage`, `ProjectImageCarousel`) use a 2-column grid with an `eyebrow` label, a title/body text block, and an image/carousel panel, with a `reverse` prop swapping columns. Two recurring bugs:
+
+- **Eyebrow + title spacing**: keep the eyebrow `<span>` *inside* the same wrapper div as the title (margin-controlled spacing), not as a sibling grid row. If eyebrow is a separate grid row, any `row-gap` on the grid (e.g. the mobile single-column breakpoint) inserts a full row-gap between the eyebrow and title, not just the small label gap you want.
+- **Text/image vertical misalignment with `reverse`**: when the text block and image/carousel swap `grid-column` between normal and `reverse` variants, give both items an explicit `grid-row: 1` (don't leave it to auto-placement). Without it, the shorter item can end up bottom-anchored instead of top-anchored within the row, even with `align-items: start` on the grid container.
+- **Caption + pagination dots double-margin**: when an image panel has both a caption and a dots/counter row underneath, put them in one flex row (`justify-content: space-between`) inside the same padded panel — don't stack them as separate siblings each with their own top margin, which compounds into a visually oversized gap.
