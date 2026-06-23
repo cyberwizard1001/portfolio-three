@@ -1,5 +1,5 @@
 ---
-title: The Portfolio About the Portfolios
+title: The Portfolio Project on Portfolios
 filename: portfolio-meta.md
 mode: NORMAL
 type: Reflection
@@ -18,7 +18,7 @@ order: 4
 sections:
   - component: ProjectHero
     props:
-      title: The Portfolio About the Portfolios
+      title: The Portfolio Project on Portfolios
       type: Reflection
       year: "2026"
   - component: ProjectGallery
@@ -59,6 +59,7 @@ sections:
 
 import ProjectTextImage from '../../components/project-blocks/ProjectTextImage.astro';
 import ProjectImageGalleryGrid from '../../components/project-blocks/ProjectImageGalleryGrid.astro';
+import ProjectImageCarousel from '../../components/project-blocks/ProjectImageCarousel.astro';
 import v1Hero from './portfolio-meta-assets/v1-hero.png';
 import v1Works from './portfolio-meta-assets/v1-works.png';
 import v2Hero from './portfolio-meta-assets/v2-hero.png';
@@ -76,7 +77,7 @@ import v5About from './portfolio-meta-assets/v5-about.png';
 import v5Projects from './portfolio-meta-assets/v5-projects-section.png';
 import v5Contact from './portfolio-meta-assets/v5-contact-crop.png';
 
-# The portfolio about the portfolios
+# The Portfolio Project on Portfolios
 
 *A little secret about me and portfolios: this is my seventh iteration. Every year or so I redesign this site, and every time I get most of the way there before I start arguing with myself about whether any of it is right.*
 
@@ -89,7 +90,7 @@ import v5Contact from './portfolio-meta-assets/v5-contact-crop.png';
 
 ---
 
-## Why this page exists
+## ...why?
 
 Most of the displayed work on this site points outwards, at problems faced by others. Pet insurance buyers needed reassuring, Perro users needed a quicker and more meaningful onboarding experience, mental health practitioners were lacking a single system to manage their workflows. This one is about me, as the portfolio itself has turned out to be the longest-running and most stubborn design problem so far, and I figured I might as well be honest about it.
 
@@ -107,7 +108,7 @@ What I've learnt through all of this is that neither the maximalist or the minim
 
 <ProjectTextImage
   eyebrow="V1"
-  title="the loud one"
+  title="The Loud One"
   body={`This is where it started, and you can tell I had no fear yet (or understand accessibility - at this point in time, I'm a final year CS student, not a full-time designer). The name fills the entire screen, half of it solid and half of it outlined, sitting on a dark slate background with a coral accent and a little diamond chevron asking you to scroll. "Designer, developer and cooking enthusiast", which is at least honest about who was making it. There's a confidence here that I sort of miss, the confidence of someone who hasn't started worrying about what anyone thinks yet.`}
   image={v1Hero.src}
   imageAlt="V1 hero with an enormous outlined NIRMAL KARTHIKEYAN wordmark in muted purple on a dark slate background"
@@ -115,8 +116,8 @@ What I've learnt through all of this is that neither the maximalist or the minim
 />
 
 <ProjectTextImage
-  eyebrow="V1"
-  title="the works section"
+  eyebrow=""
+  title=""
   body={`The works section carried the same idea, an oversized ghosted heading behind the actual content, projects with Visit and Check on GitHub links. It was placeholder-heavy and a bit raw, but the personality was all there. If I'm being fair to my younger self, the instinct was good. It just hadn't been tested against anything yet, and I hadn't put in work into writing case studies.`}
   image={v1Works.src}
   imageAlt="V1 works section with a giant grey WORKS heading and lorem ipsum project blocks"
@@ -124,14 +125,12 @@ What I've learnt through all of this is that neither the maximalist or the minim
   reverse
 />
 
-## V2 — the tidy correction
-
-Then the doubt showed up at the door for the first time, and you can watch it happen between V1 and V2. Everything got quiet and orderly. Too quiet and orderly. Light background, neat rules between sections, a calm "Me." and "Works." structure, toggles for Code and Designs, a tidy little socials block at the bottom. "I design and develop clean, easy to understand digital experiences for mobile and web," which reads like someone reassuring an interviewer rather than introducing themselves.
-
-This was the first time I traded the loud version for the safe version, and on its own merits it's a perfectly nice site. The problem is that I made it nice by sanding off most of what made V1 mine. I'd swung from "too much" all the way to "tasteful and forgettable" without stopping anywhere in the middle, which is a move I'd go on to repeat a couple times.
-
-<ProjectImageGalleryGrid
+<ProjectImageCarousel
+  eyebrow="V2"
+  title="The One With a Pacifier"
+  body={`Then the doubt showed up at the door for the first time, and you can watch it happen between V1 and V2. Everything got quiet and orderly. Too quiet and orderly. Light background, neat rules between sections, a calm "Me." and "Works." structure, toggles for Code and Designs, a tidy little socials block at the bottom. "I design and develop clean, easy to understand digital experiences for mobile and web," which reads like someone reassuring an interviewer rather than introducing themselves.<br /><br />This was the first time I traded the loud version for the safe version, and on its own merits it's a perfectly nice site. The problem is that I made it nice by sanding off most of what made V1 mine. I'd swung from "too much" all the way to "tasteful and forgettable" without stopping anywhere in the middle, which is a move I'd go on to repeat a couple times.`}
   raw
+  reverse
   images={[
     { src: v2Hero.src, alt: 'V2 light-mode hero with the nirmal karthikeyan wordmark, a Works link, and LinkedIn and GitHub buttons' },
     { src: v2Me.src, alt: 'V2 Me. section with a portrait photo and tag bubbles for designs, technical, blogs, books, music, random and youtube' },
@@ -140,13 +139,10 @@ This was the first time I traded the loud version for the safe version, and on i
   ]}
 />
 
-## V3 — the maximalist swing back
-
-V3 is the pendulum swinging the other way, hard. Back to dark, but this time with ambition. Enormous ghosted section headings, an outlined card aesthetic, a little 3D figure with a speech bubble, a side rail of section labels, a "continuously scrolling text, random facts, could be a tech news API" idea that I clearly thought was very clever. There's a contact form, a flower illustration, the works.
-
-This is the maximalist version of the fear, where I decided the tidy site was too forgettable and overcorrected into making something expressive enough to prove I had taste. A lot of it I still like. Some of it is me showing off. If I'm being honest to myself, V2 and V3 are the same anxiety solved two opposite ways, and you can almost date each redesign by which worry was winning that month.
-
-<ProjectImageGalleryGrid
+<ProjectImageCarousel
+  eyebrow="V3"
+  title="The Maximalist Swing Back"
+  body={`V3 is the pendulum swinging the other way, hard. Back to dark, but this time with ambition. Enormous ghosted section headings (which, if you think about it, is just V1 headings, slightly more refined), an outlined card aesthetic, a little 3D figure with a speech bubble, a side rail of section labels, a "continuously scrolling text, random facts, could be a tech news API" idea that I clearly thought was very clever. There's a contact form, a flower illustration, the works.<br /><br />This is the maximalist version of the fear, where I decided the tidy site was too forgettable and overcorrected into making something expressive enough to prove I had taste. A lot of it I still like. Some of it is me showing off. If I'm being honest to myself, V2 and V3 are the same anxiety solved two opposite ways, and you can almost date each redesign by which worry was winning that month.`}
   raw
   images={[
     { src: v3Hero.src, alt: 'V3 dark-mode hero with a glassy ghosted DESIGNER DEVELOPER card, a 3D abstract flower shape, an nk logo, and a vertical ABOUT/PROJECTS/CONTACT rail' },
@@ -158,7 +154,7 @@ This is the maximalist version of the fear, where I decided the tidy site was to
 
 <ProjectTextImage
   eyebrow="V4"
-  title="the editorial minimalist"
+  title="Editorial Minimalism"
   body={`By V4 I'd calmed down and gone properly minimal, but in a more considered way than V2. Black and white with a single red square doing all the accent work, an editorial serif, a vintage streetlamp illustration, monochrome device mockups, and vertical text down the side reading "Quirky solutions for unusual problems." "Seeking to build better experiences for everyone." This was me trying to look like a grown-up, still in uni, still figuring out career paths and goals.`}
   image={v4Landing.src}
   imageAlt="V4 landing with a streetlamp illustration, a red square, monochrome device mockups and the line Seeking to build better experiences for everyone"
@@ -166,8 +162,8 @@ This is the maximalist version of the fear, where I decided the tidy site was to
 />
 
 <ProjectTextImage
-  eyebrow="V4"
-  title="the about page"
+  eyebrow=""
+  title=""
   body={`The about page is the bit I'm fondest of, partly because of the line tucked at the bottom: "I have to say this. It's really difficult to write about oneself. Also, I like fonts." Which is the most accurate thing on the entire site and the whole reason this meta page exists. V4 is the first time the minimalism felt like a choice rather than a retreat, even if I did still start questioning myself in a fortnight.`}
   image={v4About.src}
   imageAlt="V4 about page in the same monochrome editorial style with sections for descriptor, experience and academia"
@@ -175,11 +171,10 @@ This is the maximalist version of the fear, where I decided the tidy site was to
   reverse
 />
 
-## V5 — the one that actually shipped, in Flutter
-
-V5 is the one that became a real, live, deployed site at [cyberwizard1001.github.io](https://cyberwizard1001.github.io), and it's the most resolved of the lot up to this point. We've graduated with Master's in HCI and just landed a full-time design job. "Weaving dreams into digital realities," a confident dark layout, colourful rounded project cards showing actual app work, a proper about section, a grid of skills, and a big friendly "Let's talk!" at the bottom. It pulls the minimalist discipline of V4 and the personality of the earlier ones into something that mostly holds together. This is roughly where I stopped fighting myself long enough to put a flag in the ground, and it's the first of the two sites I built in Flutter.
-
-<ProjectImageGalleryGrid
+<ProjectImageCarousel
+  eyebrow="V5"
+  title="The One That Was Built"
+  body={`V5 is the one that became a (partly) real, live, deployed site at <a href="https://cyberwizard1001.github.io">cyberwizard1001.github.io</a>, and it's the most resolved of the lot up to this point. We've graduated with Master's in HCI and just landed a full-time design job. "Weaving dreams into digital realities," a confident dark layout, colourful rounded project cards showing actual app work, a proper about section, a grid of skills, and a big friendly "Let's talk!" at the bottom. It pulls the minimalist discipline of V4 and the personality of the earlier ones into something that mostly holds together. This is roughly where I stopped fighting myself long enough to put a flag in the ground, and it's the first of the two sites I built in Flutter.`}
   raw
   images={[
     { src: v5Projects.src, alt: 'V5 projects section showing the Crtly mobile app and Tansto web design project cards' },
@@ -189,7 +184,7 @@ V5 is the one that became a real, live, deployed site at [cyberwizard1001.github
   ]}
 />
 
-## portfolio_two — the design I'm still using, built the hard way
+## V6 - Maturity
 
 This one is special, because if you look at the current site and squint, you're basically looking at this. The second Flutter build, live at [cyberwizard1001.github.io/portfolio_two](https://cyberwizard1001.github.io/portfolio_two), is from a April 2026, and when I finally found my identity. A dark layout on a faint dotted grid, a small "Nirmal" wordmark in monospace, "Observing people, Crafting experiences" as the headline with "insight-led user experiences" sitting under it in soft purple, and the honest description, "A UX designer who builds." After five attempts I'd finally found something that felt like me and didn't make me flinch a fortnight later, which is the closest I've come to winning the argument with myself (but as you might've noticed, didn't last very long).
 
@@ -199,7 +194,7 @@ The About section is the part I'm fondest of and the part that gives the whole t
 
 So this was the one I was happiest with. It was also the one that finally broke my patience with the tooling, because the footer says it plainly: designed and built in Flutter. Which brings me to the part of the story I'd warn anyone else away from when they're working on portfolios.
 
-## The Flutter web detour, and why I'd warn you off it
+## The Flutter Web Rant
 
 I want to be clear that I love Flutter. You'll see loads of Flutter projects on my Github profile, dating back to 2021. As a way to build apps it's genuinely a pleasure, and the fact that I can design something and then go and build the real thing myself is a big part of how I work and something I'd never give up. So none of what follows is me bad-mouthing the framework and is instead me being annoyed, as someone who likes it, that the web ecosystem has been lagging behind for years and shows it the moment you try to ship a website with it.
 
@@ -207,9 +202,9 @@ The trouble is that Flutter on the web doesn't render a normal web page. It pain
 
 So after two Flutter sites and a lot of workarounds I didn't enjoy maintaining, I made the least exciting and most sensible decision of the whole saga, switching to HTML.
 
-## The current one — plain HTML, on purpose
+## V7 - More Me, More HTML
 
-The version live now at [nirmalkarthikeyan.com](https://nirmalkarthikeyan.com) is, give or take, a very Linux desktop themed portfolio_two design rebuilt from scratch using Astro and good ol' HTML and CSS, lightened up and stripped of unnecessary bloat. No canvas, no fighting browsers or decades of human-internet interaction experience. Everything... just works.
+The version live now at [nirmalkarthikeyan.com](https://nirmalkarthikeyan.com) is, give or take, a very Linux desktop themed V6 design rebuilt from scratch using Astro and good ol' HTML and CSS, lightened up and stripped of unnecessary bloat. No canvas, no fighting browsers or decades of human-internet interaction experience. Everything... just works.
 
 Going back to basics felt almost embarrassingly freeing after years of working around a renderer. There's a lesson buried in that which I keep relearning across all of this, that the fanciest tool isn't the one that serves the work, it's the one that gets out of the way. The same is true of the design. The current site resonates with me, but this time I think it's working because it is showcasing content while still representing me and my journey into UX.
 
