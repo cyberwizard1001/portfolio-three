@@ -13,6 +13,7 @@ const projects = defineCollection({
     imageAlt: z.string(),
     oneliner: z.string(),
     isNew: z.boolean().optional(),
+    hidden: z.boolean().optional(),
     statusline: z.array(
       z.object({
         label: z.string(),
