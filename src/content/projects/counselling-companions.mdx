@@ -46,23 +46,22 @@ sections:
         evaluation, a think-aloud session, and a Responsible Research and Innovation review.
   - component: ProjectProblemKeyInfo
     props:
+      image: /images/counselling/admin-breakdown.svg
+      imageAlt: >-
+        An hour with a client broken into prep, the 40-minute session, notes, and
+        billing/follow-up — 20 of the 60 minutes go to admin
       problemBody: >-
         Most counsellors and therapists work in solo or small practices, without the IT and
-        administrative support that larger institutions take for granted. To run their day they
-        rely on a mix of familiar, general-purpose tools: email for formal contact, WhatsApp for
-        quick check-ins, Zoom or Google Meet for sessions, a calendar for bookings, a spreadsheet
-        or notebook for records, and Google Drive for the worksheets they share with clients. Each
-        tool does its job well enough on its own, but they were never designed to work together, so
-        a single client's information ends up spread across several places and practitioners spend
-        real time reassembling the full picture. One person I interviewed put the cost in plain
-        terms. For every 40-minute session, 15 to 20 minutes goes on administration.
+        administrative support larger institutions take for granted. They rely on a mix of
+        familiar, general-purpose tools — email, WhatsApp, Zoom or Meet, a calendar, a spreadsheet
+        or notebook, Google Drive — each fine on its own but never designed to work together, so a
+        client's information ends up spread across several places. One interviewee put the cost
+        plainly: for every 40-minute session, 15 to 20 minutes goes on administration.
       contextBody: >-
         I wanted to find out whether a tool built specifically for counselling management could
-        return some of that time, while protecting the human relationship the whole profession
-        rests on. For that reason I deliberately set aside the crowded and ethically complex space
-        of patient-facing apps and chatbots, and focused on the practitioner's back office instead.
-        Scheduling, notes, resources, and billing are rarely designed for with much care, yet this
-        is where a great deal of the profession's burnout risk quietly accumulates.
+        return some of that time, while protecting the relationship the profession rests on. I set
+        aside the crowded, ethically complex space of patient-facing apps and chatbots, and focused
+        on the practitioner's back office instead — where a lot of burnout risk quietly accumulates.
       infoItems:
         - label: Research question
           value: >-
@@ -136,46 +135,72 @@ sections:
             researchers, and support staff, and worked through where sensitive data would flow,
             where consent sat, and what role AI should and should not play. That review went on to
             change the design.
+  - component: ProjectImageGalleryGrid
+    props:
+      title: The co-design workshop, run by post
+      images:
+        - src: /images/counselling/codesign_activity_physical.jpg
+          alt: >-
+            A participant working through the email activity, annotated with sticky notes from the
+            posted toolkit
+        - src: /images/counselling/workshop_calendar_booking.jpg
+          alt: >-
+            Google Calendar set up as a bookable appointment schedule, configured by a participant
+        - src: /images/counselling/codesign_sheets_physical.jpg
+          alt: >-
+            The session-tracker activity with handwritten participant feedback on the printed screen
+        - src: /images/counselling/workshop_sheets.jpg
+          alt: Session-history sheet — client records, payment status, and a session log
+        - src: /images/counselling/workshop_drive.jpg
+          alt: >-
+            Google Drive standing in as the resource library — worksheets, reading, and client folders
+        - src: /images/counselling/codesign_calendar_physical.jpg
+          alt: A participant's note on one of the printed activity sheets
+  - component: ProjectCallout
+    props:
+      variant: insight
+      label: On the co-design format
+      body: >-
+        Four of the six practitioners invited to the workshop returned photographs of their
+        annotated activity sheets, and two preferred to talk it through with me on a call. Running
+        it asynchronously by post proved effective. Several fitted the activities into breaks in
+        their day, and many asked to be kept informed of the project afterwards. The real cost was
+        time. Responses came back one to two weeks later than planned, and there was some confusion
+        about what each activity was asking for. A short live briefing at the start would have
+        resolved most of that.
   - component: ProjectFindingsGrid
     props:
       title: Seven themes from the interviews
       items:
         - title: Poorly integrated tools
           body: >-
-            Practitioners move between Zoom, WhatsApp, Google Meet, email, and calendar apps
-            depending on what each client is comfortable with. The flexibility protects the
-            relationship, but it leaves records fragmented and keeps practitioners switching
-            context throughout the day.
+            Practitioners move between Zoom, WhatsApp, email, and calendar apps depending on what
+            each client prefers. The flexibility protects the relationship, but records end up
+            fragmented and practitioners keep switching context.
         - title: Documentation by hand
           body: >-
-            Many still take notes on paper during sessions, not out of preference but because
-            typing in front of a client breaks eye contact. The trade-off is that those notes are
-            then very hard to search later, and digitising them becomes a task in itself.
+            Many still take notes on paper, not by preference but because typing in front of a
+            client breaks eye contact. The trade-off: those notes are hard to search later.
         - title: Progress and goal tracking
           body: >-
-            Therapy is built around goals, yet tracking against them tends to be informal and
-            conversational. Practitioners were open to something more structured, provided it
-            stayed light and did not reduce the relationship to a set of metrics.
+            Therapy is built around goals, but tracking against them stays informal and
+            conversational. Practitioners were open to more structure, provided it stayed light.
         - title: Care versus admin
           body: >-
-            Administration takes 15 to 20 minutes out of a 40-minute session once preparation,
-            notes, scheduling, billing, and follow-up are counted. That time comes directly out of
-            care.
+            Admin eats 15 to 20 minutes of a 40-minute session once prep, notes, scheduling,
+            billing, and follow-up are counted — time that comes directly out of care.
         - title: Resources everywhere and nowhere
           body: >-
-            Everyone curates worksheets, articles, and videos for clients, but these live across
-            Drive folders, email attachments, and bookmarks, often duplicated, and rarely anywhere
-            they can be found at the moment they are needed.
+            Everyone curates worksheets and articles for clients, but they live across Drive
+            folders, email attachments, and bookmarks — duplicated, and rarely findable when needed.
         - title: Every setting is different
           body: >-
-            School counselling, private practice, and institutional work involve genuinely
-            different workflows, and even different ways of speaking to clients. One-size-fits-all
-            software keeps failing because it cannot bend to that variation.
+            School, private practice, and institutional work involve genuinely different workflows.
+            One-size-fits-all software keeps failing because it can't bend to that variation.
         - title: Ethics and the human connection
           body: >-
-            There was real concern here, from a fear of AI replacing human therapists, to sensitive
-            data being misused commercially, to over-automation gradually stripping the humanity out
-            of care.
+            Real concern here — from AI replacing human therapists, to sensitive data being misused
+            commercially, to over-automation stripping the humanity out of care.
   - component: ProjectQuote
     props:
       quote: >-
@@ -186,6 +211,8 @@ sections:
   - component: ProjectPersona
     props:
       eyebrow: Composite persona, synthesised from the interviews rather than a single participant
+      avatarImage: /images/counselling/persona-solo.svg
+      avatarImageAlt: Solo-practice icon — a single desk and chair
       name: The solo private-practice counsellor
       role: Independent counsellor running their own small practice, comfortable with everyday tech, sceptical of anything that depersonalises the work
       quote: >-
@@ -213,6 +240,8 @@ sections:
   - component: ProjectPersona
     props:
       eyebrow: Composite persona, synthesised from the interviews rather than a single participant
+      avatarImage: /images/counselling/persona-institution.svg
+      avatarImageAlt: Institutional-practice icon — three linked desks
       name: The institution-based practitioner
       role: Works inside a school, academic, or counselling-institution setting, often alongside others, follows the AI debate closely
       quote: >-
@@ -319,39 +348,6 @@ sections:
             A cross-screen overlay for multi-step spoken instructions. It interprets what was said
             as discrete, editable checklist items and runs only those the practitioner explicitly
             approves.
-  - component: ProjectImageGalleryGrid
-    props:
-      title: The co-design workshop, run by post
-      images:
-        - src: /images/counselling/codesign_activity_physical.jpg
-          alt: >-
-            A participant working through the email activity, annotated with sticky notes from the
-            posted toolkit
-        - src: /images/counselling/workshop_calendar_booking.jpg
-          alt: >-
-            Google Calendar set up as a bookable appointment schedule, configured by a participant
-        - src: /images/counselling/codesign_sheets_physical.jpg
-          alt: >-
-            The session-tracker activity with handwritten participant feedback on the printed screen
-        - src: /images/counselling/workshop_sheets.jpg
-          alt: Session-history sheet — client records, payment status, and a session log
-        - src: /images/counselling/workshop_drive.jpg
-          alt: >-
-            Google Drive standing in as the resource library — worksheets, reading, and client folders
-        - src: /images/counselling/codesign_calendar_physical.jpg
-          alt: A participant's note on one of the printed activity sheets
-  - component: ProjectCallout
-    props:
-      variant: insight
-      label: On the co-design format
-      body: >-
-        Four of the six practitioners invited to the workshop returned photographs of their
-        annotated activity sheets, and two preferred to talk it through with me on a call. Running
-        it asynchronously by post proved effective. Several fitted the activities into breaks in
-        their day, and many asked to be kept informed of the project afterwards. The real cost was
-        time. Responses came back one to two weeks later than planned, and there was some confusion
-        about what each activity was asking for. A short live briefing at the start would have
-        resolved most of that.
   - component: ProjectTextImage
     props:
       eyebrow: The final prototype

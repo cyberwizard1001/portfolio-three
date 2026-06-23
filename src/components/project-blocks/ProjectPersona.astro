@@ -8,6 +8,8 @@ interface Props {
   eyebrow?: string;
   context?: string;
   contextTags?: string[];
+  avatarImage?: string;
+  avatarImageAlt?: string;
 }
 
 const {
@@ -19,8 +21,12 @@ const {
   eyebrow = 'User persona',
   context,
   contextTags = [],
+  avatarImage,
+  avatarImageAlt,
 } = Astro.props;
 
+const base = import.meta.env.BASE_URL;
+const avatarSrc = avatarImage ? `${base}${avatarImage.replace(/^\//, '')}` : undefined;
 const initial = name.length > 0 ? name[0].toUpperCase() : '?';
 const cleanQuote = quote.trim().replace(/^["“]+/, '').replace(/["”]+$/, '');
 ---
@@ -30,7 +36,11 @@ const cleanQuote = quote.trim().replace(/^["“]+/, '').replace(/["”]+$/, '');
 
   <div class="proj-persona-card">
     <aside class="proj-persona-side">
-      <div class="proj-persona-avatar">{initial}</div>
+      <div class="proj-persona-avatar">
+        {avatarSrc
+          ? <img src={avatarSrc} alt={avatarImageAlt ?? ''} loading="lazy" />
+          : initial}
+      </div>
       <h3 class="proj-persona-name">{name}</h3>
       <span class="proj-persona-role">{role}</span>
 
@@ -129,6 +139,13 @@ const cleanQuote = quote.trim().replace(/^["“]+/, '').replace(/["”]+$/, '');
     font-weight: 600;
     font-family: var(--mono);
     margin-bottom: 1.25rem;
+    overflow: hidden;
+  }
+
+  .proj-persona-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
   .proj-persona-name {

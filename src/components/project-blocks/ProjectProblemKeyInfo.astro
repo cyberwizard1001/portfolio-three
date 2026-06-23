@@ -10,9 +10,13 @@ interface Props {
   problemBody: string;
   contextBody: string;
   infoItems: InfoItem[];
+  image?: string;
+  imageAlt?: string;
 }
 
-const { problemBody, contextBody, infoItems } = Astro.props;
+const { problemBody, contextBody, infoItems, image, imageAlt } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const imageSrc = image ? `${base}${image.replace(/^\//, '')}` : undefined;
 ---
 
 <section class="proj-pki">
@@ -21,14 +25,19 @@ const { problemBody, contextBody, infoItems } = Astro.props;
     <p class="proj-pki-body">{problemBody}</p>
     <span class="proj-pki-label proj-pki-label-context">Brief</span>
     <p class="proj-pki-context">{contextBody}</p>
+    {imageSrc && (
+      <img class="proj-pki-image" src={imageSrc} alt={imageAlt ?? ''} loading="lazy" />
+    )}
   </div>
-  <div class="proj-pki-panel">
-    {infoItems.map((item) => (
-      <div class="proj-pki-info-item">
-        <span class="proj-pki-info-label">{item.label}</span>
-        <span class="proj-pki-info-value" set:html={jargonify(item.value)} />
-      </div>
-    ))}
+  <div class="proj-pki-side">
+    <div class="proj-pki-panel">
+      {infoItems.map((item) => (
+        <div class="proj-pki-info-item">
+          <span class="proj-pki-info-label">{item.label}</span>
+          <span class="proj-pki-info-value" set:html={jargonify(item.value)} />
+        </div>
+      ))}
+    </div>
   </div>
 </section>
 
@@ -70,12 +79,23 @@ const { problemBody, contextBody, infoItems } = Astro.props;
     max-width: 62ch;
   }
 
+  .proj-pki-image {
+    display: block;
+    width: 100%;
+    margin-top: 1.75rem;
+    border: 1px solid var(--border-hi);
+    border-radius: 6px;
+  }
+
+  .proj-pki-side {
+    align-self: start;
+  }
+
   .proj-pki-panel {
     border: 1px solid var(--border-hi);
     border-radius: 6px;
     padding: 1.5rem;
     background: var(--bg1);
-    align-self: start;
   }
 
   .proj-pki-info-item {
