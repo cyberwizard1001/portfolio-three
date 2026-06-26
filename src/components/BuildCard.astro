@@ -8,6 +8,7 @@ interface Props {
 }
 
 const { title, description, link, tags = [], heroImage } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <a class="build-window" href={link} target="_blank" rel="noopener">
@@ -19,7 +20,7 @@ const { title, description, link, tags = [], heroImage } = Astro.props;
   </div>
   {heroImage && (
     <div class="bw-hero">
-      <img src={heroImage} alt={`${title} preview`} class="bw-hero-img" loading="lazy"/>
+      <img src={heroImage?.startsWith('/') ? `${base}${heroImage}` : heroImage} alt={`${title} preview`} class="bw-hero-img" loading="lazy"/>
     </div>
   )}
   <div class="bw-content">
