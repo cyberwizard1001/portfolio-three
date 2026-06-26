@@ -117,6 +117,7 @@ import WindowChrome from './WindowChrome.astro';
   }
 
   .hm-row dd {
+    font-family: var(--mono);
     font-size: 0.875rem;
     color: var(--sub);
     margin: 0;
@@ -164,6 +165,7 @@ import WindowChrome from './WindowChrome.astro';
   .hero-prompt .ps1 { color: var(--dim); }
 
   .hero-h1 {
+    font-family: var(--mono);
     font-size: clamp(3.5rem, 8vw, 7.5rem);
     font-weight: 700;
     letter-spacing: -0.045em;
@@ -202,8 +204,9 @@ import WindowChrome from './WindowChrome.astro';
   }
 
   .hs-text {
-    font-size: 0.9375rem;
-    color: var(--sub);
+    font-family: var(--mono);
+    font-size: 0.875rem;
+    color: color-mix(in srgb, var(--text) 85%, transparent);
     line-height: 1.65;
     max-width: 380px;
   }
@@ -235,6 +238,7 @@ import WindowChrome from './WindowChrome.astro';
     align-items: center;
     gap: 0.4rem;
     margin-top: 1rem;
+    font-family: var(--mono);
     font-size: 0.875rem;
     font-weight: 600;
     background: var(--lime);

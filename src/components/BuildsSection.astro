@@ -5,7 +5,7 @@ import BuildCard from './BuildCard.astro';
 const builds = (await getCollection('builds')).sort((a, b) => a.data.order - b.data.order);
 ---
 
-<section class="builds-section" id="builds">
+<section class="builds-section grid-bg" id="builds">
   <div class="builds-container">
     <div class="builds-header">
       <span class="builds-label">things_ive_built</span>
@@ -19,6 +19,7 @@ const builds = (await getCollection('builds')).sort((a, b) => a.data.order - b.d
           description={build.data.description}
           link={build.data.link}
           tags={build.data.tags}
+          heroImage={build.data.heroImage}
         />
       ))}
     </div>
@@ -46,8 +47,8 @@ const builds = (await getCollection('builds')).sort((a, b) => a.data.order - b.d
 
   .builds-label {
     font-family: var(--mono);
-    font-size: 12px;
-    color: var(--dim);
+    font-size: 14px;
+    color: var(--text);
     letter-spacing: 0.1em;
     text-transform: uppercase;
     display: flex;

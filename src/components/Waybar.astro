@@ -29,6 +29,8 @@ const base = import.meta.env.BASE_URL;
     <span class="wb-label">portfolio — <span class="hl">UX research &amp; design · Flutter</span></span>
   </div>
   <div class="wb-section right">
+    <a href={`${base}Resume.pdf`} class="wb-link" target="_blank" rel="noopener">CV</a>
+    <div class="wb-sep"></div>
     <a href={`${base}contact`} class="wb-cta">contact</a>
     <div class="wb-sep"></div>
     <span class="wb-label wb-hide-sm">open for collab</span>
@@ -222,6 +224,19 @@ const base = import.meta.env.BASE_URL;
     font-size: 12px;
     color: var(--dim);
     white-space: nowrap;
+  }
+
+  .wb-link {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--dim);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color 0.15s;
+  }
+
+  .wb-link:hover {
+    color: var(--lime);
   }
 
   .wb-cta {

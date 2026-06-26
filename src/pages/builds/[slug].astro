@@ -1,0 +1,166 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Waybar from '../../components/Waybar.astro';
+import Footer from '../../components/Footer.astro';
+import ProjectHero from '../../components/project-blocks/ProjectHero.astro';
+import ProjectGallery from '../../components/project-blocks/ProjectGallery.astro';
+import ProjectTextBlock from '../../components/project-blocks/ProjectTextBlock.astro';
+import ProjectMeta from '../../components/project-blocks/ProjectMeta.astro';
+import ProjectIntro from '../../components/project-blocks/ProjectIntro.astro';
+import ProjectCallout from '../../components/project-blocks/ProjectCallout.astro';
+import ProjectQuote from '../../components/project-blocks/ProjectQuote.astro';
+import ProjectMetricsBand from '../../components/project-blocks/ProjectMetricsBand.astro';
+import ProjectBeforeAfter from '../../components/project-blocks/ProjectBeforeAfter.astro';
+import ProjectLearnings from '../../components/project-blocks/ProjectLearnings.astro';
+import ProjectProcessSteps from '../../components/project-blocks/ProjectProcessSteps.astro';
+import ProjectFindingsGrid from '../../components/project-blocks/ProjectFindingsGrid.astro';
+import ProjectHowMightWe from '../../components/project-blocks/ProjectHowMightWe.astro';
+import ProjectDecisionLog from '../../components/project-blocks/ProjectDecisionLog.astro';
+import ProjectPersona from '../../components/project-blocks/ProjectPersona.astro';
+import ProjectProblemKeyInfo from '../../components/project-blocks/ProjectProblemKeyInfo.astro';
+import ProjectTextImage from '../../components/project-blocks/ProjectTextImage.astro';
+import ProjectImageGalleryGrid from '../../components/project-blocks/ProjectImageGalleryGrid.astro';
+import ProjectAccessibilityAudit from '../../components/project-blocks/ProjectAccessibilityAudit.astro';
+import MoreProjects from '../../components/project-blocks/MoreProjects.astro';
+import WindowChrome from '../../components/WindowChrome.astro';
+import VimStatusline from '../../components/VimStatusline.astro';
+import '../../styles/jargon.css';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('buildPages');
+  return entries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+
+const blockComponents = {
+  ProjectHero,
+  ProjectGallery,
+  ProjectTextBlock,
+  ProjectMeta,
+  ProjectIntro,
+  ProjectCallout,
+  ProjectQuote,
+  ProjectMetricsBand,
+  ProjectBeforeAfter,
+  ProjectLearnings,
+  ProjectProcessSteps,
+  ProjectFindingsGrid,
+  ProjectHowMightWe,
+  ProjectDecisionLog,
+  ProjectPersona,
+  ProjectProblemKeyInfo,
+  ProjectTextImage,
+  ProjectImageGalleryGrid,
+  ProjectAccessibilityAudit,
+  MoreProjects,
+};
+
+const sections = entry.data.sections ?? [
+  { component: 'ProjectHero' as const, props: { title: entry.data.title, type: entry.data.type, year: entry.data.year } },
+  { component: 'ProjectGallery' as const, props: { image: entry.data.image, imageAlt: entry.data.imageAlt } },
+  { component: 'ProjectMeta' as const, props: { statusline: entry.data.statusline } },
+];
+
+const outsideSections = sections.filter((s) => s.component === 'ProjectHero' || s.component === 'MoreProjects');
+const bodySections = sections.filter((s) => s.component !== 'ProjectHero' && s.component !== 'MoreProjects');
+const heroSections = outsideSections.filter((s) => s.component === 'ProjectHero');
+const moreProjectsSections = outsideSections.filter((s) => s.component === 'MoreProjects');
+
+const caseStudyFilename = `crafting-${entry.id}.md`;
+---
+
+<Layout title={`${entry.data.title} — Nirmal`}>
+  <Waybar />
+  <main id="main-content">
+  <div class="proj-page">
+    {heroSections.map((section) => {
+      const Component = blockComponents[section.component];
+      return <Component {...(section.props ?? {})} />;
+    })}
+    <div class="proj-window vim-window">
+      <WindowChrome title={caseStudyFilename} activeTitle="[+]" icon="UTF-8">
+        <div class="proj-window-body vim-window-body">
+          <div class="proj-full">
+            {bodySections.map((section) => {
+              const Component = blockComponents[section.component];
+              return <Component {...(section.props ?? {})} />;
+            })}
+            <ProjectTextBlock>
+              <Content />
+            </ProjectTextBlock>
+          </div>
+        </div>
+        <VimStatusline filename={caseStudyFilename} />
+      </WindowChrome>
+    </div>
+    {moreProjectsSections.map((section) => {
+      const Component = blockComponents[section.component];
+      return <Component {...(section.props ?? {})} />;
+    })}
+  </div>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .proj-page {
+    max-width: 1440px;
+    margin: 0 auto;
+    scroll-snap-type: y proximity;
+  }
+
+  .proj-window {
+    padding: 0 3rem 3rem;
+    scroll-snap-align: center;
+  }
+
+  .proj-window :global(.window) {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - var(--bar-h) - 2rem);
+    position: sticky;
+    top: calc(var(--bar-h) + 1rem);
+  }
+
+  .proj-window-body {
+    background: var(--bg1);
+    padding-top: 2rem;
+    overflow-y: hidden;
+    flex: 1;
+    min-height: 0;
+  }
+
+  .proj-full {
+    animation: proj-fade-in 0.18s ease-out;
+  }
+
+  @keyframes proj-fade-in {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .proj-full { animation: none; }
+  }
+
+  @media (max-width: 860px) {
+    .proj-window { padding: 0 1.25rem 2rem; height: auto !important; }
+    .proj-window :global(.window) { height: auto; position: static; }
+    .proj-window-body { overflow-y: visible; flex: none; }
+  }
+
+  @media (max-width: 480px) {
+    .proj-window { padding: 0 0.75rem 1.5rem; }
+  }
+</style>
+
+<script>
+  import { initVimWindow } from '../../lib/vim-window';
+  initVimWindow();
+</script>

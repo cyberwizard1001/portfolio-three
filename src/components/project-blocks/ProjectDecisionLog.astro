@@ -17,8 +17,8 @@ interface Props {
 const { decisions, title = 'Decision log', intro } = Astro.props;
 
 const outcomeLabels: Record<string, string> = {
-  positive: 'Positive',
-  neutral: 'Neutral',
+  positive: 'Positive result',
+  neutral:  'Neutral',
   tradeoff: 'Trade-off',
 };
 ---
@@ -26,27 +26,24 @@ const outcomeLabels: Record<string, string> = {
 <section class="proj-dlog">
   <h2 class="proj-dlog-title">{title}</h2>
   {intro && <p class="proj-dlog-intro">{intro}</p>}
-  <div class="proj-dlog-list">
+  <ol class="proj-dlog-list">
     {decisions.map((d, i) => {
       const type = d.outcomeType ?? 'neutral';
       return (
-        <div class:list={['proj-dlog-card', `proj-dlog-card-${type}`]}>
-          <div class="proj-dlog-head">
-            <span class="proj-dlog-num">{i + 1}</span>
+        <li class="proj-dlog-item">
+          <span class="proj-dlog-num" aria-hidden="true">{i + 1}</span>
+          <div class="proj-dlog-content">
             <h3 class="proj-dlog-decision" set:html={jargonify(d.decision)} />
-            <span class:list={['proj-dlog-chip', `proj-dlog-${type}`]}>{outcomeLabels[type]}</span>
-          </div>
-          <div class="proj-dlog-body">
             <p class="proj-dlog-rationale">{d.rationale}</p>
-            <div class="proj-dlog-outcome">
-              <span class="proj-dlog-outcome-label">Result</span>
+            <div class:list={['proj-dlog-outcome', `proj-dlog-outcome-${type}`]}>
+              <span class="proj-dlog-outcome-label">{outcomeLabels[type]}</span>
               <p class="proj-dlog-outcome-text">{d.outcome}</p>
             </div>
           </div>
-        </div>
+        </li>
       );
     })}
-  </div>
+  </ol>
 </section>
 
 <style>
@@ -62,145 +59,122 @@ const outcomeLabels: Record<string, string> = {
   }
 
   .proj-dlog-intro {
-    font-size: 0.9375rem;
-    font-weight: 500;
-    color: var(--sub);
-    line-height: 1.6;
     margin-bottom: 1.5rem;
     max-width: 720px;
   }
 
   .proj-dlog-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
     margin-top: 1.5rem;
   }
 
-  .proj-dlog-card {
-    border: 1px solid var(--border-hi);
-    border-left: 3px solid var(--border-hi);
-    border-radius: 6px;
-    padding: 1.25rem 1.5rem;
-    background: var(--bg1);
-    transition: border-color 0.15s ease;
+  .proj-dlog-item {
+    display: grid;
+    grid-template-columns: 2.75rem 1fr;
+    gap: 0 0.5rem;
+    padding: 2.25rem 0;
+    border-bottom: 1px solid var(--border);
   }
 
-  .proj-dlog-card-positive { border-left-color: rgba(30,158,97,0.45); }
-  .proj-dlog-card-neutral  { border-left-color: rgba(158,255,87,0.35); }
-  .proj-dlog-card-tradeoff { border-left-color: rgba(217,119,6,0.45); }
+  .proj-dlog-item:first-child {
+    padding-top: 0;
+  }
 
-  .proj-dlog-head {
-    display: flex;
-    align-items: baseline;
-    gap: 0.75rem;
-    margin-bottom: 0.875rem;
+  .proj-dlog-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
   }
 
   .proj-dlog-num {
-    flex-shrink: 0;
-    width: 26px;
-    height: 26px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background: var(--lime-dim);
-    color: var(--lime);
     font-family: var(--mono);
-    font-size: 0.75rem;
+    font-size: 1.375rem;
     font-weight: 700;
-    align-self: center;
+    color: var(--dim);
+    line-height: 1;
+    padding-top: 0.2em;
+    text-align: right;
+    user-select: none;
+  }
+
+  .proj-dlog-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
   }
 
   .proj-dlog-decision {
-    font-size: 1rem;
-    font-weight: 600;
+    font-size: 1.125rem;
+    font-weight: 700;
     line-height: 1.4;
-    flex: 1;
-  }
-
-  .proj-dlog-chip {
-    flex-shrink: 0;
-    display: inline-block;
-    width: fit-content;
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-    border-radius: 999px;
-    padding: 3px 10px;
-    border: 1px solid transparent;
-    align-self: center;
-  }
-
-  .proj-dlog-positive {
-    color: #1e9e61;
-    background: rgba(30,158,97,0.12);
-    border-color: rgba(30,158,97,0.25);
-  }
-
-  .proj-dlog-neutral {
-    color: var(--lime);
-    background: var(--lime-dim);
-    border-color: rgba(158,255,87,0.25);
-  }
-
-  .proj-dlog-tradeoff {
-    color: #d97706;
-    background: rgba(217,119,6,0.12);
-    border-color: rgba(217,119,6,0.25);
-  }
-
-  .proj-dlog-body {
-    display: grid;
-    grid-template-columns: 1.6fr 1fr;
-    gap: 0 2rem;
-    padding-left: calc(26px + 0.75rem);
+    letter-spacing: -0.01em;
   }
 
   .proj-dlog-rationale {
-    font-size: 0.875rem;
-    font-weight: 500;
+    font-size: 0.9375rem;
+    line-height: 1.75;
     color: var(--sub);
-    line-height: 1.65;
+    max-width: 62ch;
+    margin: 0;
   }
 
   .proj-dlog-outcome {
-    border-left: 1px solid var(--border);
-    padding-left: 1.25rem;
+    margin-top: 0.375rem;
+    padding: 0.75rem 1rem;
+    border-left: 3px solid;
+    border-radius: 0 4px 4px 0;
+  }
+
+  .proj-dlog-outcome-positive {
+    border-left-color: #1e9e61;
+    background: rgba(30, 158, 97, 0.07);
+  }
+
+  .proj-dlog-outcome-neutral {
+    border-left-color: var(--lime);
+    background: var(--lime-dim);
+  }
+
+  .proj-dlog-outcome-tradeoff {
+    border-left-color: #d97706;
+    background: rgba(217, 119, 6, 0.07);
   }
 
   .proj-dlog-outcome-label {
     display: block;
     font-family: var(--mono);
-    font-size: 0.75rem;
-    letter-spacing: 0.14em;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--dim);
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.35rem;
   }
 
+  .proj-dlog-outcome-positive .proj-dlog-outcome-label { color: #1e9e61; }
+  .proj-dlog-outcome-neutral  .proj-dlog-outcome-label { color: var(--lime); }
+  .proj-dlog-outcome-tradeoff .proj-dlog-outcome-label { color: #d97706; }
+
   .proj-dlog-outcome-text {
-    font-size: 0.8125rem;
-    font-weight: 500;
-    color: var(--sub);
-    line-height: 1.55;
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    color: var(--text);
+    margin: 0;
   }
 
   @media (max-width: 860px) {
-    .proj-dlog { padding: 0 1.25rem 2rem; }
-
-    .proj-dlog-body {
-      grid-template-columns: 1fr;
-      gap: 1rem;
-      padding-left: 0;
+    .proj-dlog {
+      padding: 0 1.25rem 2rem;
     }
 
-    .proj-dlog-outcome {
-      border-left: none;
-      padding-left: 0;
-      padding-top: 0.75rem;
-      border-top: 1px solid var(--border);
+    .proj-dlog-item {
+      grid-template-columns: 2rem 1fr;
+      gap: 0 0.375rem;
+      padding: 1.75rem 0;
+    }
+
+    .proj-dlog-num {
+      font-size: 1.125rem;
     }
   }
 </style>

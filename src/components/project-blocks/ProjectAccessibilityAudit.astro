@@ -49,15 +49,13 @@ for (const issue of issues) {
       const meta = severityMeta[issue.severity];
       return (
         <div class="proj-a11y-row">
-          <div class="proj-a11y-row-header">
+          <div class="proj-a11y-row-top">
             <span class="proj-a11y-severity" style={`--chip-color: ${meta.color}`}>{meta.label}</span>
-            <h3 class="proj-a11y-issue">{issue.issue}</h3>
             {issue.wcagCriterion && <span class="proj-a11y-wcag">{issue.wcagCriterion}</span>}
           </div>
-          <div class="proj-a11y-row-details">
-            <p class="proj-a11y-description">{issue.description}</p>
-            {issue.fix && <p class="proj-a11y-fix">⚒ {issue.fix}</p>}
-          </div>
+          <h3 class="proj-a11y-issue">{issue.issue}</h3>
+          <p class="proj-a11y-description">{issue.description}</p>
+          {issue.fix && <p class="proj-a11y-fix">⚒ {issue.fix}</p>}
         </div>
       );
     })}
@@ -119,15 +117,22 @@ for (const issue of issues) {
   }
 
   .proj-a11y-row {
-    display: grid;
-    grid-template-columns: 4fr 6fr;
-    gap: 1.5rem;
-    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1.5rem;
     border-bottom: 1px solid var(--border-hi);
   }
 
   .proj-a11y-row:last-child {
     border-bottom: none;
+  }
+
+  .proj-a11y-row-top {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    flex-wrap: wrap;
   }
 
   .proj-a11y-severity {
@@ -140,42 +145,34 @@ for (const issue of issues) {
     border: 1px solid color-mix(in srgb, var(--chip-color) 25%, transparent);
     border-radius: 999px;
     padding: 3px 10px;
-    margin-bottom: 0.5rem;
   }
 
   .proj-a11y-issue {
-    font-size: 0.9375rem;
-    font-weight: 500;
+    font-size: 1.0625rem;
+    font-weight: 600;
     color: var(--text);
     line-height: 1.4;
   }
 
   .proj-a11y-wcag {
-    display: block;
-    margin-top: 0.5rem;
     font-size: 0.75rem;
     color: var(--dim);
   }
 
   .proj-a11y-description {
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: var(--sub);
+    font-size: 0.9375rem;
+    font-weight: 400;
+    color: var(--text);
     line-height: 1.6;
   }
 
   .proj-a11y-fix {
-    margin-top: 0.5rem;
-    font-size: 0.8125rem;
+    font-size: 0.875rem;
     color: var(--lime);
     line-height: 1.5;
   }
 
   @media (max-width: 860px) {
     .proj-a11y { padding: 0 1.25rem 2rem; }
-    .proj-a11y-row {
-      grid-template-columns: 1fr;
-      gap: 0.75rem;
-    }
   }
 </style>

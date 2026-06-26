@@ -58,6 +58,56 @@ const projectTldrs = defineCollection({
   schema: z.object({}).passthrough(),
 });
 
+const buildPages = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/build-pages' }),
+  schema: z.object({
+    title: z.string(),
+    filename: z.string(),
+    mode: z.string().default('NORMAL'),
+    type: z.string(),
+    year: z.string(),
+    image: z.string(),
+    imageAlt: z.string(),
+    oneliner: z.string(),
+    statusline: z.array(
+      z.object({
+        label: z.string(),
+        lime: z.boolean().optional(),
+      })
+    ),
+    order: z.number(),
+    sections: z
+      .array(
+        z.object({
+          component: z.enum([
+            'ProjectHero',
+            'ProjectGallery',
+            'ProjectTextBlock',
+            'ProjectMeta',
+            'ProjectIntro',
+            'ProjectCallout',
+            'ProjectQuote',
+            'ProjectMetricsBand',
+            'ProjectBeforeAfter',
+            'ProjectLearnings',
+            'ProjectProcessSteps',
+            'ProjectFindingsGrid',
+            'ProjectHowMightWe',
+            'ProjectDecisionLog',
+            'ProjectPersona',
+            'ProjectProblemKeyInfo',
+            'ProjectTextImage',
+            'ProjectImageGalleryGrid',
+            'ProjectAccessibilityAudit',
+            'MoreProjects',
+          ]),
+          props: z.record(z.any()).optional(),
+        })
+      )
+      .optional(),
+  }),
+});
+
 const builds = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/builds' }),
   schema: z.object({
@@ -65,8 +115,9 @@ const builds = defineCollection({
     description: z.string(),
     link: z.string(),
     tags: z.array(z.string()).optional(),
+    heroImage: z.string().optional(),
     order: z.number().default(0),
   }),
 });
 
-export const collections = { projects, projectTldrs, builds };
+export const collections = { projects, projectTldrs, builds, buildPages };
