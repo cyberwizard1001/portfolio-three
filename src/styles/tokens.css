@@ -5,7 +5,7 @@
   --bg2:      #1a1a1a;
   --border:   rgba(245,244,240,0.10);
   --border-hi:rgba(245,244,240,0.22);
-  --text:     #f0ede6;
+  --text:     #ddebd4;
   --sub:      rgba(240,237,230,0.70);
   --dim:      rgba(240,237,230,0.50);
   --lime:     #9eff57;
@@ -43,33 +43,40 @@
   --term-overlay: var(--bg1);
 }
 
-/* ── Theme 2: Catppuccin Mocha ── */
+/* ── Theme 2: Nord ── */
 [data-theme="2"] {
-  --bg:        #1e1e2e;
-  --bg1:       #181825;
-  --bg2:       #313244;
-  --border:    rgba(180,190,254,0.10);
-  --border-hi: rgba(180,190,254,0.26);
-  --text:      #cdd6f4;
-  --sub:       rgba(205,214,244,0.74);
-  --dim:       rgba(205,214,244,0.58);
-  --lime:      #cba6f7;
-  --lime-dim:  rgba(203,166,247,0.12);
+  --bg:        #2e3440;
+  --bg0:       #1e2430;
+  --bg1:       #252b35;
+  --bg2:       #3b4252;
+  --border:    rgba(216,222,233,0.10);
+  --border-hi: rgba(216,222,233,0.24);
+  --text:      #e5e9f0;
+  --sub:       rgba(229,233,240,0.74);
+  --dim:       rgba(229,233,240,0.50);
+  --lime:      #88c0d0;
+  --lime-dim:  rgba(136,192,208,0.12);
+  --lime-contrast: #2e3440;
+  --term-bg:       #252b35;
+  --term-bg2:      #1e2430;
+  --term-hover:    #2e3440;
+  --term-hover2:   #343c4e;
+  --term-overlay:  rgba(30,36,48,0.6);
 }
 
-/* Theme 2 Light — Catppuccin Latte */
+/* Theme 2 Light — Nord Light */
 [data-theme="2"][data-mode="light"] {
-  --bg:        #eff1f5;
-  --bg0:       #f5f6fa;
-  --bg1:       #e6e9ef;
-  --bg2:       #ccd0da;
-  --border:    rgba(76,79,105,0.12);
-  --border-hi: rgba(76,79,105,0.26);
-  --text:      #4c4f69;
-  --sub:       rgba(76,79,105,0.74);
-  --dim:       rgba(76,79,105,0.85);
-  --lime:      #8839ef;
-  --lime-dim:  rgba(136,57,239,0.12);
+  --bg:        #eceff4;
+  --bg0:       #f5f7fb;
+  --bg1:       #e5e9f0;
+  --bg2:       #d8dee9;
+  --border:    rgba(46,52,64,0.10);
+  --border-hi: rgba(46,52,64,0.24);
+  --text:      #2e3440;
+  --sub:       rgba(46,52,64,0.72);
+  --dim:       rgba(46,52,64,0.50);
+  --lime:      #5e81ac;
+  --lime-dim:  rgba(94,129,172,0.12);
   --term-bg:      var(--bg2);
   --term-bg2:     var(--bg0);
   --term-hover:   var(--bg1);
