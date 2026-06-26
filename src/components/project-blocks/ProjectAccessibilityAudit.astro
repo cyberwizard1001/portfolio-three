@@ -50,12 +50,15 @@ for (const issue of issues) {
       return (
         <div class="proj-a11y-row">
           <div class="proj-a11y-row-top">
-            <span class="proj-a11y-severity" style={`--chip-color: ${meta.color}`}>{meta.label}</span>
+            <span class="proj-a11y-severity" style={`--chip-color: ${meta.color}`}>
+              <span class="proj-a11y-severity-dot"></span>
+              {meta.label}
+            </span>
             {issue.wcagCriterion && <span class="proj-a11y-wcag">{issue.wcagCriterion}</span>}
           </div>
           <h3 class="proj-a11y-issue">{issue.issue}</h3>
           <p class="proj-a11y-description">{issue.description}</p>
-          {issue.fix && <p class="proj-a11y-fix">⚒ {issue.fix}</p>}
+          {issue.fix && <p class="proj-a11y-fix"><span class="proj-a11y-fix-icon">✓</span>{issue.fix}</p>}
         </div>
       );
     })}
@@ -136,15 +139,25 @@ for (const issue of issues) {
   }
 
   .proj-a11y-severity {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
     width: fit-content;
     font-size: 0.75rem;
     font-weight: 600;
-    color: var(--chip-color);
+    color: var(--text);
     background: color-mix(in srgb, var(--chip-color) 12%, transparent);
-    border: 1px solid color-mix(in srgb, var(--chip-color) 25%, transparent);
+    border: 1px solid color-mix(in srgb, var(--chip-color) 40%, transparent);
     border-radius: 999px;
     padding: 3px 10px;
+  }
+
+  .proj-a11y-severity-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--chip-color);
+    flex-shrink: 0;
   }
 
   .proj-a11y-issue {
@@ -167,9 +180,25 @@ for (const issue of issues) {
   }
 
   .proj-a11y-fix {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
     font-size: 0.875rem;
-    color: var(--lime);
+    color: var(--sub);
     line-height: 1.5;
+    border-left: 2px solid var(--lime);
+    padding: 0.375rem 0.75rem;
+    background: var(--lime-dim);
+    border-radius: 0 4px 4px 0;
+    margin-top: 0.125rem;
+  }
+
+  .proj-a11y-fix-icon {
+    flex-shrink: 0;
+    color: var(--lime);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    line-height: 1.6;
   }
 
   @media (max-width: 860px) {
