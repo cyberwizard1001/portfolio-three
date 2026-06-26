@@ -33,11 +33,15 @@ const paragraphs = Array.isArray(summary) ? summary : [summary];
   }
 
   .proj-intro-eyebrow {
+    display: inline-flex;
+    align-items: center;
     font-family: var(--mono);
     font-size: 12px;
     color: var(--lime);
     letter-spacing: 0.1em;
     text-transform: uppercase;
+    padding-left: 0.75rem;
+    border-left: 2px solid var(--lime);
   }
 
   .proj-intro-trailing {

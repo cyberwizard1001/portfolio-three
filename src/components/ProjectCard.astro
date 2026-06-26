@@ -41,6 +41,9 @@ const base = import.meta.env.BASE_URL;
     <p class="pw-oneliner">{oneliner}</p>
   </div>
   <div class="pw-statusline">
+    {statusline.filter(c => !c.lime).map(c => (
+      <span class="sl-chunk">{c.label}</span>
+    ))}
     <span class="sl-chunk sl-arrow">↗</span>
   </div>
 </a>
@@ -208,7 +211,7 @@ const base = import.meta.env.BASE_URL;
   }
 
   .pw-oneliner {
-    font-family: var(--mono);
+    font-family: system-ui, -apple-system, sans-serif;
     font-size: 0.875rem;
     color: var(--sub);
     line-height: 1.6;

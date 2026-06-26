@@ -1,5 +1,6 @@
 ---
 import WindowChrome from './WindowChrome.astro';
+const base = import.meta.env.BASE_URL;
 ---
 
 <section class="hero-section grid-bg">
@@ -59,7 +60,10 @@ import WindowChrome from './WindowChrome.astro';
             <p class="hs-text">
               Designing at Tedaisy Insurance Group and volunteering at Reach Volunteering. In my free time, I work on products that are honest about what they ask of people’s time and attention (do check out Medium).
             </p>
-            <a href="#work" class="hs-cta">View my work ↓</a>
+            <div class="hs-ctas">
+              <a href="#work" class="hs-cta">View my work ↓</a>
+              <a href={`${base}contact`} class="hs-cta hs-cta-ghost">Contact me ↗</a>
+            </div>
           </div>
         </div>
       </div>
@@ -70,7 +74,7 @@ import WindowChrome from './WindowChrome.astro';
 <style>
   .hero-section {
     min-height: calc(100vh - var(--bar-h));
-    padding: 3rem;
+    padding: 1.75rem 2.5rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -92,7 +96,7 @@ import WindowChrome from './WindowChrome.astro';
   }
 
   .hero-main {
-    padding: 3rem 3rem 2.5rem;
+    padding: 1.75rem 2.5rem 1.5rem;
     display: grid;
     grid-template-columns: 1fr auto;
     align-items: end;
@@ -160,7 +164,7 @@ import WindowChrome from './WindowChrome.astro';
     font-family: var(--mono);
     font-size: 12px;
     color: var(--lime);
-    margin-bottom: 2rem;
+    margin-bottom: 1.25rem;
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -170,7 +174,7 @@ import WindowChrome from './WindowChrome.astro';
 
   .hero-h1 {
     font-family: var(--mono);
-    font-size: clamp(3.5rem, 8vw, 7.5rem);
+    font-size: clamp(2.75rem, 6.5vw, 6.25rem);
     font-weight: 700;
     letter-spacing: -0.045em;
     line-height: 0.9;
@@ -192,7 +196,7 @@ import WindowChrome from './WindowChrome.astro';
   }
 
   .hs-cell {
-    padding: 1.75rem 2rem;
+    padding: 1.25rem 2rem;
     border-right: 1px solid var(--border);
   }
 
@@ -237,11 +241,17 @@ import WindowChrome from './WindowChrome.astro';
     background: var(--lime-dim);
   }
 
+  .hs-ctas {
+    display: flex;
+    gap: 0.625rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+  }
+
   .hs-cta {
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
-    margin-top: 1rem;
     font-family: var(--mono);
     font-size: 0.875rem;
     font-weight: 600;
@@ -252,6 +262,12 @@ import WindowChrome from './WindowChrome.astro';
     border-radius: 2px;
     letter-spacing: -0.01em;
     transition: opacity 0.15s;
+  }
+
+  .hs-cta-ghost {
+    background: transparent;
+    color: var(--lime);
+    border: 1px solid var(--lime);
   }
 
   .hs-cta:hover { opacity: 0.8; }
@@ -284,17 +300,17 @@ import WindowChrome from './WindowChrome.astro';
   }
 
   @media (max-width: 860px) {
-    .hero-section { padding: 2rem 1.25rem; }
+    .hero-section { padding: 1.25rem; }
     .hero-split { grid-template-columns: 1fr; }
   }
 
   @media (max-width: 480px) {
-    .hero-h1 { font-size: clamp(2.5rem, 13vw, 3.5rem); }
-    .hero-main { padding: 1.5rem 1.25rem; }
-    .hero-prompt { margin-bottom: 1.25rem; }
+    .hero-h1 { font-size: clamp(2rem, 11vw, 2.75rem); }
+    .hero-main { padding: 1.25rem; }
+    .hero-prompt { margin-bottom: 1rem; }
     .hero-meta { gap: 1rem 1.25rem; }
     .hm-row { min-width: 130px; }
-    .hs-cell { padding: 1.25rem; }
+    .hs-cell { padding: 1rem 1.25rem; }
   }
 </style>
 
