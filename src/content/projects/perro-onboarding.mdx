@@ -6,7 +6,7 @@ type: UX / Flutter
 year: "2025"
 image: /images/perro/hero.svg
 imageAlt: A long cluttered before-path of six onboarding steps, against a short direct after-path of two steps to a lime home icon
-oneliner: Users were dropping off before they reached anything useful. I redesigned the flow and built it in Flutter, from research through to production.
+oneliner: Users were quitting the app before getting to the home screen. I redesigned the onboarding and built it using Flutter, working from research through to production.
 statusline:
   - label: NORMAL
     lime: true
@@ -20,7 +20,7 @@ sections:
     props:
       title: Perro onboarding and subscription redesign
       type: UX / Flutter
-      year: "2025"
+      year: "2024"
   - component: ProjectGallery
     props:
       image: /images/perro/hero.svg
@@ -38,41 +38,50 @@ sections:
     props:
       eyebrow: Perro — Case study 02
       title: Perro onboarding and subscription redesign
-      summary: >-
-        Perro was a genuinely strong product. It let owners track their dog's activity, work
-        through enrichment and training content, configure it so the whole household could
-        collaborate, and earn up to £500 of Woof benefits over time. The people who reached the
-        second session tended to like it, which was, in a way, the problem, because a large
-        share of new users never reached it. They were leaving during onboarding, frequently
-        before they had seen anything that demonstrated what Perro could do for them. Few people
-        will persevere with a setup flow that asks a great deal and returns nothing first, and
-        that was costing real subscriptions.
-
-        I had a two-week part-time window and a tight set of constraints. The work had to stay in
-        Flutter, make no backend changes, and leave the experience intact for existing users.
-        Rather than redesign on instinct, I began with the Mixpanel funnels, watched usability
-        sessions to understand the reasoning behind each drop-off, and then redesigned the
-        onboarding and subscription flow and built it directly in Flutter, since I was also the
-        developer. It reduced drop-off, lifted completion, and increased subscription conversion,
-        and the work was later cited as one of the product's strengths when the company was
-        acquired.
+      summary:
+        - >-
+          Perro is a pet care and rewards app for the UK market that helps keep track of dog health and to ensure healthy
+          exercise routines and socialising. The whole household could login and collaborate, and earn up to £500
+          of Woof benefits. We found that people who completed the onboarding and fully explored the app
+          tended to like the features and used it regularly; in a sense, this was also a problem, because
+          a large share of new users never got to the home page, dropping off at various points to never come back.
+          Research states that people install apps and forget they exist fairly frequently, with many apps seeing large
+          numbers of drop offs in the first week. Few people seemed to persevere with a set up flow which seemed to demand
+          a fair bit of the user's time in initial set up without clear benefit demos to back that up, costing us crucial
+          subscription income.
+        - >-
+          I was working part-time as a designer/developer and had a two-week window to redesign the onboarding with a tight set
+          of constraints. Changes could only be made to the mobile app and not the server, and we had to make sure that the redesign
+          didn't cost us users. Rather than start redesigning on instinct, I began with the Mixpanel funnels and watched usability session
+          recordings to understand the reasoning behind each drop-off. 
+        - >-  
+          Once designed, I built the new onboarding and subscriotion experience into
+          the app, being the sole developer working on the front-end. The changes reduced drop-offs, improved completion and made a poisitive impact on
+          subscriptions, this work later being citedf as one of the product's strengths when the company was acquired.
+      
   - component: ProjectProblemKeyInfo
     props:
       problemBody: >-
-        Perro is a UK dog care and rewards app, and the value it offers is real: activity
-        tracking, enrichment and training content, household collaboration, and up to £500 of
-        Woof benefits over time. The people who got past the first session tended to like it, so
-        the task was to get more of them there. The funnel data showed a large share of new users
-        dropping off during onboarding, frequently before they had reached anything that showed
-        them what Perro could do, which fed directly into lower subscriptions and fewer people
-        choosing longer-term plans.
-      contextBody: >-
-        When I went through the flow myself, the reason was not hard to find. It felt like a form
-        rather than an introduction. Optional information was treated as mandatory, people were
-        asked for things with no sense of what they would get in return, the photo upload step
-        sent them out of the app to find a better picture, and by the time anyone reached the
-        fitness and location questions they were already tired and questioning whether it was
-        worth continuing.
+        The app offered value to users who completed the onboarding, but people were dropping off, 
+        requiring a redesign to get more people to the home page. Mixpanel funnel data showed a large share 
+        of new users dropping off, feeding directly into lower subscrition revenue and fewer people who chose
+        the higher value longer-term plans. 
+      
+      briefFindings:
+        - label: 
+            Form's way too long
+          body: >-
+            Optional information — pet illnesses, detailed health inputs — was treated as
+            mandatory, asked before the app had shown what it would do with any of it.
+        - label: Photo upload was a silent exit
+          body: >-
+            People left to find the right picture and frequently did not return. A step added
+            with good intentions had become the biggest single drop-off point in the flow.
+        - label: Fatigue before the payoff
+          body: >-
+            Permissions and fitness questions landed on already worn-out users. By the time
+            I reached the end myself, I was questioning whether the app was worth the effort.
+
       infoItems:
         - label: Objective
           value: >-
@@ -87,15 +96,15 @@ sections:
             Flutter only, no backend changes, a two-week part-time sprint, and a stable
             experience for existing users
         - label: Scope
-          value: Landing, onboarding steps, and the subscription hand-off
+          value: Landing, onboarding steps, and the subscription screens
   - component: ProjectTextImage
     props:
       eyebrow: Research
       title: Where people were leaving
       body: >-
-        Mixpanel funnels showed three distinct zones where users dropped off — each one
-        for a different reason, but all pointing at the same root problem: the flow asked
-        too much before it gave anything back.
+        Mixpanel funnels identified three distinct zones where the users dropped off, each one for a different
+        reason but all pointing at the same root problem: the value proposition of the app wasn't being laid out 
+        very well.
       image: /images/placeholder.svg
       imageAlt: Drop-off funnel diagram — illustration coming soon
   - component: ProjectFindingsGrid
@@ -109,29 +118,30 @@ sections:
             setup with its fitness, activity and location questions.
         - title: A broken journey, not one broken screen
           body: >-
-            The drop-offs were spread across the flow rather than concentrated at one obvious
-            failure point. This was not a problem I could fix by patching a single screen; it was
-            effort accumulating and motivation draining a little at each step, until people had
-            simply had enough.
-        - title: Photo upload was a silent exit
+            This was not a problem which could be solved by patching a single screen, it was effort
+            accumulating at each step and a loss of motivation, until the user simply had had enough. This 
+            demanded a more holistic solution involving redesigning, reviewing the flow, signposting value, 
+            and even removing unnecessary questions from the fow.
+        - title: "Profile pictures from the gallery: bad idea!"
           body: >-
-            The usability sessions confirmed what the data had only hinted at. People left the app
-            to find a better photo of their dog and frequently did not return, so a step nobody had
-            thought twice about had become a significant churn driver.
+            The usability sessions confirmed what the data hinted at: people left the app
+            to find the perfect photo of their dog and frequently did not return. A step included with the best 
+            interests of the user and hadn't been given much thought later had become a significant churn driver.
         - title: Health questions felt out of proportion
           body: >-
             Pre-existing conditions and detailed health inputs sat early in the flow, and
             participants described them as "intense" for that point in the journey. They had not
-            yet seen enough to feel the request was a fair one.
-        - title: Fitness and location questions came too late
+            yet seen enough value to commit to the level of detail required by the flow.
+        - title: Fitness and location questions came fatigue the user
           body: >-
-            By the time people reached the user profile stage they were already worn down, and
-            without a clear reason for why any of it mattered, many of them gave up.
+            By the time users complete the user profile section, they've already sat through 
+            lots of questions and are already worn down, and without a clear explantion of what 
+            the fitness levels meant or why they're required, many quit the app.
         - title: The qual and the quant agreed
           body: >-
             Every pattern I saw in a session matched a corresponding dip in the Mixpanel data. When
             the recordings and the numbers tell the same story, there is little need to
-            second-guess the direction.
+            second-guess the direction, making this a relatively easy diagnosis.
   - component: ProjectFindingsGrid
     props:
       title: Heuristic review
@@ -146,8 +156,8 @@ sections:
             would get in return. At no point did Perro pause to explain what it would do for them.
         - title: Small inconsistencies eroding trust
           body: >-
-            Visual inconsistencies, copy issues, and uneven patterns across screens made the flow
-            feel less polished than the product deserved, and weakened the first impression.
+            Visual inconsistencies, copy issues, poor interaction design, and uneven patterns across screens made the flow
+            feel less polished, weakening the all-important first impression.
   - component: ProjectFindingsGrid
     props:
       title: Market and competitor analysis
@@ -159,15 +169,16 @@ sections:
         - title: Short, visual sequences beat long forms
           body: >-
             Feature carousels and progress indicators were consistently tied to higher engagement
-            and lower drop-off than text-heavy, question-first flows.
+            and lower drop-off than text-heavy, question-first flows like ours.
         - title: Be explicit about what's optional
           body: >-
             The best examples were clear about what was required, what was optional, and, most
-            importantly, why each piece of information was being asked for.
+            importantly, why each piece of information was being asked for. Information is oil, and 
+            we need to be mindful when requesting potentially sensitive information about pet health.
   - component: ProjectQuote
     props:
       quote: >-
-        People were not leaving because Perro was not good enough. They were leaving because
+        People were not leaving because Perro offered poor value. They were leaving because
         onboarding asked too much, too early, before it had given anything in return.
       attribution: Synthesis across funnel data, heuristic review, and usability sessions
   - component: ProjectPersona
@@ -182,7 +193,7 @@ sections:
         - Track her dog's activity and wellbeing without it feeling like a chore
         - Understand what the rewards programme actually gives her before committing to
           anything
-        - Get through setup quickly, without digging out documents or the perfect photo
+        - Get through setup quickly
         - Feel like the app is on her side rather than quietly working against her
       frustrations:
         - Being asked for detailed health information before she's seen a single thing in
@@ -190,13 +201,12 @@ sections:
         - Having to leave the app to find a usable photo just to carry on
         - Permission prompts that interrupt her instead of feeling like part of the
           experience
-        - A subscription screen that reads like a hard sell rather than a natural next step
       context: >-
-        Jess is 31 and already lives in health and fitness apps, so she has little patience for
-        onboarding that gets in her way. She is comfortable with digital products and quick to
-        abandon anything that feels more complicated than it needs to be. She was a strong fit for
-        what Perro offers, but she dropped off at the dog health screen on her first attempt and
-        did not return.
+        Jess is 31 and already lives in health and fitness apps, so she has little patience for an
+        onboarding that gets in her way when she could easily be tracking her dog's activity on Fitbit or 
+        Apple Health. She is comfortable with digital products and quick to
+        abandon anything that feels more complicated than it needs to be. She was a the ideal Perro user, 
+        but dropped off at the dog health screen on her first use and did not return.
       contextTags:
         - New dog owner
         - App-savvy
@@ -237,24 +247,25 @@ sections:
       label: Strategy
       body: >-
         Three ideas shaped almost every decision I made. The first was to shorten and refocus
-        onboarding around what genuinely improves the first session, rather than what is merely
+        onboarding around data strictly necessary for the first session, rather than information that's        
         useful to have on file. The second was to lead with value before asking for anything. The
         third was to address the specific friction points the research had surfaced, namely the
         photo upload, the unexplained permissions, and the late-funnel fatigue, rather than
-        redesigning for its own sake.
+        just making the onboarding look pretty.
   - component: ProjectProcessSteps
     props:
       title: How I approached it
       steps:
-        - title: Scoped from the data, not assumptions
+        - title: Scoped from data, not assumptions
           body: >-
             The Mixpanel funnels defined the scope. The screens with the steepest drop-offs became
             the core of the sprint, and everything else was set aside.
-        - title: 'Audited every field: needed now, or ask later?'
+        - title: 'Audited every field: need now, or ask later?'
           body: >-
-            I went through every onboarding field and asked one question of each: does the first
-            session genuinely need this? Pet illnesses and detailed health information did not
-            survive that test and were removed entirely. Activity level and some fitness questions
+            I went through every onboarding field and asked myself: does the first
+            session really need this? Pet illnesses and detailed health information did not
+            survive that test and were removed entirely, having not been meaningfully used in the app
+            at that point in time. Activity level and some fitness questions
             moved to in-app prompts after signup.
         - title: Designed and tested a feature carousel
           body: >-
@@ -268,13 +279,16 @@ sections:
           body: >-
             Default avatars for both dog and owner replaced the mandatory photo upload, with the
             photo step marked clearly as optional and something a user could return to later.
-            Anyone could now finish setup without leaving the app.
+            Anyone could now finish setup without leaving the app, and still pick a profile picture for 
+            their dog's profile from Settings when they had more time on their hands. This could be gamified 
+            in the future.
         - title: Added a permissions explainer
           body: >-
-            A short screen before the OS prompts explained, in plain language, why Perro wanted
+            Privacy is key in the modern smartphone ecosystem.
+            Added a scan-friendly screen before OS permission prompts to explain, in plain language, why Perro wanted
             location (walk tracking, weather-aware suggestions, local insights) and why
             notifications were worth allowing (reminders, rewards, the occasional wellbeing nudge),
-            so the request felt like part of the experience rather than a technical interruption.
+            so the requests felt part of the experience rather than a technical interruption.
         - title: Redesigned the subscription step and built it in Flutter
           body: >-
             I laid the plans out side by side with clear summaries, a gentle steer toward the
@@ -289,8 +303,8 @@ sections:
         about fairness.
       items:
         - question: >-
-            How might we show new users what Perro will do for them before asking anything
-            of them?
+            How might we show new users what Perro will do for them before asking the user to 
+            invest time?
           theme: Value first
         - question: >-
             How might we let someone finish setup without leaving the app, even when they
@@ -309,8 +323,8 @@ sections:
             than a jarring upsell?
           theme: Continuity
         - question: >-
-            How might we cut the number of questions without losing the ones that genuinely
-            improve the first session?
+            How might we cut the number of questions without losing the ones that matter for
+            the first session?
           theme: Progressive disclosure
   - component: ProjectBeforeAfter
     props:
@@ -318,21 +332,19 @@ sections:
       beforeBody: >-
         The original flow ran to five screens and sixteen questions, with a mandatory photo
         upload, abrupt system permission prompts, and no explanation anywhere of what Perro
-        actually offered. It asked for a great deal and gave very little back before the first
-        moment that might have made someone care.
+        offered. 
       afterTitle: After
       afterBody: >-
         The redesigned flow is four screens and eleven questions, with the avatar system and an
         optional photo, a feature carousel that front-loads the value, a permissions explainer,
-        and a subscription step that carries the same story through to the end. Setup no longer
-        feels like paperwork; it feels like an introduction.
+        and a subscription step that carries the same story through to the end. 
   - component: ProjectGallery
     props:
       image: /images/placeholder.svg
       imageAlt: Before/after flow diagram — illustration coming soon
   - component: ProjectDecisionLog
     props:
-      title: The decisions I would defend
+      title: 'Decisions made:'
       intro: The decisions that shaped the redesign, what drove them, and what I observed.
       decisions:
         - decision: >-
@@ -468,13 +480,13 @@ sections:
       heading: Constraints and craft
       body: >-
         The whole project was designed and built inside a two-week Flutter sprint. Being both the
-        designer and the developer meant every idea had to be something I could actually build,
-        which is a useful discipline. There were no backend changes available, so everything lived
-        in UX, UI, and client-side logic. The two-week part-time window pushed me toward focused,
+        designer and the developer meant every idea had to be something I could build,
+        a useful discipline when starting my professional career. Changes to the backend weren't an option, so changes could 
+        only affect client-side logic. The two-week part-time window pushed me toward focused,
         incremental changes rather than a wholesale rewrite, and because existing users still
         needed a stable app, the work had to be additive rather than disruptive. The advantage of
         building in Flutter myself was the tight feedback loop. I could validate a decision in the
-        real product rather than a prototype, which surfaced the genuine problems earlier and saved
+        real product rather than a prototype, which surfaced problems earlier and saved
         a great deal of time I would otherwise have spent guessing.
   - component: ProjectLearnings
     props:

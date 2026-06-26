@@ -2,11 +2,12 @@
 interface Props {
   eyebrow: string;
   title: string;
-  summary: string;
+  summary: string | string[];
   trailingLabel?: string;
 }
 
 const { eyebrow, title, summary, trailingLabel } = Astro.props;
+const paragraphs = Array.isArray(summary) ? summary : [summary];
 ---
 
 <section class="proj-intro">
@@ -15,7 +16,7 @@ const { eyebrow, title, summary, trailingLabel } = Astro.props;
     {trailingLabel && <span class="proj-intro-trailing">{trailingLabel}</span>}
   </div>
   <h2 class="proj-intro-title">{title}</h2>
-  <p class="proj-intro-summary">{summary}</p>
+  {paragraphs.map((p) => <p class="proj-intro-summary">{p}</p>)}
 </section>
 
 <style>
@@ -54,6 +55,10 @@ const { eyebrow, title, summary, trailingLabel } = Astro.props;
 
   .proj-intro-summary {
     max-width: 760px;
+  }
+
+  .proj-intro-summary + .proj-intro-summary {
+    margin-top: 1.25em;
   }
 
   @media (max-width: 860px) {

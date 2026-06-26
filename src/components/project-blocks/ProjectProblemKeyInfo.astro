@@ -6,15 +6,21 @@ interface InfoItem {
   value: string;
 }
 
+interface BriefFinding {
+  label: string;
+  body: string;
+}
+
 interface Props {
   problemBody: string;
-  contextBody: string;
+  contextBody?: string;
+  briefFindings?: BriefFinding[];
   infoItems: InfoItem[];
   image?: string;
   imageAlt?: string;
 }
 
-const { problemBody, contextBody, infoItems, image, imageAlt } = Astro.props;
+const { problemBody, contextBody, briefFindings, infoItems, image, imageAlt } = Astro.props;
 const base = import.meta.env.BASE_URL;
 const imageSrc = image ? `${base}${image.replace(/^\//, '')}` : undefined;
 ---
@@ -24,7 +30,18 @@ const imageSrc = image ? `${base}${image.replace(/^\//, '')}` : undefined;
     <span class="proj-pki-label">Problem</span>
     <p class="proj-pki-body">{problemBody}</p>
     <span class="proj-pki-label proj-pki-label-context">Brief</span>
-    <p class="proj-pki-context">{contextBody}</p>
+    {briefFindings ? (
+      <ul class="proj-pki-findings">
+        {briefFindings.map((f) => (
+          <li class="proj-pki-finding">
+            <span class="proj-pki-finding-label">{f.label}</span>
+            <p class="proj-pki-finding-body">{f.body}</p>
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <p class="proj-pki-context">{contextBody}</p>
+    )}
     {imageSrc && (
       <img class="proj-pki-image" src={imageSrc} alt={imageAlt ?? ''} loading="lazy" />
     )}
@@ -53,7 +70,7 @@ const imageSrc = image ? `${base}${image.replace(/^\//, '')}` : undefined;
   .proj-pki-label {
     display: block;
     font-family: var(--mono);
-    font-size: 12px;
+    font-size: 14px;
     color: var(--lime);
     letter-spacing: 0.1em;
     text-transform: uppercase;
@@ -70,9 +87,44 @@ const imageSrc = image ? `${base}${image.replace(/^\//, '')}` : undefined;
   }
 
   .proj-pki-context {
-    font-size: clamp(1.0625rem, 2vw, 1.3125rem);
     line-height: 1.65;
     max-width: 62ch;
+  }
+
+  .proj-pki-findings {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-width: 62ch;
+  }
+
+  .proj-pki-finding {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .proj-pki-finding:first-child {
+    padding-top: 0;
+  }
+
+  .proj-pki-finding:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .proj-pki-finding-label {
+    display: block;
+    font-family: var(--serif);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--lime);
+    letter-spacing: 0.03em;
+    margin-bottom: 0.4rem;
+  }
+
+  .proj-pki-finding-body {
+    margin: 0;
+    line-height: 1.6;
   }
 
   .proj-pki-image {
