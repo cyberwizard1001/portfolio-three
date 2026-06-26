@@ -41,7 +41,7 @@ import WindowChrome from './WindowChrome.astro';
           <div class="hs-cell">
             <p class="hs-label">background</p>
             <p class="hs-text">
-              Interfaces are vehicles that get users places. I care about making them easy to understand and operate. For first-time drivers and seasoned ones alike, whether they're tired, distracted, or under pressure.  
+              Interfaces are vehicles that get users places. I care about making them easy to understand and operate. For first-time drivers and seasoned ones alike, whether they're tired, distracted, or under pressure.
             </p>
             <div class="hs-tags">
               <span class="hs-tag active">UX research</span>
@@ -49,6 +49,10 @@ import WindowChrome from './WindowChrome.astro';
               <span class="hs-tag active">prototyping</span>
               <span class="hs-tag">Flutter</span>
             </div>
+            <p class="hs-typewriter" aria-live="polite" aria-atomic="true">
+              <span class="hs-tw-ps">~$</span>
+              <span class="hs-tw-text" id="hero-typewriter"></span><span class="hs-tw-cursor"></span>
+            </p>
           </div>
           <div class="hs-cell">
             <p class="hs-label">currently</p>
@@ -252,6 +256,33 @@ import WindowChrome from './WindowChrome.astro';
 
   .hs-cta:hover { opacity: 0.8; }
 
+  .hs-typewriter {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--dim);
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-height: 1.4em;
+  }
+
+  .hs-tw-ps { color: var(--lime); flex-shrink: 0; }
+
+  .hs-tw-cursor {
+    display: inline-block;
+    width: 1px;
+    height: 0.9em;
+    background: var(--lime);
+    vertical-align: middle;
+    animation: tw-blink 1s step-end infinite;
+  }
+
+  @keyframes tw-blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
   @media (max-width: 860px) {
     .hero-section { padding: 2rem 1.25rem; }
     .hero-split { grid-template-columns: 1fr; }
@@ -266,3 +297,56 @@ import WindowChrome from './WindowChrome.astro';
     .hs-cell { padding: 1.25rem; }
   }
 </style>
+
+<script>
+  (function () {
+    const el = document.getElementById('hero-typewriter');
+    if (!el) return;
+
+    const tips = [
+      'click 1–5 in the top bar to switch color schemes',
+      'click ☾ top-right to toggle dark / light mode',
+    ];
+
+    let tipIdx = 0;
+    let charIdx = 0;
+    let deleting = false;
+    let pauseTicks = 0;
+
+    const PAUSE_AFTER_TYPE = 38;
+    const PAUSE_AFTER_DELETE = 8;
+    const TYPE_MS = 45;
+    const DELETE_MS = 22;
+
+    function tick() {
+      const current = tips[tipIdx];
+
+      if (pauseTicks > 0) {
+        pauseTicks--;
+        setTimeout(tick, deleting ? DELETE_MS : TYPE_MS);
+        return;
+      }
+
+      if (!deleting) {
+        charIdx++;
+        el.textContent = current.slice(0, charIdx);
+        if (charIdx === current.length) {
+          deleting = true;
+          pauseTicks = PAUSE_AFTER_TYPE;
+        }
+        setTimeout(tick, TYPE_MS);
+      } else {
+        charIdx--;
+        el.textContent = current.slice(0, charIdx);
+        if (charIdx === 0) {
+          deleting = false;
+          tipIdx = (tipIdx + 1) % tips.length;
+          pauseTicks = PAUSE_AFTER_DELETE;
+        }
+        setTimeout(tick, DELETE_MS);
+      }
+    }
+
+    setTimeout(tick, 1200);
+  })();
+</script>
