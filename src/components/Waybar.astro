@@ -38,7 +38,7 @@ const base = import.meta.env.BASE_URL;
     <div class="wb-sep"></div>
     <span class="wb-label wb-hide-md">open for collab</span>
     <div class="wb-sep wb-hide-md"></div>
-    <div class="wb-feedback wb-hide-sm" id="wb-feedback">
+    <div class="wb-feedback wb-hide-mobile" id="wb-feedback">
       <span class="wb-label" id="fb-label">feedback</span>
       <div class="fb-buttons" id="fb-buttons">
         <button class="fb-btn" data-rating="good" aria-label="Good, rate this page positively" title="Good">🙂</button>
@@ -46,7 +46,7 @@ const base = import.meta.env.BASE_URL;
         <button class="fb-btn" data-rating="bad" aria-label="Not great, rate this page negatively" title="Not great">🙁</button>
       </div>
     </div>
-    <div class="wb-sep wb-hide-sm"></div>
+    <div class="wb-sep wb-hide-mobile"></div>
     <span class="wb-clock" id="clock">--:--</span>
     <div class="wb-sep"></div>
     <button type="button" class="mode-toggle" id="mode-toggle" aria-label="Switch to light mode">☾</button>
@@ -415,6 +415,7 @@ const base = import.meta.env.BASE_URL;
 
   @media (max-width: 860px) {
     .wb-section:not(.wb-logo-sec):not(.right) { display: none; }
+    .wb-hide-mobile { display: none; }
   }
 
   @media (max-width: 720px) {

@@ -61,7 +61,7 @@ body {
 ═══════════════════════════════════════════════ */
 .window {
   border: 1px solid var(--border-hi);
-  border-radius: 6px;
+  border-radius: var(--radius-md);
   overflow: hidden;
   transition: border-color 0.2s;
 }
@@ -115,6 +115,133 @@ body {
   font-size: 12px;
   color: var(--dim);
 }
+
+/* ═══════════════════════════════════════════════
+   SHARED UTILITY CLASSES
+   Used across project-block components to avoid
+   copy-pasting the same CSS in every file.
+═══════════════════════════════════════════════ */
+
+/* Small mono label above section headings */
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--lime);
+}
+
+/* Standard section heading inside project case studies */
+.section-title {
+  font-size: clamp(1.375rem, 3vw, 1.875rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+/* Padding wrapper for every project-block section */
+.proj-section {
+  padding: 0 3rem 3rem;
+}
+
+@media (max-width: 860px) { .proj-section { padding: 0 1.25rem 2rem; } }
+@media (max-width: 480px) { .proj-section { padding: 0 0.75rem 1.5rem; } }
+
+/* ═══════════════════════════════════════════════
+   CARD WINDOW CHROME
+   Shared by ProjectCard and BuildCard. Both render
+   an interactive link styled as a macOS-ish terminal
+   window with traffic-light dots and a statusline.
+═══════════════════════════════════════════════ */
+.card-window {
+  background: var(--bg1);
+  border: 1px solid var(--border-hi);
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.18s;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Inset lime border on hover — uses ::after so it overlays content */
+.card-window::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1.5px solid transparent;
+  pointer-events: none;
+  transition: border-color 0.18s;
+}
+
+.card-window:hover::after { border-color: var(--lime); }
+.card-window:hover        { background: var(--term-hover); }
+
+.card-bar {
+  height: 32px;
+  background: var(--term-bg);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  gap: 8px;
+  flex-shrink: 0;
+  transition: background 0.18s;
+}
+
+.card-window:hover .card-bar { background: var(--term-hover2); }
+
+.card-controls { display: flex; gap: 5px; }
+
+.card-ctrl {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  border: 1px solid rgba(245,244,240,0.10);
+  background: rgba(245,244,240,0.04);
+  transition: background 0.18s, border-color 0.18s;
+}
+
+.card-window:hover .card-ctrl:nth-child(1) { background: var(--mac-red);    border-color: var(--mac-red); }
+.card-window:hover .card-ctrl:nth-child(2) { background: var(--mac-yellow); border-color: var(--mac-yellow); }
+.card-window:hover .card-ctrl:nth-child(3) { background: var(--mac-green);  border-color: var(--mac-green); }
+
+.card-bar-title {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--dim);
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.18s;
+}
+
+.card-window:hover .card-bar-title          { color: var(--sub); }
+.card-bar-title .fname                      { color: var(--dim); transition: color 0.18s; }
+.card-window:hover .card-bar-title .fname   { color: var(--text); }
+
+.card-statusline {
+  height: 26px;
+  background: var(--term-bg2);
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  flex-shrink: 0;
+}
+
+.card-statusline .sl-arrow {
+  color: var(--lime);
+  font-size: 12px;
+  margin-left: auto;
+  transition: transform 0.2s;
+}
+
+.card-window:hover .sl-arrow { transform: translate(3px, -3px); }
 
 @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
 
@@ -267,6 +394,10 @@ body {
     flex-direction: column;
     align-items: flex-start;
     gap: 8px;
+  }
+
+  .footer-theme-hint {
+    display: none;
   }
 }
 

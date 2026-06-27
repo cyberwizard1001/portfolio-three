@@ -7,14 +7,13 @@ interface Props {
 const { quote, attribution } = Astro.props;
 ---
 
-<section class="proj-quote">
+<section class="proj-quote proj-section">
   <p class="proj-quote-text">"{quote}"</p>
-  {attribution && <span class="proj-quote-attribution">{attribution}</span>}
+  {attribution && <span class="proj-quote-attribution eyebrow">{attribution}</span>}
 </section>
 
 <style>
   .proj-quote {
-    padding: 0 3rem 3rem;
     max-width: 820px;
   }
 
@@ -29,14 +28,5 @@ const { quote, attribution } = Astro.props;
   .proj-quote-attribution {
     display: block;
     margin-top: 1rem;
-    font-family: var(--mono);
-    font-size: 12px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--lime);
-  }
-
-  @media (max-width: 860px) {
-    .proj-quote { padding: 0 1.25rem 2rem; }
   }
 </style>

@@ -12,8 +12,8 @@ interface Props {
 const { title, steps } = Astro.props;
 ---
 
-<section class="proj-steps">
-  <h2 class="proj-steps-title">{title}</h2>
+<section class="proj-steps proj-section">
+  <h2 class="proj-steps-title section-title">{title}</h2>
   <div class="proj-steps-list">
     {steps.map((step, i) => (
       <div class="proj-steps-card">
@@ -28,14 +28,7 @@ const { title, steps } = Astro.props;
 </section>
 
 <style>
-  .proj-steps {
-    padding: 0 3rem 3rem;
-  }
-
   .proj-steps-title {
-    font-size: clamp(1.375rem, 3vw, 1.875rem);
-    font-weight: 700;
-    letter-spacing: -0.02em;
     margin-bottom: 1.5rem;
   }
 
@@ -83,7 +76,6 @@ const { title, steps } = Astro.props;
   }
 
   @media (max-width: 860px) {
-    .proj-steps { padding: 0 1.25rem 2rem; }
     .proj-steps-list { grid-template-columns: 1fr; column-gap: 0; }
   }
 </style>

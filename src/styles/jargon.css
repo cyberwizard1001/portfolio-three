@@ -32,7 +32,7 @@
   width: max-content;
   background: var(--term-bg, var(--bg1));
   border: 1px solid var(--border-hi);
-  border-radius: 6px;
+  border-radius: var(--radius-md);
   padding: 0.6rem 0.75rem;
   font-family: var(--sans);
   font-size: 0.8125rem;

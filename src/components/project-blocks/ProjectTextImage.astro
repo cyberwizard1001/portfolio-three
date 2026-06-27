@@ -16,7 +16,7 @@ const src = raw ? image : `${base}${image.replace(/^\//, '')}`;
 
 <section class:list={['proj-ti', { 'proj-ti-reverse': reverse }]}>
   <div class="proj-ti-textbody">
-    <span class="proj-ti-eyebrow">{eyebrow}</span>
+    <span class="proj-ti-eyebrow eyebrow">{eyebrow}</span>
     <h2 class="proj-ti-title">{title}</h2>
     <p class="proj-ti-body" set:html={body} />
   </div>
@@ -41,12 +41,7 @@ const src = raw ? image : `${base}${image.replace(/^\//, '')}`;
 
   .proj-ti-eyebrow {
     display: block;
-    font-family: var(--mono);
-    font-size: 12px;
     line-height: 1;
-    color: var(--lime);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
     margin-bottom: 0.25rem;
   }
 
@@ -77,9 +72,6 @@ const src = raw ? image : `${base}${image.replace(/^\//, '')}`;
     margin-bottom: 0.75rem;
   }
 
-  .proj-ti-body {
-  }
-
   .proj-ti-body :global(a) {
     color: var(--lime);
     text-decoration: underline;
@@ -99,7 +91,7 @@ const src = raw ? image : `${base}${image.replace(/^\//, '')}`;
   }
 
   .proj-ti-frame {
-    border-radius: 6px;
+    border-radius: var(--radius-md);
     overflow: hidden;
     box-shadow: 0 12px 32px -16px rgba(0, 0, 0, 0.5);
   }

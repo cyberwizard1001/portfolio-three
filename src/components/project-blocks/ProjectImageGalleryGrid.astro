@@ -14,8 +14,8 @@ const { title, images, raw = false } = Astro.props;
 const base = import.meta.env.BASE_URL;
 ---
 
-<section class="proj-gallery-grid">
-  {title && <h2 class="proj-gallery-grid-title">{title}</h2>}
+<section class="proj-gallery-grid proj-section">
+  {title && <h2 class="proj-gallery-grid-title section-title">{title}</h2>}
   <div class="proj-gallery-grid-images">
     {images.map((img) => (
       <div class="proj-gallery-grid-item">
@@ -26,14 +26,7 @@ const base = import.meta.env.BASE_URL;
 </section>
 
 <style>
-  .proj-gallery-grid {
-    padding: 0 3rem 3rem;
-  }
-
   .proj-gallery-grid-title {
-    font-size: clamp(1.375rem, 3vw, 1.875rem);
-    font-weight: 700;
-    letter-spacing: -0.02em;
     margin-bottom: 1.5rem;
   }
 
@@ -44,7 +37,7 @@ const base = import.meta.env.BASE_URL;
   }
 
   .proj-gallery-grid-item {
-    border-radius: 6px;
+    border-radius: var(--radius-md);
     overflow: hidden;
     border: 1px solid var(--border-hi);
     aspect-ratio: 1.8;
@@ -59,7 +52,6 @@ const base = import.meta.env.BASE_URL;
   }
 
   @media (max-width: 860px) {
-    .proj-gallery-grid { padding: 0 1.25rem 2rem; }
     .proj-gallery-grid-images { grid-template-columns: 1fr; }
   }
 </style>

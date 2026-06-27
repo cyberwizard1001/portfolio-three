@@ -7,7 +7,7 @@ interface Props {
 const { heading, body } = Astro.props;
 ---
 
-<section class="proj-text">
+<section class="proj-text proj-section">
   <div class="proj-text-col">
     {heading && <h2 class="proj-text-heading">{heading}</h2>}
     {body && <p class="proj-text-body">{body}</p>}
@@ -17,7 +17,6 @@ const { heading, body } = Astro.props;
 
 <style>
   .proj-text {
-    padding: 0 3rem 3rem;
     width: 100%;
     box-sizing: border-box;
   }
@@ -72,13 +71,6 @@ const { heading, body } = Astro.props;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     margin-bottom: 0.75rem;
-  }
-
-  .proj-text-body {
-  }
-
-  @media (max-width: 860px) {
-    .proj-text { padding: 0 1.25rem 2rem; }
   }
 
   /* Prose styling for markdown rendered via <Content /> in the default slot */
@@ -159,7 +151,7 @@ const { heading, body } = Astro.props;
     width: 100%;
     display: block;
     border: 1px solid var(--border-hi);
-    border-radius: 6px;
+    border-radius: var(--radius-md);
     margin: 0.5rem 0 1.25rem;
   }
 

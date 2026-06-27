@@ -8,7 +8,7 @@ interface Props {
 const { body, label, variant = 'insight' } = Astro.props;
 ---
 
-<section class="proj-callout">
+<section class="proj-callout proj-section">
   <div class:list={['proj-callout-card', `proj-callout-${variant}`]}>
     <div class="proj-callout-strip"></div>
     <div class="proj-callout-content">
@@ -19,13 +19,9 @@ const { body, label, variant = 'insight' } = Astro.props;
 </section>
 
 <style>
-  .proj-callout {
-    padding: 0 3rem 3rem;
-  }
-
   .proj-callout-card {
     display: flex;
-    border-radius: 6px;
+    border-radius: var(--radius-md);
     border: 1px solid rgba(158,255,87,0.20);
     background: var(--lime-dim);
     overflow: hidden;
@@ -51,9 +47,6 @@ const { body, label, variant = 'insight' } = Astro.props;
     margin-bottom: 0.5rem;
   }
 
-  .proj-callout-body {
-  }
-
   .proj-callout-principle {
     background: var(--lime-dim);
   }
@@ -71,7 +64,4 @@ const { body, label, variant = 'insight' } = Astro.props;
     color: #d97706;
   }
 
-  @media (max-width: 860px) {
-    .proj-callout { padding: 0 1.25rem 2rem; }
-  }
 </style>

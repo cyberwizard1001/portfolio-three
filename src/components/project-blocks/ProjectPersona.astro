@@ -31,8 +31,8 @@ const initial = name.length > 0 ? name[0].toUpperCase() : '?';
 const cleanQuote = quote.trim().replace(/^["“]+/, '').replace(/["”]+$/, '');
 ---
 
-<section class="proj-persona">
-  <span class="proj-persona-eyebrow">{eyebrow}</span>
+<section class="proj-persona proj-section">
+  <span class="proj-persona-eyebrow eyebrow">{eyebrow}</span>
 
   <div class="proj-persona-card">
     <aside class="proj-persona-side">
@@ -93,17 +93,8 @@ const cleanQuote = quote.trim().replace(/^["“]+/, '').replace(/["”]+$/, '');
 </section>
 
 <style>
-  .proj-persona {
-    padding: 0 3rem 3rem;
-  }
-
   .proj-persona-eyebrow {
     display: block;
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--lime);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
     margin-bottom: 1rem;
   }
 
@@ -111,7 +102,7 @@ const cleanQuote = quote.trim().replace(/^["“]+/, '').replace(/["”]+$/, '');
     display: grid;
     grid-template-columns: 260px 1fr;
     border: 1px solid var(--border-hi);
-    border-radius: 6px;
+    border-radius: var(--radius-md);
     overflow: hidden;
   }
 
@@ -308,7 +299,6 @@ const cleanQuote = quote.trim().replace(/^["“]+/, '').replace(/["”]+$/, '');
   }
 
   @media (max-width: 860px) {
-    .proj-persona { padding: 0 1.25rem 2rem; }
     .proj-persona-card { grid-template-columns: 1fr; }
     .proj-persona-side {
       border-right: none;

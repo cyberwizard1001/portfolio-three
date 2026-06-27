@@ -190,3 +190,16 @@
 @media (max-width: 860px) {
   :root { --bar-h: 78px; } /* 42px main bar + 36px theme strip */
 }
+
+/* ── Shared constants ── */
+:root {
+  /* macOS traffic-light dot colours for interactive card chrome */
+  --mac-red:    #ff5f57;
+  --mac-yellow: #febc2e;
+  --mac-green:  #28c840;
+
+  /* Border radius scale */
+  --radius-sm: 2px;
+  --radius-md: 6px;
+  --radius-lg: 12px;
+}

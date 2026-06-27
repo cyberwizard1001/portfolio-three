@@ -1,6 +1,30 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
+// Shared enum for project-block section components — used by both projects and buildPages.
+const sectionComponent = z.enum([
+  'ProjectHero',
+  'ProjectGallery',
+  'ProjectTextBlock',
+  'ProjectMeta',
+  'ProjectIntro',
+  'ProjectCallout',
+  'ProjectQuote',
+  'ProjectMetricsBand',
+  'ProjectBeforeAfter',
+  'ProjectLearnings',
+  'ProjectProcessSteps',
+  'ProjectFindingsGrid',
+  'ProjectHowMightWe',
+  'ProjectDecisionLog',
+  'ProjectPersona',
+  'ProjectProblemKeyInfo',
+  'ProjectTextImage',
+  'ProjectImageGalleryGrid',
+  'ProjectAccessibilityAudit',
+  'MoreProjects',
+]);
+
 const projects = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/projects' }),
   schema: z.object({
@@ -22,33 +46,7 @@ const projects = defineCollection({
     ),
     order: z.number(),
     sections: z
-      .array(
-        z.object({
-          component: z.enum([
-            'ProjectHero',
-            'ProjectGallery',
-            'ProjectTextBlock',
-            'ProjectMeta',
-            'ProjectIntro',
-            'ProjectCallout',
-            'ProjectQuote',
-            'ProjectMetricsBand',
-            'ProjectBeforeAfter',
-            'ProjectLearnings',
-            'ProjectProcessSteps',
-            'ProjectFindingsGrid',
-            'ProjectHowMightWe',
-            'ProjectDecisionLog',
-            'ProjectPersona',
-            'ProjectProblemKeyInfo',
-            'ProjectTextImage',
-            'ProjectImageGalleryGrid',
-            'ProjectAccessibilityAudit',
-            'MoreProjects',
-          ]),
-          props: z.record(z.any()).optional(),
-        })
-      )
+      .array(z.object({ component: sectionComponent, props: z.record(z.any()).optional() }))
       .optional(),
   }),
 });
@@ -77,33 +75,7 @@ const buildPages = defineCollection({
     ),
     order: z.number(),
     sections: z
-      .array(
-        z.object({
-          component: z.enum([
-            'ProjectHero',
-            'ProjectGallery',
-            'ProjectTextBlock',
-            'ProjectMeta',
-            'ProjectIntro',
-            'ProjectCallout',
-            'ProjectQuote',
-            'ProjectMetricsBand',
-            'ProjectBeforeAfter',
-            'ProjectLearnings',
-            'ProjectProcessSteps',
-            'ProjectFindingsGrid',
-            'ProjectHowMightWe',
-            'ProjectDecisionLog',
-            'ProjectPersona',
-            'ProjectProblemKeyInfo',
-            'ProjectTextImage',
-            'ProjectImageGalleryGrid',
-            'ProjectAccessibilityAudit',
-            'MoreProjects',
-          ]),
-          props: z.record(z.any()).optional(),
-        })
-      )
+      .array(z.object({ component: sectionComponent, props: z.record(z.any()).optional() }))
       .optional(),
   }),
 });

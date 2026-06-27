@@ -21,12 +21,12 @@ const { href, filename, image, imageAlt, type, year, title, oneliner, statusline
 const base = import.meta.env.BASE_URL;
 ---
 
-<a class="proj-window" href={href}>
-  <div class="pw-bar">
-    <div class="pw-controls">
-      <div class="pwc"></div><div class="pwc"></div><div class="pwc"></div>
+<a class="card-window proj-window" href={href}>
+  <div class="card-bar">
+    <div class="card-controls">
+      <div class="card-ctrl"></div><div class="card-ctrl"></div><div class="card-ctrl"></div>
     </div>
-    <span class="pw-title">vim: <span class="fname">{filename}</span></span>
+    <span class="card-bar-title">vim: <span class="fname">{filename}</span></span>
     {isNew && <span class="pw-new-badge">NEW</span>}
   </div>
   <div class="pw-image">
@@ -39,90 +39,22 @@ const base = import.meta.env.BASE_URL;
     </div>
     <h3 class="pw-title-text">{title}</h3>
     <p class="pw-oneliner">{oneliner}</p>
+    {statusline.length > 0 && (
+      <ul class="pw-tags">
+        {statusline.map(c => (
+          <li class="pw-tag">{c.label}</li>
+        ))}
+      </ul>
+    )}
   </div>
-  <div class="pw-statusline">
-    {statusline.filter(c => !c.lime).map(c => (
-      <span class="sl-chunk">{c.label}</span>
-    ))}
-    <span class="sl-chunk sl-arrow">↗</span>
+  <div class="card-statusline">
+    <span class="sl-arrow">↗</span>
   </div>
 </a>
 
 <style>
-  .proj-window {
-    background: var(--bg1);
-    border: 1px solid var(--border-hi);
-    border-radius: 6px;
-    display: flex;
-    flex-direction: column;
-    text-decoration: none;
-    color: inherit;
-    transition: background 0.18s;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .proj-window::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border: 1.5px solid transparent;
-    border-radius: 0;
-    pointer-events: none;
-    transition: border-color 0.18s;
-  }
-
-  .proj-window:hover::after { border-color: var(--lime); }
-  .proj-window:hover { background: var(--term-hover); }
-
-  .pw-bar {
-    height: 32px;
-    background: var(--term-bg);
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    padding: 0 12px;
-    gap: 8px;
-    flex-shrink: 0;
-  }
-
-  .pw-controls { display: flex; gap: 5px; }
-
-  .pwc {
-    width: 9px;
-    height: 9px;
-    border-radius: 50%;
-    border: 1px solid rgba(245,244,240,0.10);
-    background: rgba(245,244,240,0.04);
-    transition: background 0.18s, border-color 0.18s;
-  }
-
-  .proj-window:hover .pwc:nth-child(1) { background: #ff5f57; border-color: #ff5f57; }
-  .proj-window:hover .pwc:nth-child(2) { background: #febc2e; border-color: #febc2e; }
-  .proj-window:hover .pwc:nth-child(3) { background: #28c840; border-color: #28c840; }
-
-  .pw-bar {
-    transition: background 0.18s;
-  }
-
-  .proj-window:hover .pw-bar { background: var(--term-hover2); }
-
-  .pw-title {
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--dim);
-    flex: 1;
-    min-width: 0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    transition: color 0.18s;
-  }
-
-  .proj-window:hover .pw-title { color: var(--sub); }
-
-  .pw-title .fname { color: var(--dim); transition: color 0.18s; }
-  .proj-window:hover .pw-title .fname { color: var(--text); }
+  /* Card-level chrome (bar, controls, statusline) lives in global.css as .card-window.
+     These styles cover the image panel and content area unique to ProjectCard. */
 
   .pw-new-badge {
     font-family: var(--mono);
@@ -130,7 +62,7 @@ const base = import.meta.env.BASE_URL;
     font-weight: 700;
     letter-spacing: 0.06em;
     padding: 2px 7px;
-    border-radius: 3px;
+    border-radius: var(--radius-sm);
     background: var(--lime);
     color: var(--bg1);
     flex-shrink: 0;
@@ -139,7 +71,7 @@ const base = import.meta.env.BASE_URL;
 
   @keyframes pw-new-pulse {
     0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--lime) 55%, transparent); }
-    50% { box-shadow: 0 0 0 5px color-mix(in srgb, var(--lime) 0%, transparent); }
+    50%       { box-shadow: 0 0 0 5px color-mix(in srgb, var(--lime) 0%, transparent); }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -166,7 +98,10 @@ const base = import.meta.env.BASE_URL;
     display: block;
     opacity: 0.9;
     mix-blend-mode: luminosity;
+    transition: transform 0.4s ease;
   }
+
+  .card-window:hover .pw-img-el { transform: scale(1.02); }
 
   .pw-content {
     padding: 1.5rem 1.75rem 1.25rem;
@@ -191,7 +126,7 @@ const base = import.meta.env.BASE_URL;
     background: var(--lime-dim);
     border: 1px solid rgba(158,255,87,0.2);
     padding: 2px 8px;
-    border-radius: 2px;
+    border-radius: var(--radius-sm);
   }
 
   .pw-year {
@@ -202,63 +137,37 @@ const base = import.meta.env.BASE_URL;
 
   .pw-title-text {
     font-family: var(--mono);
-    font-size: 1.625rem;
+    font-size: 1.5rem;
     font-weight: 700;
     letter-spacing: -0.03em;
-    line-height: 1.1;
+    line-height: 1.15;
     color: var(--text);
     margin-bottom: 0.6rem;
   }
 
   .pw-oneliner {
-    font-family: system-ui, -apple-system, sans-serif;
+    font-family: var(--mono);
     font-size: 0.875rem;
     color: var(--sub);
     line-height: 1.6;
     flex: 1;
+    margin-bottom: 0.875rem;
   }
 
-  .pw-statusline {
-    height: 26px;
-    background: var(--term-bg2);
-    border-top: 1px solid var(--border);
+  .pw-tags {
+    list-style: none;
     display: flex;
-    align-items: center;
-    padding: 0 12px;
-    gap: 0;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .pw-tag {
     font-family: var(--mono);
-    font-size: 12px;
-    flex-shrink: 0;
-  }
-
-  .sl-chunk {
-    padding: 0 10px;
-    border-right: 1px solid var(--border);
-    color: var(--dim);
-    height: 100%;
-    display: flex;
-    align-items: center;
-    white-space: nowrap;
-  }
-
-  .sl-chunk:first-child { padding-left: 0; }
-  .sl-chunk:last-child { border-right: none; margin-left: auto; }
-
-  .sl-chunk.lime {
+    font-size: 11px;
     color: var(--lime);
     background: var(--lime-dim);
-    padding: 0 10px;
-    border: none;
-    border-right: 1px solid var(--border);
+    border: 1px solid rgba(158,255,87,0.2);
+    padding: 2px 8px;
+    border-radius: var(--radius-sm);
   }
-
-  .sl-arrow {
-    color: var(--lime);
-    font-size: 12px;
-    margin-left: auto;
-    padding-right: 0;
-    transition: transform 0.2s;
-  }
-
-  .proj-window:hover .sl-arrow { transform: translate(3px, -3px); }
 </style>

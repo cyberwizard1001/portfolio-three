@@ -23,8 +23,8 @@ const outcomeLabels: Record<string, string> = {
 };
 ---
 
-<section class="proj-dlog">
-  <h2 class="proj-dlog-title">{title}</h2>
+<section class="proj-dlog proj-section">
+  <h2 class="proj-dlog-title section-title">{title}</h2>
   {intro && <p class="proj-dlog-intro">{intro}</p>}
   <ol class="proj-dlog-list">
     {decisions.map((d, i) => {
@@ -47,14 +47,7 @@ const outcomeLabels: Record<string, string> = {
 </section>
 
 <style>
-  .proj-dlog {
-    padding: 0 3rem 3rem;
-  }
-
   .proj-dlog-title {
-    font-size: clamp(1.375rem, 3vw, 1.875rem);
-    font-weight: 700;
-    letter-spacing: -0.02em;
     margin-bottom: 0.5rem;
   }
 
@@ -163,10 +156,6 @@ const outcomeLabels: Record<string, string> = {
   }
 
   @media (max-width: 860px) {
-    .proj-dlog {
-      padding: 0 1.25rem 2rem;
-    }
-
     .proj-dlog-item {
       grid-template-columns: 2rem 1fr;
       gap: 0 0.375rem;

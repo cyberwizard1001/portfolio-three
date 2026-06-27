@@ -28,8 +28,8 @@ for (const issue of issues) {
 }
 ---
 
-<section class="proj-a11y">
-  <h2 class="proj-a11y-title">{title}</h2>
+<section class="proj-a11y proj-section">
+  <h2 class="proj-a11y-title section-title">{title}</h2>
   {intro && <p class="proj-a11y-intro">{intro}</p>}
 
   <div class="proj-a11y-summary">
@@ -66,14 +66,7 @@ for (const issue of issues) {
 </section>
 
 <style>
-  .proj-a11y {
-    padding: 0 3rem 3rem;
-  }
-
   .proj-a11y-title {
-    font-size: clamp(1.375rem, 3vw, 1.875rem);
-    font-weight: 700;
-    letter-spacing: -0.02em;
     margin-bottom: 0.5rem;
   }
 
@@ -115,7 +108,7 @@ for (const issue of issues) {
 
   .proj-a11y-table {
     border: 1px solid var(--border-hi);
-    border-radius: 6px;
+    border-radius: var(--radius-md);
     overflow: hidden;
   }
 
@@ -201,7 +194,4 @@ for (const issue of issues) {
     line-height: 1.6;
   }
 
-  @media (max-width: 860px) {
-    .proj-a11y { padding: 0 1.25rem 2rem; }
-  }
 </style>

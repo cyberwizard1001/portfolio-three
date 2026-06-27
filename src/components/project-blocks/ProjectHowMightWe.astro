@@ -15,10 +15,10 @@ interface Props {
 const { items, title = 'How might we…', intro } = Astro.props;
 ---
 
-<section class="proj-hmw">
+<section class="proj-hmw proj-section">
   <div class="proj-hmw-top">
     <div>
-      <h2 class="proj-hmw-title">{title}</h2>
+      <h2 class="proj-hmw-title section-title">{title}</h2>
       {intro && <p class="proj-hmw-intro">{intro}</p>}
     </div>
     <span class="proj-hmw-count">{items.length} questions</span>
@@ -34,10 +34,6 @@ const { items, title = 'How might we…', intro } = Astro.props;
 </section>
 
 <style>
-  .proj-hmw {
-    padding: 0 3rem 3rem;
-  }
-
   .proj-hmw-top {
     display: flex;
     align-items: flex-end;
@@ -46,11 +42,6 @@ const { items, title = 'How might we…', intro } = Astro.props;
     margin-bottom: 1.5rem;
   }
 
-  .proj-hmw-title {
-    font-size: clamp(1.375rem, 3vw, 1.875rem);
-    font-weight: 700;
-    letter-spacing: -0.02em;
-  }
 
   .proj-hmw-intro {
     margin-top: 0.5rem;
@@ -115,7 +106,4 @@ const { items, title = 'How might we…', intro } = Astro.props;
     .proj-hmw-top { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
   }
 
-  @media (max-width: 860px) {
-    .proj-hmw { padding: 0 1.25rem 2rem; }
-  }
 </style>
