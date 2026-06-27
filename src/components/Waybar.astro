@@ -63,8 +63,6 @@ const base = import.meta.env.BASE_URL;
       <button type="button" class="ws-pill" aria-label="Switch to Dracula theme" aria-pressed="false">4</button>
       <button type="button" class="ws-pill" aria-label="Switch to High Contrast theme" aria-pressed="false">5</button>
     </div>
-    <button type="button" class="mode-toggle" id="mode-toggle-mobile" aria-label="Switch to light mode">☾</button>
-    <div class="wmb-sep"></div>
     <div class="wb-feedback wmb-feedback" id="wb-feedback-mobile">
       <div class="fb-buttons">
         <button class="fb-btn" data-rating="good" aria-label="Good, rate this page positively" title="Good">🙂</button>
@@ -478,20 +476,6 @@ const base = import.meta.env.BASE_URL;
       inset: -6px -3px;
     }
 
-    .wb-mobile-bar .mode-toggle {
-      width: 30px;
-      height: 30px;
-      flex-shrink: 0;
-    }
-
-    .wmb-sep {
-      width: 1px;
-      height: 20px;
-      background: var(--border);
-      flex-shrink: 0;
-      margin: 0 0.25rem;
-    }
-
     .wmb-feedback {
       display: flex;
       align-items: center;
@@ -599,7 +583,7 @@ const base = import.meta.env.BASE_URL;
 <script>
   (function () {
     const pills = document.querySelectorAll<HTMLElement>('.ws-pill');
-    const modeToggles = document.querySelectorAll<HTMLElement>('#mode-toggle, #mode-toggle-mobile');
+    const modeToggles = document.querySelectorAll<HTMLElement>('#mode-toggle');
     const hint = document.getElementById('theme-hint');
     const hintClose = document.getElementById('theme-hint-close');
 
