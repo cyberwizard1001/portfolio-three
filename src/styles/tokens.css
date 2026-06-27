@@ -186,3 +186,7 @@
   --term-hover2:  var(--bg0);
   --term-overlay: var(--bg1);
 }
+
+@media (max-width: 860px) {
+  :root { --bar-h: 78px; } /* 42px main bar + 36px theme strip */
+}

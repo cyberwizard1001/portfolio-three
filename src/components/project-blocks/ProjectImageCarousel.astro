@@ -309,6 +309,13 @@ const base = import.meta.env.BASE_URL;
     padding: 0;
     cursor: pointer;
     transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+    position: relative;
+  }
+
+  .proj-carousel-dot::before {
+    content: '';
+    position: absolute;
+    inset: -10px -6px;
   }
 
   .proj-carousel-dot:hover {
@@ -369,6 +376,17 @@ const base = import.meta.env.BASE_URL;
     .proj-car-reverse .proj-carousel {
       grid-column: 1;
       grid-row: 1;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .proj-carousel-btn {
+      width: 2.75rem;
+      height: 2.75rem;
+    }
+
+    .proj-carousel-dot::before {
+      inset: -14px -8px;
     }
   }
 </style>
