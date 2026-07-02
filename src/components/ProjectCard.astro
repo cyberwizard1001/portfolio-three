@@ -1,60 +1,71 @@
 ---
-interface StatuslineChunk {
-  label: string;
-  lime?: boolean;
-}
-
+// "Diff" project card: portrait, fits the home 3-col grid.
+// Image on top, then eyebrow · title, then problem→outcome as a git/vim diff.
 interface Props {
   href: string;
   filename: string;
-  image: string;
-  imageAlt: string;
-  type: string;
+  eyebrow: string;
   year: string;
   title: string;
-  oneliner: string;
-  statusline: StatuslineChunk[];
+  problem: string;
+  outcomeValue: string;
+  outcomeLabel: string;
+  image: string;
+  imageAlt: string;
   isNew?: boolean;
 }
-
-const { href, filename, image, imageAlt, type, year, title, oneliner, statusline, isNew } = Astro.props;
+const {
+  href,
+  filename,
+  eyebrow,
+  year,
+  title,
+  problem,
+  outcomeValue,
+  outcomeLabel,
+  image,
+  imageAlt,
+  isNew,
+} = Astro.props;
 const base = import.meta.env.BASE_URL;
 ---
 
-<a class="card-window proj-window" href={href}>
+<a class="card-window df" href={href}>
   <div class="card-bar">
     <div class="card-controls">
       <div class="card-ctrl"></div><div class="card-ctrl"></div><div class="card-ctrl"></div>
     </div>
-    <span class="card-bar-title">vim: <span class="fname">{filename}</span></span>
+    <span class="card-bar-title">git diff — <span class="fname">{filename}</span></span>
     {isNew && <span class="pw-new-badge">NEW</span>}
   </div>
-  <div class="pw-image">
-    <img src={`${base}${image.replace(/^\//, '')}`} alt={imageAlt} class="pw-img-el" />
+
+  <div class="df-image">
+    <img src={`${base}${image.replace(/^\//, '')}`} alt={imageAlt} class="df-img-el" />
   </div>
-  <div class="pw-content">
-    <div class="pw-meta">
-      <span class="pw-type">{type}</span>
-      <span class="pw-year">{year}</span>
+
+  <div class="df-body">
+    <div class="df-meta">
+      <span class="df-eyebrow">{eyebrow}</span>
+      <span class="df-year">{year}</span>
     </div>
-    <h3 class="pw-title-text">{title}</h3>
-    <p class="pw-oneliner">{oneliner}</p>
-    {statusline.length > 0 && (
-      <ul class="pw-tags">
-        {statusline.map(c => (
-          <li class="pw-tag">{c.label}</li>
-        ))}
-      </ul>
-    )}
-  </div>
-  <div class="card-statusline">
-    <span class="sl-arrow">↗</span>
+    <h3 class="df-title">{title}</h3>
+    <div class="df-block">
+      <div class="df-line df-minus">
+        <span class="df-sign">-</span>
+        <span class="df-content">{problem}</span>
+      </div>
+      <div class="df-line df-plus">
+        <span class="df-sign">+</span>
+        <span class="df-content"><strong>{outcomeValue}</strong> — {outcomeLabel}</span>
+      </div>
+    </div>
+    <span class="df-open">open case study <span class="df-arr">↗</span></span>
   </div>
 </a>
 
 <style>
-  /* Card-level chrome (bar, controls, statusline) lives in global.css as .card-window.
-     These styles cover the image panel and content area unique to ProjectCard. */
+  /* Card-level chrome (bar, controls) lives in global.css as .card-window.
+     These styles cover the image panel and diff body unique to this card. */
 
   .pw-new-badge {
     font-family: var(--mono);
@@ -78,96 +89,99 @@ const base = import.meta.env.BASE_URL;
     .pw-new-badge { animation: none; }
   }
 
-  .pw-image {
-    height: 210px;
-    background: var(--term-bg);
+  .df-image {
     border-bottom: 1px solid var(--border);
     overflow: hidden;
+    background: var(--term-bg);
+    aspect-ratio: 16 / 9;
     flex-shrink: 0;
-    position: relative;
     background-image:
       linear-gradient(var(--border) 1px, transparent 1px),
       linear-gradient(90deg, var(--border) 1px, transparent 1px);
     background-size: 32px 32px;
   }
-
-  .pw-img-el {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
+  .df-img-el {
+    width: 100%; height: 100%;
+    object-fit: cover; display: block;
     opacity: 0.9;
     mix-blend-mode: luminosity;
     transition: transform 0.4s ease;
   }
+  .card-window:hover .df-img-el { transform: scale(1.02); }
 
-  .card-window:hover .pw-img-el { transform: scale(1.02); }
-
-  .pw-content {
-    padding: 1.5rem 1.75rem 1.25rem;
-    flex: 1;
+  .df-body {
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
+    background: var(--bg1);
+    padding: 1.5rem 1.5rem 1.25rem;
+    flex: 1;
   }
-
-  .pw-meta {
+  .df-meta {
     display: flex;
-    align-items: center;
+    align-items: baseline;
     justify-content: space-between;
-    margin-bottom: 0.875rem;
+    gap: 0.75rem;
+    width: 100%;
+    margin-bottom: 0.6rem;
   }
-
-  .pw-type {
+  .df-eyebrow {
     font-family: var(--mono);
-    font-size: 12px;
-    color: var(--lime);
-    letter-spacing: 0.1em;
+    font-size: 11px;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    background: var(--lime-dim);
-    border: 1px solid rgba(158,255,87,0.2);
-    padding: 2px 8px;
-    border-radius: var(--radius-sm);
+    color: var(--dim);
   }
-
-  .pw-year {
+  .df-year {
     font-family: var(--mono);
     font-size: 12px;
     color: var(--dim);
+    flex-shrink: 0;
   }
-
-  .pw-title-text {
+  .df-title {
     font-family: var(--mono);
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     font-weight: 700;
     letter-spacing: -0.03em;
     line-height: 1.15;
     color: var(--text);
-    margin-bottom: 0.6rem;
+    margin: 0 0 1.1rem;
   }
-
-  .pw-oneliner {
+  .df-block {
+    width: 100%;
     font-family: var(--mono);
-    font-size: 0.875rem;
-    color: var(--sub);
+    font-size: 0.8rem;
     line-height: 1.6;
-    flex: 1;
-    margin-bottom: 0.875rem;
-  }
-
-  .pw-tags {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-  }
-
-  .pw-tag {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--lime);
-    background: var(--lime-dim);
-    border: 1px solid rgba(158,255,87,0.2);
-    padding: 2px 8px;
+    border: 1px solid var(--border);
     border-radius: var(--radius-sm);
+    overflow: hidden;
+    margin-bottom: 1.1rem;
   }
+  .df-line { display: flex; gap: 0.6rem; padding: 0.7rem 0.9rem; }
+  .df-sign { flex-shrink: 0; font-weight: 700; }
+  .df-minus {
+    background: color-mix(in srgb, var(--mac-red, #ff5f56) 12%, transparent);
+    color: var(--sub);
+  }
+  .df-minus .df-sign { color: var(--mac-red, #ff5f56); }
+  .df-plus {
+    background: var(--lime-dim);
+    color: var(--text);
+    border-top: 1px solid var(--border);
+  }
+  .df-plus .df-sign { color: var(--lime); }
+  .df-plus strong { color: var(--lime); font-weight: 800; }
+  .df-open {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--lime);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-top: auto;
+    padding-top: 0.5rem;
+  }
+  .df-arr { transition: transform 0.18s; }
+  .df:hover .df-arr { transform: translate(2px, -2px); }
 </style>

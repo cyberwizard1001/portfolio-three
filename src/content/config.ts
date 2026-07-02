@@ -36,6 +36,10 @@ const projects = defineCollection({
     image: z.string(),
     imageAlt: z.string(),
     oneliner: z.string(),
+    eyebrow: z.string().optional(),
+    problem: z.string().optional(),
+    outcomeValue: z.string().optional(),
+    outcomeLabel: z.string().optional(),
     isNew: z.boolean().optional(),
     hidden: z.boolean().optional(),
     statusline: z.array(

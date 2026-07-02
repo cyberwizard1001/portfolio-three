@@ -4,7 +4,7 @@ import Waybar from '../components/Waybar.astro';
 import Footer from '../components/Footer.astro';
 import CardVariantHorizon from '../components/card-variants/CardVariantHorizon.astro';
 import CardVariantWindow from '../components/card-variants/CardVariantWindow.astro';
-import CardVariantDiff from '../components/card-variants/CardVariantDiff.astro';
+import ProjectCard from '../components/ProjectCard.astro';
 import CardVariantStat from '../components/card-variants/CardVariantStat.astro';
 
 const base = import.meta.env.BASE_URL;
@@ -78,7 +78,7 @@ const samples = [
     <section class="cv-set">
       <h2 class="cv-h2"><span class="cv-tag">C</span> Diff — portrait card, problem as −, outcome as +</h2>
       <div class="cv-grid3">
-        {samples.map((s) => <CardVariantDiff {...s} />)}
+        {samples.map((s) => <ProjectCard {...s} year="2025" />)}
       </div>
     </section>
 

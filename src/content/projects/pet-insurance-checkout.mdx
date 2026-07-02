@@ -7,6 +7,10 @@ year: "2026"
 image: /images/pet-insurance/hero.svg
 imageAlt: A confidence gauge moving from anxious to confident, beside a terminal checklist of what the redesigned review page made clear
 oneliner: People insuring a pet are committing real money to something they care about, and they want to feel understood before they hand it over. I redesigned the review page so it does a better job of showing them they are.
+eyebrow: Web · Checkout · Conversion
+problem: The review page buried the numbers that mattered and left claim terms ambiguous, slowing time-to-decision and seeding post-sale disputes.
+outcomeValue: A/B live
+outcomeLabel: 4 variants live in Amplitude with real traffic, measuring quote-completion uplift.
 statusline:
   - label: NORMAL
     lime: true
@@ -51,17 +55,6 @@ sections:
         The second page handles the assumptions and declarations, including an explicit call-out
         of the pre-existing conditions rules, before reaching payment. All of the FCA-mandated
         language stays exactly where compliance needs it. It's just no longer crowding the page.
-  - component: ProjectMetricsBand
-    props:
-      items:
-        - value: Conversion
-          label: Quote completion rate — primary measure for the A/B experiment
-        - value: Dwell time
-          label: Time-to-decision on the review page
-        - value: Post-sale complaints
-          label: Claim-decline disputes and cancellations over time
-        - value: A/B live
-          label: 4 variants live in Amplitude with real traffic
   - component: ProjectIntro
     props:
       eyebrow: Perfect Pet Insurance — Case study 01
@@ -83,6 +76,17 @@ sections:
         insurance make poor stand-in users. By the middle of the first interview I had that
         backwards: these were the people who handle the complaints and the declined claims, so
         they knew exactly what happens when the page fails to do its job.
+  - component: ProjectMetricsBand
+    props:
+      items:
+        - value: Conversion
+          label: Quote completion rate — primary measure for the A/B experiment
+        - value: Dwell time
+          label: Time-to-decision on the review page
+        - value: Post-sale complaints
+          label: Claim-decline disputes and cancellations over time
+        - value: A/B live
+          label: 4 variants live in Amplitude with real traffic
   - component: ProjectProblemKeyInfo
     props:
       problemBody: >-
