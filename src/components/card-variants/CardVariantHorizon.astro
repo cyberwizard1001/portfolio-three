@@ -1,0 +1,113 @@
+---
+// Variant A — "Horizon": faithful clone of the reference layout.
+// Horizontal split: text column (eyebrow · title · problem · outcome stat · CTA) + image panel.
+interface Props {
+  href: string;
+  eyebrow: string;
+  title: string;
+  problem: string;
+  outcomeValue: string;
+  outcomeLabel: string;
+  image: string;
+  imageAlt: string;
+}
+const { href, eyebrow, title, problem, outcomeValue, outcomeLabel, image, imageAlt } = Astro.props;
+const base = import.meta.env.BASE_URL;
+---
+
+<article class="hz">
+  <div class="hz-text">
+    <span class="hz-eyebrow">{eyebrow}</span>
+    <h3 class="hz-title">{title}</h3>
+    <p class="hz-problem">{problem}</p>
+    <div class="hz-outcome">
+      <span class="hz-value">{outcomeValue}</span>
+      <span class="hz-label">{outcomeLabel}</span>
+    </div>
+    <a class="hz-cta" href={href}>Open case study <span class="hz-arr">→</span></a>
+  </div>
+  <div class="hz-image">
+    <img src={`${base}${image.replace(/^\//, '')}`} alt={imageAlt} />
+  </div>
+</article>
+
+<style>
+  .hz {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 2.5rem;
+    align-items: center;
+    background: var(--bg1);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 2.5rem;
+  }
+  .hz-text { display: flex; flex-direction: column; align-items: flex-start; }
+  .hz-eyebrow {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-bottom: 1.25rem;
+  }
+  .hz-title {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    color: var(--text);
+    margin: 0 0 1rem;
+  }
+  .hz-problem {
+    font-family: var(--mono);
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: var(--sub);
+    margin: 0 0 1.75rem;
+  }
+  .hz-outcome { display: flex; flex-direction: column; margin-bottom: 1.75rem; }
+  .hz-value {
+    font-size: 3rem;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    color: var(--text);
+  }
+  .hz-label {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--dim);
+    letter-spacing: 0.04em;
+    margin-top: 0.4rem;
+  }
+  .hz-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 0.7rem 1.25rem;
+    border-radius: 999px;
+    background: var(--text);
+    color: var(--bg1);
+    text-decoration: none;
+    transition: background 0.18s, transform 0.18s;
+  }
+  .hz-cta:hover { transform: translateY(-2px); }
+  .hz-arr { transition: transform 0.18s; }
+  .hz-cta:hover .hz-arr { transform: translateX(3px); }
+  .hz-image {
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: var(--term-bg);
+    aspect-ratio: 16 / 11;
+  }
+  .hz-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  @media (max-width: 860px) {
+    .hz { grid-template-columns: 1fr; gap: 1.75rem; padding: 1.5rem; }
+    .hz-image { order: -1; }
+  }
+</style>

@@ -1,0 +1,127 @@
+---
+// Variant C — "Diff": portrait card (fits the home 3-col grid).
+// Image full/uncropped on top, then eyebrow · title, then problem→outcome as a git/vim diff.
+interface Props {
+  href: string;
+  filename: string;
+  eyebrow: string;
+  title: string;
+  problem: string;
+  outcomeValue: string;
+  outcomeLabel: string;
+  image: string;
+  imageAlt: string;
+}
+const { href, filename, eyebrow, title, problem, outcomeValue, outcomeLabel, image, imageAlt } = Astro.props;
+const base = import.meta.env.BASE_URL;
+---
+
+<a class="card-window df" href={href}>
+  <div class="card-bar">
+    <div class="card-controls">
+      <div class="card-ctrl"></div><div class="card-ctrl"></div><div class="card-ctrl"></div>
+    </div>
+    <span class="card-bar-title">git diff — <span class="fname">{filename}</span></span>
+  </div>
+
+  <div class="df-image">
+    <img src={`${base}${image.replace(/^\//, '')}`} alt={imageAlt} />
+  </div>
+
+  <div class="df-body">
+    <span class="df-eyebrow">{eyebrow}</span>
+    <h3 class="df-title">{title}</h3>
+    <div class="df-block">
+      <div class="df-line df-minus">
+        <span class="df-sign">-</span>
+        <span class="df-content">{problem}</span>
+      </div>
+      <div class="df-line df-plus">
+        <span class="df-sign">+</span>
+        <span class="df-content"><strong>{outcomeValue}</strong> — {outcomeLabel}</span>
+      </div>
+    </div>
+    <span class="df-open">open case study <span class="df-arr">↗</span></span>
+  </div>
+</a>
+
+<style>
+  .df { display: flex; flex-direction: column; text-decoration: none; }
+
+  .df-image {
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+    background: var(--term-bg);
+    aspect-ratio: 16 / 9;
+    flex-shrink: 0;
+  }
+  .df-image img {
+    width: 100%; height: 100%;
+    object-fit: cover; display: block;
+    transition: transform 0.4s ease;
+  }
+  .df:hover .df-image img { transform: scale(1.02); }
+
+  .df-body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background: var(--bg1);
+    padding: 1.5rem 1.5rem 1.25rem;
+    flex: 1;
+  }
+  .df-eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-bottom: 0.6rem;
+  }
+  .df-title {
+    font-family: var(--mono);
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    color: var(--text);
+    margin: 0 0 1.1rem;
+  }
+  .df-block {
+    width: 100%;
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    line-height: 1.6;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    margin-bottom: 1.1rem;
+  }
+  .df-line { display: flex; gap: 0.6rem; padding: 0.7rem 0.9rem; }
+  .df-sign { flex-shrink: 0; font-weight: 700; }
+  .df-minus {
+    background: color-mix(in srgb, var(--mac-red, #ff5f56) 12%, transparent);
+    color: var(--sub);
+  }
+  .df-minus .df-sign { color: var(--mac-red, #ff5f56); }
+  .df-plus {
+    background: var(--lime-dim);
+    color: var(--text);
+    border-top: 1px solid var(--border);
+  }
+  .df-plus .df-sign { color: var(--lime); }
+  .df-plus strong { color: var(--lime); font-weight: 800; }
+  .df-open {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--lime);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-top: auto;
+    padding-top: 0.5rem;
+  }
+  .df-arr { transition: transform 0.18s; }
+  .df:hover .df-arr { transform: translate(2px, -2px); }
+</style>
