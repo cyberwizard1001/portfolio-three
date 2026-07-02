@@ -36,46 +36,68 @@ sections:
         - label: "2026"
         - label: MudBlazor · FCA
         - label: Hotjar · heuristics
+  - component: ProjectBeforeAfter
+    props:
+      beforeTitle: Before
+      beforeBody: >-
+        Everything sat on one long scrolling page: marketing preferences, assumptions and
+        declarations, cover details, and payment step, stacked as paragraphs of text. The
+        information was all there, but the page expected the customer to read the entirety of it
+        and gave them little reason to trust the brand before asking for a commitment.
+      afterTitle: After
+      afterBody: >-
+        I split the review page into a two-page flow. The first page leads with price and trust
+        signals, then moves through cover details, warranty questions, and personal information.
+        The second page handles the assumptions and declarations, including an explicit call-out
+        of the pre-existing conditions rules, before reaching payment. All of the FCA-mandated
+        language stays exactly where compliance needs it. It's just no longer crowding the page.
+  - component: ProjectMetricsBand
+    props:
+      items:
+        - value: Conversion
+          label: Quote completion rate — primary measure for the A/B experiment
+        - value: Dwell time
+          label: Time-to-decision on the review page
+        - value: Post-sale complaints
+          label: Claim-decline disputes and cancellations over time
+        - value: A/B live
+          label: 4 variants live in Amplitude with real traffic
   - component: ProjectIntro
     props:
       eyebrow: Perfect Pet Insurance — Case study 01
       title: Pet Insurance Review/Checkout Page Redesign
       summary: >-
-        Insuring a pet is an emotional decision as much as a financial one. You commit a fair
-        amount of money each month in the hope that the insurer takes the stress off your hands
-        on the day your pet is unwell. So when the brand is one you have never heard of, and the
-        first thing it shows you is a wall of policy text, would you go ahead and buy? I am not
-        sure I would. That was roughly the experience waiting for customers on Perfect Pet's
-        Review Quote page, most of whom had arrived through aggregators such as Compare the
-        Market and Money Super Market. Since aggregators are the main source of sales, getting
-        this page right stood to make a real difference to both customers and the business.
+        Insuring a pet is an emotional decision as much as a financial one. You commit real money
+        every month hoping the insurer takes the stress off your hands the day your pet gets
+        sick, so when the brand is one you've never heard of and the first thing it shows you is
+        a wall of policy text, would you go ahead and buy? I'm not sure I would. That was roughly
+        the experience waiting for customers on Perfect Pet's Review Quote page, most of whom
+        arrive through aggregators like Compare the Market and Money Super Market, which is where
+        the bulk of the business's sales come from.
 
-        I had a single two-week sprint, and I went in expecting a largely cosmetic exercise, a
-        way to make a dated page feel modern without altering its layout or copy. I began with a
-        competitor review, studied Hotjar recordings of people using the live page, built a
-        prototype to improve how easily it could be scanned, and tested it with colleagues from
-        across the business. Recruiting internally was a decision the timeline forced on me, and
-        the conventional wisdom is that people who work in pet insurance make poor stand-in users.
-        By the middle of the first interview it was clear I had that backwards. These were the
-        people who understood precisely what happens when the page fails to do its job, since they
-        are the ones who handle the complaints and the declined claims afterwards.
+        I had a single two-week sprint and went in expecting a mostly cosmetic job: make a dated
+        page feel modern without touching its layout or copy. I started with a competitor review
+        and Hotjar recordings of people using the live page, then built a prototype and tested it
+        in eleven sessions with colleagues from across the business. Recruiting internally was
+        something the timeline forced on me, and the usual wisdom is that people who work in pet
+        insurance make poor stand-in users. By the middle of the first interview I had that
+        backwards: these were the people who handle the complaints and the declined claims, so
+        they knew exactly what happens when the page fails to do its job.
   - component: ProjectProblemKeyInfo
     props:
       problemBody: >-
-        The review page is the last thing someone sees before they hand over their payment
-        details, and because most of Perfect Pet's sales come through aggregators, it is usually
-        the first time that person has encountered the brand at all. That leaves the page with two
-        tasks to perform at once. It has to explain the product and earn trust simultaneously, for
-        someone who has no particular reason yet to believe it. The Hotjar recordings bore this
-        out. People regularly spent five minutes or more on the page, opening policy PDFs partway
-        through to make sense of what they were reading, and a number of them left for the main
-        site to check something and did not return.
+        The review page is the last thing someone sees before they hand over payment details,
+        and since most of Perfect Pet's sales come through aggregators, it's usually also the
+        first time that person has met the brand at all. That leaves it with two jobs at once:
+        explain the product and earn trust, for someone with no particular reason yet to believe
+        it. The Hotjar recordings bore this out. People routinely spent five minutes or more on
+        the page, opening policy PDFs mid-scroll to make sense of what they were reading, and a
+        number left for the main site to check something and never came back.
       contextBody: >-
-        I had a single two-week sprint to redesign it, working alongside technical BAs, the Head
-        of Product, someone from Compliance, and a developer. Two constraints shaped every
-        decision. Whatever I designed had to be buildable in the MudBlazor component framework,
-        and every line of the existing policy copy had to remain exactly where it was for
-        compliance reasons.
+        I worked this alongside technical BAs, the Head of Product, someone from Compliance, and
+        a developer, inside two constraints that shaped every decision: whatever I designed had
+        to be buildable in the MudBlazor component framework, and every line of the existing
+        policy copy had to stay exactly where it was for compliance reasons.
       infoItems:
         - label: Objective
           value: >-
@@ -247,23 +269,6 @@ sections:
         easier for someone to understand what they are looking at? Visual consistency and brand
         alignment mattered to me as well, but surfacing the right information at the right moment
         always came first.
-  - component: ProjectBeforeAfter
-    props:
-      beforeTitle: Before
-      beforeBody: >-
-        Everything sat on one long scrolling page. The marketing preferences, the assumptions and
-        declarations, the cover details, and the payment step were stacked into a single view,
-        largely as paragraphs of text. The information was all present, but the page expected the
-        customer to read the entirety of it and offered very little reason to trust the brand
-        before asking for a commitment.
-      afterTitle: After
-      afterBody: >-
-        I split it into a two-page flow. The first page leads with the price and the trust signals,
-        then moves through the cover details, the warranty questions, and the personal information.
-        The second page handles the assumptions and declarations, including an explicit call-out of
-        the pre-existing conditions rules that the customer must acknowledge, before reaching
-        payment. All of the FCA-mandated language remains. It is no longer crowding the page, and it
-        is arranged so that it is considerably easier to absorb.
   - component: ProjectDecisionLog
     props:
       title: Key decisions
@@ -312,17 +317,6 @@ sections:
             traffic, but most completions still occur on desktop.
           outcome: Backlogged, to be taken up once the A/B experiment provides usable data.
           outcomeType: tradeoff
-  - component: ProjectMetricsBand
-    props:
-      items:
-        - value: Conversion
-          label: Quote completion rate — primary measure for the A/B experiment
-        - value: Dwell time
-          label: Time-to-decision on the review page
-        - value: Post-sale complaints
-          label: Claim-decline disputes and cancellations over time
-        - value: A/B live
-          label: 4 variants live in Amplitude with real traffic
   - component: ProjectLearnings
     props:
       title: What I took from it
