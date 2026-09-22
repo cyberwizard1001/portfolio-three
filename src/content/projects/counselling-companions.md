@@ -42,13 +42,8 @@ sections:
       eyebrow: MSc Dissertation — Case study 03
       title: Crafting Counselling Companions
       summary: >-
-        My MSc dissertation in Human–Computer Interaction at Newcastle University looked at
-        where mental health practitioners' time goes, and whether a purpose-built tool could
-        give some of it back. The work moved through semi-structured interviews, a week-long
-        co-design workshop I ran entirely by post and email so as to respect how little spare
-        time practitioners have, and a Figma prototype of a practice dashboard and voice
-        assistant. Before I considered the concept sound, I tested it through heuristic
-        evaluation, a think-aloud session, and a Responsible Research and Innovation review.
+        My MSc dissertation in Human–Computer Interaction at Newcastle University was about understanding time spent by mental health practitioners, and whether a purpose-built tool could give some of it back. I conducted semi-structured interviews followed by a week-long
+        co-design workshop conducted entirely by post and email so as to respect the limited spare time practitioners have, and a Figma prototype of a practice dashboard and voice assistant. Before I considered the concept fit for purpose, I tested it through heuristic evaluation, think-aloud sessions, and a Responsible Research and Innovation review.
   - component: ProjectMetricsBand
     props:
       items:
@@ -65,19 +60,18 @@ sections:
       image: /images/counselling/admin-breakdown.svg
       imageAlt: >-
         An hour with a client broken into prep, the 40-minute session, notes, and
-        billing/follow-up — 20 of the 60 minutes go to admin
+        billing/follow-up: ~20 of every 60 minutes go to admin
       problemBody: >-
         Most counsellors and therapists work in solo or small practices, without the IT and
         administrative support larger institutions take for granted. They rely on a mix of
         familiar, general-purpose tools — email, WhatsApp, Zoom or Meet, a calendar, a spreadsheet
-        or notebook, Google Drive — each fine on its own but never designed to work together, so a
-        client's information ends up spread across several places. One interviewee put the cost
-        plainly: for every 40-minute session, 15 to 20 minutes goes on administration.
+        or notebook, Google Drive. Tools which are alright on their own but never designed to work together, scattering
+        client information across tools. Resulting in missed follow-ups and considerable time spent on admin.
       contextBody: >-
         I wanted to find out whether a tool built specifically for counselling management could
         return some of that time, while protecting the relationship the profession rests on. I set
         aside the crowded, ethically complex space of patient-facing apps and chatbots, and focused
-        on the practitioner's back office instead — where a lot of burnout risk quietly accumulates.
+        on the practitioner's back office instead to see if some of that time could be clawed back.
       infoItems:
         - label: Research question
           value: >-
@@ -149,8 +143,8 @@ sections:
             review, using the RRI prompts and practice cards alongside the Moral IT cards. I mapped
             every stakeholder I could identify, from practitioners and clients to regulators,
             researchers, and support staff, and worked through where sensitive data would flow,
-            where consent sat, and what role AI should and should not play. That review went on to
-            change the design.
+            where consent sat, and what role AI should and should not play. This review went on to significantly influence 
+            the design and choice of features.
   - component: ProjectImageGalleryGrid
     props:
       title: The co-design workshop, run by post
@@ -179,7 +173,7 @@ sections:
       body: >-
         Four of the six practitioners invited to the workshop returned photographs of their
         annotated activity sheets, and two preferred to talk it through with me on a call. Running
-        it asynchronously by post proved effective. Several fitted the activities into breaks in
+        it asynchronously by post/email proved effective. Several fitted the activities into breaks in
         their day, and many asked to be kept informed of the project afterwards. The real cost was
         time. Responses came back one to two weeks later than planned, and there was some confusion
         about what each activity was asking for. A short live briefing at the start would have
