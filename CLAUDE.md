@@ -45,11 +45,46 @@ If a project has no `sections`, a default minimal set (`ProjectHero`, `ProjectGa
 
 ### Theming (`src/styles/tokens.css`)
 
-Themes are CSS variable sets selected via `[data-theme="N"]` on `<html>`, persisted to `localStorage` (`theme`, `mode`) and applied via inline script in `Layout.astro` before paint to avoid flash. Themes are numbered 1-5: 1 default, 2 Catppuccin Mocha, 3 Gruvbox, 4 Dracula, 5 High Contrast. Each theme has a dark (default) and light (`[data-mode="light"]`) variant defined in `tokens.css`, grouped together in numeric order.
+Themes are CSS variable sets selected via `[data-theme="N"]` on `<html>`, persisted to `localStorage` (`theme`, `mode`) and applied via inline script in `Layout.astro` before paint to avoid flash. Themes are numbered 1-5: 1 default, 2 Nord, 3 Gruvbox, 4 Dracula, 5 High Contrast. Each theme has a dark (default) and light (`[data-mode="light"]`) variant defined in `tokens.css`, grouped together in numeric order.
 
 ### WindowChrome (`src/components/WindowChrome.astro`)
 
 Shared "window" wrapper (title bar + body) used for the project case-study window. Has a named `actions` slot in the title bar (used by the TLDR toggle) and a default slot for body content.
+
+### Homepage layout (`src/pages/index.astro`)
+
+The homepage sequence is: `Hero` → `HeroContext` → `WorkSection` → `BuildsSection` → `MoreAboutSection` → `AboutTerminal`.
+
+**Hero** (`src/components/Hero.astro`) — full-viewport-height terminal window (`height: calc(100vh - var(--bar-h) - 2rem)`) containing the headline (`hero-h1`) and a meta sidebar (`hero-meta`). The window uses a flex-chain to fill height: `.hero-window` → `:global(.window)` → `.hero-win-body` (all `display: flex; flex-direction: column`) → `.hero-main` (`flex: 1`). The hero is intentionally sparse — just headline + meta — no bottom split or filler. Visual toys / interactive elements should go in `HeroContext` or the `/toys` page, not back in the hero window.
+
+**HeroContext** (`src/components/HeroContext.astro`) — a tmux split-pane styled band below the hero (no WindowChrome, no border-radius, `background: var(--bg0)`, square corners). Contains "background" and "currently" content panels. Has a `[1]/[2]` pane tab bar across the top using `--bg2`. The section has `grid-bg` + `padding: 0 2.5rem 2.5rem` so the card appears contained like the hero window. This is where the background blurb, skill tags, typewriter, CTAs, and "currently" text live.
+
+### Visual toys page (`src/pages/toys.astro`)
+
+A standalone `/toys` page prototyping graphical interactive elements as hero candidates. Each toy lives in its own `WindowChrome` window in a 2-column grid. Toys built:
+
+1. **`sine.gen`** — Full-width canvas: 5 overlapping sine waves in `--lime`, looping rAF animation
+2. **`bezier.toy`** — Cubic bézier with 4 draggable control points; pointer events + rAF redraw
+3. **`particles.sim`** — ~65 canvas particles; spring-attracted to cursor on hover, scatter on click
+4. **`spotlight.css`** — Mouse-follow radial gradient orb (JS `mousemove` → positioned div)
+5. **`easing.vis`** — Canvas curve visualiser + CSS-animated dot; 6 preset timing functions selectable via buttons
+6. **`tokens.css`** — Hardcoded 5-theme dark colour swatches; clicking a row switches the site theme globally
+
+All canvas toys use `ResizeObserver` for responsive sizing and `MutationObserver` on `data-theme`/`data-mode` for live theme updates. The shared pattern:
+```js
+function getCSSVar(name) { return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); }
+// Re-read CSS vars inside each draw() call for automatic theme reactivity
+```
+
+The sine and particle toys use continuous `requestAnimationFrame`. The bezier toy redraws only on pointer move. Theme switching in the tokens toy mirrors the Waybar logic: `setAttribute('data-theme', n)` + `localStorage.setItem('theme', n)` + update `.ws-pill` `aria-pressed` / `active` class.
+
+### Hero visual toy (future)
+
+The hero window currently has no bottom interactive element. The `/toys` page exists so you can pick one. When wiring a toy into the hero:
+- Add it as a strip at the bottom of `.hero-win-body`, separated by `border-top: 1px solid var(--border)`
+- Give the strip `background: var(--bg)` (slightly darker than the term-overlay body)
+- Keep it `display: none` on mobile (`< 860px`) — the hero is already content-dense on small screens
+- Do NOT use systemd-style text output (`[  OK  ]` lines) — this reads as developer-y to a design audience. Use one of the canvas toys instead.
 
 ### Project-block layout gotchas (eyebrow/title/image grids)
 

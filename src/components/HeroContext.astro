@@ -1,0 +1,227 @@
+---
+const base = import.meta.env.BASE_URL;
+---
+
+<section class="ctx-section grid-bg">
+  <div class="ctx-container">
+    <div class="window ctx-window">
+      <div class="win-bar">
+        <div class="win-controls">
+          <div class="wc close"></div>
+          <div class="wc min"></div>
+          <div class="wc max"></div>
+        </div>
+        <span class="win-title">[1] <span class="active-title">background</span></span>
+      </div>
+      <div class="ctx-pane">
+        <p class="ctx-text">
+          Interfaces are vehicles that get users places. I care about making them easy to understand
+          and operate. For first-time drivers and seasoned ones alike, whether they're tired,
+          distracted, or under pressure.
+        </p>
+        <div class="ctx-tags">
+          <span class="ctx-tag active">UX research</span>
+          <span class="ctx-tag active">design systems</span>
+          <span class="ctx-tag active">prototyping</span>
+          <span class="ctx-tag">Flutter</span>
+        </div>
+        <p class="ctx-typewriter" aria-live="polite" aria-atomic="true">
+          <span class="ctx-tw-ps">~$</span>
+          <span id="ctx-typewriter"></span><span class="ctx-tw-cursor"></span>
+        </p>
+      </div>
+    </div>
+
+    <div class="window ctx-window">
+      <div class="win-bar">
+        <div class="win-controls">
+          <div class="wc close"></div>
+          <div class="wc min"></div>
+          <div class="wc max"></div>
+        </div>
+        <span class="win-title">[2] <span class="active-title">currently</span></span>
+      </div>
+      <div class="ctx-pane">
+        <p class="ctx-text">
+          Designing at Tedaisy Insurance Group and volunteering at Reach Volunteering. In my free
+          time, I work on products that are honest about what they ask of people's time and
+          attention.
+        </p>
+        <div class="ctx-ctas">
+          <a href="#work" class="ctx-cta">View my work ↓</a>
+          <a href={`${base}contact`} class="ctx-cta ctx-cta-ghost">Contact me ↗</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .ctx-section {
+    padding: 0 1.25rem 2.5rem;
+  }
+
+  /* ── tiled layout: two independent windows, gapped like a WM workspace.
+     Default align-items: stretch keeps both windows the same height. ── */
+  .ctx-container {
+    max-width: 1440px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .ctx-window {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .ctx-pane {
+    background: var(--bg0);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem 1.75rem 1.75rem;
+  }
+
+  .ctx-text {
+    font-family: var(--mono);
+    font-size: 0.875rem;
+    color: color-mix(in srgb, var(--text) 80%, transparent);
+    line-height: 1.65;
+  }
+
+  .ctx-tags {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+  }
+
+  .ctx-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 3px 9px;
+    border: 1px solid var(--border-hi);
+    border-radius: 2px;
+    color: var(--dim);
+  }
+
+  .ctx-tag.active {
+    border-color: var(--lime);
+    color: var(--lime);
+    background: var(--lime-dim);
+  }
+
+  .ctx-typewriter {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--dim);
+    margin-top: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-height: 1.4em;
+  }
+
+  .ctx-tw-ps { color: var(--lime); flex-shrink: 0; }
+
+  .ctx-tw-cursor {
+    display: inline-block;
+    width: 1px;
+    height: 0.85em;
+    background: var(--lime);
+    vertical-align: middle;
+    animation: ctx-blink 1s step-end infinite;
+  }
+
+  @keyframes ctx-blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  .ctx-ctas {
+    display: flex;
+    gap: 0.625rem;
+    flex-wrap: wrap;
+    margin-top: 1.25rem;
+  }
+
+  .ctx-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--mono);
+    font-size: 0.875rem;
+    font-weight: 600;
+    background: var(--lime);
+    color: var(--lime-contrast);
+    padding: 0.55rem 1.25rem;
+    text-decoration: none;
+    border-radius: 2px;
+    letter-spacing: -0.01em;
+    transition: opacity 0.15s;
+  }
+
+  .ctx-cta-ghost {
+    background: transparent;
+    color: var(--lime);
+    border: 1px solid var(--lime);
+  }
+
+  .ctx-cta:hover { opacity: 0.8; }
+
+  @media (max-width: 860px) {
+    .ctx-section { padding: 0 1.25rem 1.5rem; }
+    .ctx-container { grid-template-columns: 1fr; gap: 1rem; }
+    .ctx-typewriter { display: none; }
+  }
+
+  @media (max-width: 480px) {
+    .ctx-pane { padding: 1.25rem 1rem 1.5rem; }
+  }
+</style>
+
+<script>
+  (function () {
+    const el = document.getElementById('ctx-typewriter');
+    if (!el) return;
+
+    const tips = [
+      'click 1–5 in the top bar to switch color schemes',
+      'click ☾ top-right to toggle dark / light mode',
+    ];
+
+    let tipIdx = 0;
+    let charIdx = 0;
+    let deleting = false;
+    let pauseTicks = 0;
+
+    const PAUSE_AFTER_TYPE = 38;
+    const PAUSE_AFTER_DELETE = 8;
+    const TYPE_MS = 45;
+    const DELETE_MS = 22;
+
+    function tick() {
+      const current = tips[tipIdx];
+      if (pauseTicks > 0) {
+        pauseTicks--;
+        setTimeout(tick, deleting ? DELETE_MS : TYPE_MS);
+        return;
+      }
+      if (!deleting) {
+        charIdx++;
+        el.textContent = current.slice(0, charIdx);
+        if (charIdx === current.length) { deleting = true; pauseTicks = PAUSE_AFTER_TYPE; }
+        setTimeout(tick, TYPE_MS);
+      } else {
+        charIdx--;
+        el.textContent = current.slice(0, charIdx);
+        if (charIdx === 0) { deleting = false; tipIdx = (tipIdx + 1) % tips.length; pauseTicks = PAUSE_AFTER_DELETE; }
+        setTimeout(tick, DELETE_MS);
+      }
+    }
+
+    setTimeout(tick, 800);
+  })();
+</script>

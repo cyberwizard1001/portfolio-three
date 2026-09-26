@@ -1,0 +1,1041 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Waybar from '../components/Waybar.astro';
+import Footer from '../components/Footer.astro';
+import WindowChrome from '../components/WindowChrome.astro';
+import BackToHome from '../components/BackToHome.astro';
+---
+
+<Layout title="Toys — Nirmal">
+  <Waybar />
+  <main id="main-content">
+
+    <section class="toys-header grid-bg">
+      <div class="toys-header-inner">
+        <BackToHome />
+        <h1 class="toys-h1">~/toys</h1>
+        <p class="toys-sub">playable experiments</p>
+      </div>
+    </section>
+
+    <section class="toys-section grid-bg">
+      <div class="toys-grid">
+
+        <!-- 1: Asteroids — full width -->
+        <div class="toy-wrap toy-wide">
+          <WindowChrome title="asteroids.sim" activeTitle="hover + arrows + space">
+            <div class="toy-body toy-body--asteroids">
+              <canvas id="asteroids-canvas"></canvas>
+            </div>
+            <p class="toy-hint">hover to activate · ← → rotate · ↑ thrust · space shoot · R restart</p>
+          </WindowChrome>
+        </div>
+
+        <!-- 2: Snake -->
+        <div class="toy-wrap">
+          <WindowChrome title="snake.game" activeTitle="hover + WASD">
+            <div class="toy-body toy-body--snake">
+              <canvas id="snake-canvas"></canvas>
+            </div>
+            <p class="toy-hint">hover to activate · WASD / arrows · R restart</p>
+          </WindowChrome>
+        </div>
+
+        <!-- 3: Tetris -->
+        <div class="toy-wrap">
+          <WindowChrome title="tetris.game" activeTitle="hover + arrows">
+            <div class="toy-body toy-body--tetris">
+              <canvas id="tetris-canvas"></canvas>
+            </div>
+            <p class="toy-hint">hover to activate · ← → move · ↑ rotate · ↓ soft drop · space hard drop · R restart</p>
+          </WindowChrome>
+        </div>
+
+        <!-- 4: Design token palette — full width -->
+        <div class="toy-wrap toy-wide">
+          <WindowChrome title="tokens.css" activeTitle="click a row to switch theme">
+            <div class="toy-body toy-body--tokens">
+              <div class="tokens-header">
+                <span class="tok-col-label">theme</span>
+                <span class="tok-col-label">--bg</span>
+                <span class="tok-col-label">--bg1</span>
+                <span class="tok-col-label">--bg2</span>
+                <span class="tok-col-label">--text</span>
+                <span class="tok-col-label">--lime</span>
+              </div>
+              <div id="tokens-rows"></div>
+            </div>
+          </WindowChrome>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  /* ── Page layout ── */
+  .toys-header {
+    padding: 3rem 1.25rem 2rem;
+    position: relative;
+    z-index: 1;
+  }
+  .toys-header-inner {
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+  .toys-h1 {
+    font-family: var(--mono);
+    font-size: clamp(2rem, 4vw, 3.25rem);
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.04em;
+    line-height: 1;
+    margin: 1rem 0 0.5rem;
+  }
+  .toys-sub {
+    font-family: var(--mono);
+    font-size: 0.8125rem;
+    color: var(--dim);
+  }
+
+  .toys-section {
+    padding: 0 1.25rem 4rem;
+    position: relative;
+    z-index: 1;
+  }
+  .toys-grid {
+    max-width: 1440px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+  .toy-wide { grid-column: 1 / -1; }
+
+  /* ── Hover activation feedback ── */
+  .toy-wrap:hover :global(.window) {
+    outline: 1px solid color-mix(in srgb, var(--lime) 35%, transparent);
+  }
+
+  /* ── Shared toy body ── */
+  .toy-body {
+    background: var(--bg1);
+    position: relative;
+  }
+
+  .toy-hint {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--dim);
+    padding: 0.4rem 1rem 0.6rem;
+    border-top: 1px solid var(--border);
+    background: var(--bg);
+    letter-spacing: 0.04em;
+  }
+
+  /* ── 1: Asteroids ── */
+  .toy-body--asteroids { height: 240px; overflow: hidden; }
+  .toy-body--asteroids canvas { width: 100%; height: 100%; display: block; }
+
+  /* ── 2: Snake ── */
+  .toy-body--snake { height: 280px; overflow: hidden; }
+  .toy-body--snake canvas { width: 100%; height: 100%; display: block; }
+
+  /* ── 3: Tetris ── */
+  .toy-body--tetris { height: 380px; overflow: hidden; }
+  .toy-body--tetris canvas { width: 100%; height: 100%; display: block; }
+
+  /* ── 4: Tokens ── */
+  .toy-body--tokens { padding: 0; }
+  .tokens-header {
+    display: grid;
+    grid-template-columns: 110px repeat(5, 1fr);
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+  }
+  .tok-col-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--dim);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  :global(.tok-row) {
+    display: grid;
+    grid-template-columns: 110px repeat(5, 1fr);
+    padding: 0.6rem 1rem;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    transition: background 0.12s;
+    align-items: center;
+  }
+  :global(.tok-row:last-child) { border-bottom: none; }
+  :global(.tok-row:hover) { background: var(--bg2); }
+  :global(.tok-row.tok-active) { background: var(--lime-dim); }
+  :global(.tok-name) {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--sub);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  :global(.tok-active-dot) {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--lime);
+    flex-shrink: 0;
+  }
+  :global(.tok-swatch) {
+    width: 28px;
+    height: 20px;
+    border-radius: 2px;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+
+  @media (max-width: 860px) {
+    .toys-grid { grid-template-columns: 1fr; }
+    .toy-wide { grid-column: 1; }
+    .tokens-header { grid-template-columns: 90px repeat(5, 1fr); }
+  }
+</style>
+
+<script>
+  function getCSSVar(name: string): string {
+    return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  }
+
+  function setupCanvas(canvas: HTMLCanvasElement) {
+    const dpr = window.devicePixelRatio || 1;
+    const ctx = canvas.getContext('2d')!;
+
+    function resize() {
+      const el = canvas.parentElement!;
+      const cw = el.clientWidth;
+      const ch = el.clientHeight;
+      canvas.width = Math.round(cw * dpr);
+      canvas.height = Math.round(ch * dpr);
+      canvas.style.width = cw + 'px';
+      canvas.style.height = ch + 'px';
+    }
+
+    const ro = new ResizeObserver(resize);
+    ro.observe(canvas.parentElement!);
+
+    function setTransform() { ctx.setTransform(dpr, 0, 0, dpr, 0, 0); }
+    function w() { return canvas.width / dpr; }
+    function h() { return canvas.height / dpr; }
+
+    resize();
+    return { ctx, dpr, w, h, setTransform };
+  }
+
+  /* ────────────────────────────────────────────────
+     1: ASTEROIDS
+  ──────────────────────────────────────────────── */
+  (function asteroids() {
+    const canvas = document.getElementById('asteroids-canvas') as HTMLCanvasElement;
+    if (!canvas) return;
+    const { ctx, w, h, setTransform } = setupCanvas(canvas);
+
+    let focused = false;
+    let started = false;
+    const win = canvas.closest('.window') as HTMLElement;
+
+    type Vec2 = { x: number; y: number };
+    type Rock = { x: number; y: number; vx: number; vy: number; r: number; verts: Vec2[]; spin: number; angle: number };
+    type Bullet = { x: number; y: number; vx: number; vy: number; life: number };
+
+    const TAU = Math.PI * 2;
+    const keys: Record<string, boolean> = {};
+    let ship = { x: 0, y: 0, vx: 0, vy: 0, angle: 0, alive: true, inv: 0 };
+    let rocks: Rock[] = [], bullets: Bullet[] = [];
+    let score = 0, lives = 3, over = false, shootCD = 0;
+    let lastTs = 0, rafId = 0;
+
+    function wrap(v: number, max: number) { return ((v % max) + max) % max; }
+
+    function rockVerts(n: number): Vec2[] {
+      return Array.from({ length: n }, (_, i) => {
+        const a = (i / n) * TAU + (Math.random() - 0.5) * 0.8;
+        const r = 0.65 + Math.random() * 0.6;
+        return { x: Math.cos(a) * r, y: Math.sin(a) * r };
+      });
+    }
+
+    function spawnRock(x: number, y: number, r: number): Rock {
+      const a = Math.random() * TAU;
+      const spd = 0.02 + Math.random() * 0.035;
+      return { x, y, vx: Math.cos(a) * spd, vy: Math.sin(a) * spd, r, verts: rockVerts(8 + Math.floor(Math.random() * 4)), spin: (Math.random() - 0.5) * 0.05, angle: 0 };
+    }
+
+    function edgeSpawn(r: number): { x: number; y: number } {
+      const cw = w(), ch = h();
+      const side = Math.floor(Math.random() * 4);
+      return {
+        x: side === 0 ? -r : side === 1 ? cw + r : Math.random() * cw,
+        y: side === 2 ? -r : side === 3 ? ch + r : Math.random() * ch,
+      };
+    }
+
+    function spawnIdleRocks() {
+      rocks = [];
+      for (let i = 0; i < 5; i++) {
+        const p = edgeSpawn(40);
+        rocks.push(spawnRock(p.x, p.y, 28 + Math.random() * 14));
+      }
+    }
+
+    function init() {
+      const cw = w(), ch = h();
+      ship = { x: cw / 2, y: ch / 2, vx: 0, vy: 0, angle: -Math.PI / 2, alive: true, inv: 180 };
+      bullets = []; rocks = [];
+      score = 0; lives = 3; over = false; shootCD = 0;
+      for (let i = 0; i < 4; i++) {
+        const p = edgeSpawn(40);
+        rocks.push(spawnRock(p.x, p.y, 28 + Math.random() * 14));
+      }
+    }
+
+    function step(ts: number) {
+      if (!lastTs) lastTs = ts;
+      const dt = Math.min(ts - lastTs, 50);
+      lastTs = ts;
+
+      const cw = w(), ch = h();
+      const lime = getCSSVar('--lime');
+      const dimC = getCSSVar('--dim');
+      const bg = getCSSVar('--bg1');
+
+      // Rocks always drift (idle + gameplay)
+      rocks.forEach(r => {
+        r.x = wrap(r.x + r.vx * dt, cw);
+        r.y = wrap(r.y + r.vy * dt, ch);
+        r.angle += r.spin * dt / 16;
+      });
+
+      if (started && !over) {
+        // ship physics
+        if (ship.alive) {
+          if (keys['ArrowLeft']) ship.angle -= 0.004 * dt;
+          if (keys['ArrowRight']) ship.angle += 0.004 * dt;
+          if (keys['ArrowUp']) {
+            ship.vx += Math.cos(ship.angle) * 0.00022 * dt;
+            ship.vy += Math.sin(ship.angle) * 0.00022 * dt;
+          }
+          const spd = Math.hypot(ship.vx, ship.vy);
+          if (spd > 0.38) { ship.vx *= 0.38 / spd; ship.vy *= 0.38 / spd; }
+          const drag = Math.pow(0.984, dt / 16);
+          ship.vx *= drag; ship.vy *= drag;
+          ship.x = wrap(ship.x + ship.vx * dt, cw);
+          ship.y = wrap(ship.y + ship.vy * dt, ch);
+          if (ship.inv > 0) ship.inv -= dt / 16;
+          if (shootCD > 0) shootCD -= dt;
+        }
+
+        // bullets
+        for (let i = bullets.length - 1; i >= 0; i--) {
+          const b = bullets[i];
+          b.x = wrap(b.x + b.vx * dt, cw);
+          b.y = wrap(b.y + b.vy * dt, ch);
+          b.life -= dt;
+          if (b.life <= 0) { bullets.splice(i, 1); continue; }
+          for (let ri = rocks.length - 1; ri >= 0; ri--) {
+            const r = rocks[ri];
+            if (Math.hypot(b.x - r.x, b.y - r.y) < r.r) {
+              bullets.splice(i, 1);
+              score += Math.round(400 / r.r);
+              if (r.r > 13) {
+                rocks.push(spawnRock(r.x, r.y, r.r * 0.54));
+                rocks.push(spawnRock(r.x, r.y, r.r * 0.54));
+              }
+              rocks.splice(ri, 1);
+              break;
+            }
+          }
+        }
+
+        // ship-rock collision
+        if (ship.alive && ship.inv <= 0) {
+          for (const r of rocks) {
+            if (Math.hypot(ship.x - r.x, ship.y - r.y) < r.r + 9) {
+              ship.alive = false;
+              lives--;
+              if (lives <= 0) {
+                over = true;
+              } else {
+                setTimeout(() => {
+                  ship = { x: cw / 2, y: ch / 2, vx: 0, vy: 0, angle: -Math.PI / 2, alive: true, inv: 200 };
+                }, 1200);
+              }
+              break;
+            }
+          }
+        }
+
+        // wave clear
+        if (rocks.length === 0) {
+          for (let i = 0; i < 5; i++) {
+            const p = edgeSpawn(40);
+            rocks.push(spawnRock(p.x, p.y, 26 + Math.random() * 16));
+          }
+        }
+      }
+
+      // draw
+      setTransform();
+      ctx.fillStyle = bg;
+      ctx.fillRect(0, 0, cw, ch);
+
+      rocks.forEach(r => {
+        ctx.save();
+        ctx.translate(r.x, r.y);
+        ctx.rotate(r.angle);
+        ctx.beginPath();
+        r.verts.forEach((v, i) => i === 0 ? ctx.moveTo(v.x * r.r, v.y * r.r) : ctx.lineTo(v.x * r.r, v.y * r.r));
+        ctx.closePath();
+        ctx.strokeStyle = dimC;
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+        ctx.restore();
+      });
+
+      if (started) {
+        ctx.fillStyle = lime;
+        bullets.forEach(b => {
+          ctx.beginPath();
+          ctx.arc(b.x, b.y, 2.5, 0, TAU);
+          ctx.fill();
+        });
+
+        if (ship.alive && (ship.inv <= 0 || Math.floor(ship.inv / 5) % 2 === 0)) {
+          ctx.save();
+          ctx.translate(ship.x, ship.y);
+          ctx.rotate(ship.angle);
+          ctx.beginPath();
+          ctx.moveTo(14, 0);
+          ctx.lineTo(-9, 7);
+          ctx.lineTo(-5, 0);
+          ctx.lineTo(-9, -7);
+          ctx.closePath();
+          ctx.strokeStyle = lime;
+          ctx.lineWidth = 1.5;
+          ctx.stroke();
+          if (keys['ArrowUp']) {
+            ctx.beginPath();
+            ctx.moveTo(-5, 3);
+            ctx.lineTo(-14 - Math.random() * 5, 0);
+            ctx.lineTo(-5, -3);
+            ctx.strokeStyle = lime;
+            ctx.lineWidth = 1;
+            ctx.globalAlpha = 0.65;
+            ctx.stroke();
+            ctx.globalAlpha = 1;
+          }
+          ctx.restore();
+        }
+
+        ctx.fillStyle = lime;
+        ctx.font = `11px var(--mono, monospace)`;
+        ctx.fillText(`score ${score}  lives ${'◆'.repeat(Math.max(0, lives))}`, 10, 20);
+
+        if (over) {
+          ctx.fillStyle = 'rgba(0,0,0,0.6)';
+          ctx.fillRect(0, 0, cw, ch);
+          ctx.fillStyle = lime;
+          ctx.font = `bold 22px var(--mono, monospace)`;
+          ctx.textAlign = 'center';
+          ctx.fillText('GAME OVER', cw / 2, ch / 2 - 16);
+          ctx.font = `12px var(--mono, monospace)`;
+          ctx.fillStyle = dimC;
+          ctx.fillText(`final score: ${score}`, cw / 2, ch / 2 + 10);
+          ctx.fillText('hover to restart', cw / 2, ch / 2 + 30);
+          ctx.textAlign = 'left';
+        }
+      } else {
+        // idle overlay
+        ctx.fillStyle = 'rgba(0,0,0,0.5)';
+        ctx.fillRect(0, 0, cw, ch);
+        ctx.fillStyle = lime;
+        ctx.font = `13px var(--mono, monospace)`;
+        ctx.textAlign = 'center';
+        ctx.fillText('hover to start', cw / 2, ch / 2);
+        ctx.textAlign = 'left';
+      }
+
+      rafId = requestAnimationFrame(step);
+    }
+
+    win?.addEventListener('mouseenter', () => {
+      focused = true;
+      if (!started || over) {
+        started = true;
+        cancelAnimationFrame(rafId);
+        lastTs = 0;
+        init();
+        rafId = requestAnimationFrame(step);
+      }
+    });
+    win?.addEventListener('mouseleave', () => {
+      focused = false;
+      Object.keys(keys).forEach(k => { keys[k] = false; });
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if (!focused) return;
+      keys[e.key] = true;
+      if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', ' '].includes(e.key)) e.preventDefault();
+      if (e.key === ' ' && ship.alive && !over && shootCD <= 0) {
+        shootCD = 160;
+        bullets.push({
+          x: ship.x + Math.cos(ship.angle) * 16,
+          y: ship.y + Math.sin(ship.angle) * 16,
+          vx: Math.cos(ship.angle) * 0.52 + ship.vx,
+          vy: Math.sin(ship.angle) * 0.52 + ship.vy,
+          life: 1300,
+        });
+      }
+      if (e.key === 'r' || e.key === 'R') {
+        cancelAnimationFrame(rafId);
+        lastTs = 0;
+        init();
+        rafId = requestAnimationFrame(step);
+      }
+    });
+    window.addEventListener('keyup', (e) => { if (focused) keys[e.key] = false; });
+
+    spawnIdleRocks();
+    rafId = requestAnimationFrame(step);
+  })();
+
+  /* ────────────────────────────────────────────────
+     2: SNAKE
+  ──────────────────────────────────────────────── */
+  (function snake() {
+    const canvas = document.getElementById('snake-canvas') as HTMLCanvasElement;
+    if (!canvas) return;
+    const { ctx, w, h, setTransform } = setupCanvas(canvas);
+
+    let focused = false;
+    let started = false;
+    const win = canvas.closest('.window') as HTMLElement;
+
+    const CELL = 16;
+    type Pt = { x: number; y: number };
+    let cols = 0, rows = 0;
+    let body: Pt[], dir: Pt, nextDir: Pt, food: Pt;
+    let score = 0, alive = true;
+    let intervalId = 0;
+
+    function calcGrid() {
+      cols = Math.max(1, Math.floor(w() / CELL));
+      rows = Math.max(1, Math.floor(h() / CELL));
+    }
+
+    function randFood(b: Pt[]): Pt {
+      let p: Pt;
+      let attempts = 0;
+      do {
+        p = { x: Math.floor(Math.random() * cols), y: Math.floor(Math.random() * rows) };
+        attempts++;
+      } while (attempts < 200 && b.some(s => s.x === p.x && s.y === p.y));
+      return p;
+    }
+
+    function init() {
+      calcGrid();
+      const sx = Math.floor(cols / 2), sy = Math.floor(rows / 2);
+      body = [{ x: sx, y: sy }, { x: sx - 1, y: sy }, { x: sx - 2, y: sy }];
+      dir = { x: 1, y: 0 };
+      nextDir = { x: 1, y: 0 };
+      food = randFood(body);
+      score = 0;
+      alive = true;
+    }
+
+    function tick() {
+      if (!alive) return;
+      dir = { ...nextDir };
+      const head = { x: body[0].x + dir.x, y: body[0].y + dir.y };
+      if (head.x < 0 || head.x >= cols || head.y < 0 || head.y >= rows ||
+          body.some(s => s.x === head.x && s.y === head.y)) {
+        alive = false;
+        draw();
+        return;
+      }
+      body.unshift(head);
+      if (head.x === food.x && head.y === food.y) {
+        score++;
+        food = randFood(body);
+      } else {
+        body.pop();
+      }
+      draw();
+    }
+
+    function draw() {
+      setTransform();
+      const cw = w(), ch = h();
+      const bg = getCSSVar('--bg1');
+      const lime = getCSSVar('--lime');
+      const dimC = getCSSVar('--dim');
+      const border = getCSSVar('--border');
+
+      ctx.fillStyle = bg;
+      ctx.fillRect(0, 0, cw, ch);
+
+      if (!started) {
+        ctx.fillStyle = 'rgba(0,0,0,0.5)';
+        ctx.fillRect(0, 0, cw, ch);
+        ctx.fillStyle = lime;
+        ctx.font = `13px var(--mono, monospace)`;
+        ctx.textAlign = 'center';
+        ctx.fillText('hover to start', cw / 2, ch / 2);
+        ctx.textAlign = 'left';
+        return;
+      }
+
+      // subtle grid
+      ctx.strokeStyle = border;
+      ctx.lineWidth = 0.5;
+      ctx.globalAlpha = 0.25;
+      for (let c = 0; c <= cols; c++) { ctx.beginPath(); ctx.moveTo(c * CELL, 0); ctx.lineTo(c * CELL, ch); ctx.stroke(); }
+      for (let r = 0; r <= rows; r++) { ctx.beginPath(); ctx.moveTo(0, r * CELL); ctx.lineTo(cw, r * CELL); ctx.stroke(); }
+      ctx.globalAlpha = 1;
+
+      // food
+      ctx.fillStyle = lime;
+      ctx.globalAlpha = 0.55;
+      ctx.fillRect(food.x * CELL + 4, food.y * CELL + 4, CELL - 8, CELL - 8);
+      ctx.globalAlpha = 1;
+
+      // snake
+      body.forEach((s, i) => {
+        const alpha = i === 0 ? 1 : Math.max(0.25, 0.75 - (i / body.length) * 0.55);
+        ctx.fillStyle = lime;
+        ctx.globalAlpha = alpha;
+        ctx.fillRect(s.x * CELL + 1, s.y * CELL + 1, CELL - 2, CELL - 2);
+      });
+      ctx.globalAlpha = 1;
+
+      // HUD
+      ctx.fillStyle = lime;
+      ctx.font = `11px var(--mono, monospace)`;
+      ctx.fillText(`score: ${score}`, 8, 18);
+
+      if (!alive) {
+        ctx.fillStyle = 'rgba(0,0,0,0.65)';
+        ctx.fillRect(0, 0, cw, ch);
+        ctx.fillStyle = lime;
+        ctx.font = `bold 20px var(--mono, monospace)`;
+        ctx.textAlign = 'center';
+        ctx.fillText('GAME OVER', cw / 2, ch / 2 - 14);
+        ctx.font = `11px var(--mono, monospace)`;
+        ctx.fillStyle = dimC;
+        ctx.fillText(`score: ${score}  ·  hover to restart`, cw / 2, ch / 2 + 12);
+        ctx.textAlign = 'left';
+      }
+    }
+
+    const KEY_DIRS: Record<string, Pt> = {
+      ArrowUp: { x: 0, y: -1 }, w: { x: 0, y: -1 }, W: { x: 0, y: -1 },
+      ArrowDown: { x: 0, y: 1 }, s: { x: 0, y: 1 }, S: { x: 0, y: 1 },
+      ArrowLeft: { x: -1, y: 0 }, a: { x: -1, y: 0 }, A: { x: -1, y: 0 },
+      ArrowRight: { x: 1, y: 0 }, d: { x: 1, y: 0 }, D: { x: 1, y: 0 },
+    };
+
+    window.addEventListener('keydown', (e) => {
+      if (!focused) return;
+      if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) e.preventDefault();
+      const d = KEY_DIRS[e.key];
+      if (d && !(d.x === -dir.x && d.y === -dir.y)) nextDir = d;
+      if (e.key === 'r' || e.key === 'R') {
+        clearInterval(intervalId);
+        init();
+        draw();
+        intervalId = window.setInterval(tick, 120);
+      }
+    });
+
+    win?.addEventListener('mouseenter', () => {
+      focused = true;
+      if (!started || !alive) {
+        started = true;
+        clearInterval(intervalId);
+        init();
+        draw();
+        intervalId = window.setInterval(tick, 120);
+      }
+    });
+    win?.addEventListener('mouseleave', () => { focused = false; });
+
+    new ResizeObserver(() => {
+      if (started) {
+        clearInterval(intervalId);
+        init();
+        draw();
+        if (alive) intervalId = window.setInterval(tick, 120);
+      } else {
+        calcGrid();
+        draw();
+      }
+    }).observe(canvas.parentElement!);
+    new MutationObserver(draw).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme', 'data-mode'] });
+
+    calcGrid();
+    draw();
+  })();
+
+  /* ────────────────────────────────────────────────
+     3: TETRIS
+  ──────────────────────────────────────────────── */
+  (function tetris() {
+    const canvas = document.getElementById('tetris-canvas') as HTMLCanvasElement;
+    if (!canvas) return;
+    const { ctx, w, h, setTransform } = setupCanvas(canvas);
+
+    let focused = false;
+    let started = false;
+    const win = canvas.closest('.window') as HTMLElement;
+
+    const COLS = 10;
+    const CELL = 20;
+
+    // [col, row] offsets per rotation state
+    const PIECES: [number, number][][][] = [
+      // I
+      [[[0,0],[1,0],[2,0],[3,0]], [[0,0],[0,1],[0,2],[0,3]]],
+      // O
+      [[[0,0],[1,0],[0,1],[1,1]]],
+      // T
+      [[[1,0],[0,1],[1,1],[2,1]], [[0,0],[0,1],[1,1],[0,2]], [[0,0],[1,0],[2,0],[1,1]], [[1,0],[0,1],[1,1],[1,2]]],
+      // S
+      [[[1,0],[2,0],[0,1],[1,1]], [[0,0],[0,1],[1,1],[1,2]]],
+      // Z
+      [[[0,0],[1,0],[1,1],[2,1]], [[1,0],[0,1],[1,1],[0,2]]],
+      // J
+      [[[0,0],[0,1],[1,1],[2,1]], [[0,0],[1,0],[0,1],[0,2]], [[0,0],[1,0],[2,0],[2,1]], [[1,0],[1,1],[0,2],[1,2]]],
+      // L
+      [[[2,0],[0,1],[1,1],[2,1]], [[0,0],[0,1],[0,2],[1,2]], [[0,0],[1,0],[2,0],[0,1]], [[0,0],[1,0],[1,1],[1,2]]],
+    ];
+
+    const ALPHAS = [1, 0.9, 0.8, 0.7, 0.65, 0.75, 0.85];
+
+    let ROWS = 18;
+    let board: number[][];
+    let curType = 0, curRot = 0, curX = 0, curY = 0;
+    let cur: [number, number][] = [];
+    let score = 0, level = 0, lines = 0, over = false;
+    let intervalId = 0;
+
+    function calcRows() { ROWS = Math.max(10, Math.floor(h() / CELL)); }
+
+    function newBoard() {
+      board = Array.from({ length: ROWS }, () => new Array(COLS).fill(0));
+    }
+
+    function fits(x: number, y: number, shape: [number, number][]): boolean {
+      return shape.every(([dc, dr]) => {
+        const nx = x + dc, ny = y + dr;
+        return nx >= 0 && nx < COLS && ny < ROWS && (ny < 0 || board[ny][nx] === 0);
+      });
+    }
+
+    function spawnPiece() {
+      curType = Math.floor(Math.random() * PIECES.length);
+      curRot = 0;
+      cur = PIECES[curType][curRot];
+      curX = Math.floor((COLS - 4) / 2);
+      curY = -1;
+      if (!fits(curX, curY, cur)) {
+        over = true;
+        clearInterval(intervalId);
+      }
+    }
+
+    function clearLines() {
+      let cleared = 0;
+      for (let r = ROWS - 1; r >= 0; r--) {
+        if (board[r].every(c => c !== 0)) {
+          board.splice(r, 1);
+          board.unshift(new Array(COLS).fill(0));
+          cleared++;
+          r++;
+        }
+      }
+      if (cleared > 0) {
+        lines += cleared;
+        score += ([0, 100, 300, 500, 800][cleared] ?? 800) * (level + 1);
+        level = Math.floor(lines / 10);
+      }
+      return cleared;
+    }
+
+    function placePiece() {
+      cur.forEach(([dc, dr]) => {
+        const nx = curX + dc, ny = curY + dr;
+        if (ny >= 0) board[ny][nx] = curType + 1;
+      });
+      const cleared = clearLines();
+      if (cleared > 0) startTick();
+      spawnPiece();
+    }
+
+    function tick() {
+      if (over) return;
+      if (fits(curX, curY + 1, cur)) {
+        curY++;
+      } else {
+        placePiece();
+      }
+      draw();
+    }
+
+    function startTick() {
+      clearInterval(intervalId);
+      intervalId = window.setInterval(tick, Math.max(80, 500 - level * 40));
+    }
+
+    function init() {
+      calcRows();
+      newBoard();
+      score = 0; level = 0; lines = 0; over = false;
+      spawnPiece();
+      startTick();
+    }
+
+    function ghostY(): number {
+      let gy = curY;
+      while (fits(curX, gy + 1, cur)) gy++;
+      return gy;
+    }
+
+    function draw() {
+      setTransform();
+      const cw = w(), ch = h();
+      const lime = getCSSVar('--lime');
+      const dimC = getCSSVar('--dim');
+      const bg = getCSSVar('--bg1');
+      const border = getCSSVar('--border');
+
+      ctx.fillStyle = bg;
+      ctx.fillRect(0, 0, cw, ch);
+
+      if (!started) {
+        ctx.fillStyle = 'rgba(0,0,0,0.5)';
+        ctx.fillRect(0, 0, cw, ch);
+        ctx.fillStyle = lime;
+        ctx.font = `13px var(--mono, monospace)`;
+        ctx.textAlign = 'center';
+        ctx.fillText('hover to start', cw / 2, ch / 2);
+        ctx.textAlign = 'left';
+        return;
+      }
+
+      const gridW = COLS * CELL;
+      const ox = Math.floor((cw - gridW) / 2);
+
+      // grid lines
+      ctx.strokeStyle = border;
+      ctx.lineWidth = 0.5;
+      ctx.globalAlpha = 0.2;
+      for (let c = 0; c <= COLS; c++) {
+        ctx.beginPath(); ctx.moveTo(ox + c * CELL, 0); ctx.lineTo(ox + c * CELL, ROWS * CELL); ctx.stroke();
+      }
+      for (let r = 0; r <= ROWS; r++) {
+        ctx.beginPath(); ctx.moveTo(ox, r * CELL); ctx.lineTo(ox + gridW, r * CELL); ctx.stroke();
+      }
+      ctx.globalAlpha = 1;
+
+      // board cells
+      for (let r = 0; r < ROWS; r++) {
+        for (let c = 0; c < COLS; c++) {
+          if (board[r][c]) {
+            ctx.fillStyle = lime;
+            ctx.globalAlpha = ALPHAS[board[r][c] - 1] ?? 0.7;
+            ctx.fillRect(ox + c * CELL + 1, r * CELL + 1, CELL - 2, CELL - 2);
+          }
+        }
+      }
+      ctx.globalAlpha = 1;
+
+      if (!over) {
+        // ghost piece
+        const gy = ghostY();
+        if (gy !== curY) {
+          ctx.fillStyle = lime;
+          ctx.globalAlpha = 0.1;
+          cur.forEach(([dc, dr]) => {
+            if (gy + dr >= 0) ctx.fillRect(ox + (curX + dc) * CELL + 1, (gy + dr) * CELL + 1, CELL - 2, CELL - 2);
+          });
+          ctx.globalAlpha = 1;
+        }
+
+        // active piece
+        ctx.fillStyle = lime;
+        ctx.globalAlpha = ALPHAS[curType] ?? 0.9;
+        cur.forEach(([dc, dr]) => {
+          if (curY + dr >= 0) ctx.fillRect(ox + (curX + dc) * CELL + 1, (curY + dr) * CELL + 1, CELL - 2, CELL - 2);
+        });
+        ctx.globalAlpha = 1;
+      }
+
+      // HUD — right of grid if space, else top-right of canvas
+      const hudX = ox + gridW + 10;
+      const hasRoom = hudX + 60 < cw;
+      const hx = hasRoom ? hudX : cw - 90;
+      const hy = hasRoom ? 18 : 18;
+      ctx.fillStyle = lime;
+      ctx.font = `11px var(--mono, monospace)`;
+      ctx.fillText(`score`, hx, hy);
+      ctx.fillText(`${score}`, hx, hy + 14);
+      ctx.fillStyle = dimC;
+      ctx.fillText(`lvl ${level}`, hx, hy + 34);
+      ctx.fillText(`lines ${lines}`, hx, hy + 48);
+
+      if (over) {
+        ctx.fillStyle = 'rgba(0,0,0,0.65)';
+        ctx.fillRect(0, 0, cw, ch);
+        ctx.fillStyle = lime;
+        ctx.font = `bold 20px var(--mono, monospace)`;
+        ctx.textAlign = 'center';
+        ctx.fillText('GAME OVER', cw / 2, ch / 2 - 16);
+        ctx.font = `11px var(--mono, monospace)`;
+        ctx.fillStyle = dimC;
+        ctx.fillText(`score: ${score}`, cw / 2, ch / 2 + 8);
+        ctx.fillText('hover to restart', cw / 2, ch / 2 + 26);
+        ctx.textAlign = 'left';
+      }
+    }
+
+    win?.addEventListener('mouseenter', () => {
+      focused = true;
+      if (!started || over) {
+        started = true;
+        init();
+        draw();
+      }
+    });
+    win?.addEventListener('mouseleave', () => { focused = false; });
+
+    window.addEventListener('keydown', (e) => {
+      if (!focused || over) return;
+      if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', ' '].includes(e.key)) e.preventDefault();
+
+      if ((e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') && fits(curX - 1, curY, cur)) {
+        curX--; draw();
+      }
+      if ((e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') && fits(curX + 1, curY, cur)) {
+        curX++; draw();
+      }
+      if (e.key === 'ArrowDown' || e.key === 's' || e.key === 'S') {
+        if (fits(curX, curY + 1, cur)) { curY++; draw(); }
+      }
+      if (e.key === 'ArrowUp' || e.key === 'w' || e.key === 'W') {
+        const nextRot = (curRot + 1) % PIECES[curType].length;
+        const nextShape = PIECES[curType][nextRot];
+        if (fits(curX, curY, nextShape)) {
+          curRot = nextRot;
+          cur = nextShape;
+          draw();
+        }
+      }
+      if (e.key === ' ') {
+        curY = ghostY();
+        placePiece();
+        startTick();
+        draw();
+      }
+      if (e.key === 'r' || e.key === 'R') { init(); draw(); }
+    });
+
+    new ResizeObserver(() => {
+      if (started && !over) { init(); }
+      else { calcRows(); draw(); }
+    }).observe(canvas.parentElement!);
+    new MutationObserver(draw).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme', 'data-mode'] });
+
+    draw();
+  })();
+
+  /* ────────────────────────────────────────────────
+     4: DESIGN TOKEN PALETTE
+  ──────────────────────────────────────────────── */
+  (function tokens() {
+    const container = document.getElementById('tokens-rows');
+    if (!container) return;
+
+    const THEMES = [
+      { id: '1', name: '1 · default', bg: '#0a0a0a', bg1: '#111111', bg2: '#1a1a1a', text: '#ddebd4', lime: '#9eff57' },
+      { id: '2', name: '2 · nord',    bg: '#2e3440', bg1: '#252b35', bg2: '#3b4252', text: '#e5e9f0', lime: '#88c0d0' },
+      { id: '3', name: '3 · gruvbox', bg: '#282828', bg1: '#1d2021', bg2: '#3c3836', text: '#ebdbb2', lime: '#fabd2f' },
+      { id: '4', name: '4 · dracula', bg: '#282a36', bg1: '#1e1f29', bg2: '#44475a', text: '#f8f8f2', lime: '#ff79c6' },
+      { id: '5', name: '5 · hi-con',  bg: '#000000', bg1: '#0a0a0a', bg2: '#161616', text: '#ffffff', lime: '#ffff00' },
+    ];
+
+    const colors = (t: typeof THEMES[0]) => [t.bg, t.bg1, t.bg2, t.text, t.lime];
+
+    function getActive() {
+      return document.documentElement.getAttribute('data-theme') || '1';
+    }
+
+    function render() {
+      const active = getActive();
+      container.innerHTML = '';
+      THEMES.forEach(theme => {
+        const row = document.createElement('div');
+        row.className = 'tok-row' + (theme.id === active ? ' tok-active' : '');
+        row.setAttribute('role', 'button');
+        row.setAttribute('tabindex', '0');
+        row.setAttribute('aria-label', `Switch to ${theme.name} theme`);
+
+        const nameSpan = document.createElement('span');
+        nameSpan.className = 'tok-name';
+        if (theme.id === active) {
+          const dot = document.createElement('span');
+          dot.className = 'tok-active-dot';
+          nameSpan.appendChild(dot);
+        }
+        nameSpan.append(theme.name);
+        row.appendChild(nameSpan);
+
+        colors(theme).forEach(hex => {
+          const sw = document.createElement('span');
+          sw.className = 'tok-swatch';
+          sw.style.background = hex;
+          row.appendChild(sw);
+        });
+
+        row.addEventListener('click', () => {
+          document.documentElement.setAttribute('data-theme', theme.id);
+          localStorage.setItem('theme', theme.id);
+          document.querySelectorAll('.ws-pill').forEach((btn, i) => {
+            (btn as HTMLButtonElement).setAttribute('aria-pressed', String(i + 1 === Number(theme.id)));
+            btn.classList.toggle('active', i + 1 === Number(theme.id));
+          });
+          render();
+        });
+
+        row.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); row.click(); }
+        });
+
+        container.appendChild(row);
+      });
+    }
+
+    new MutationObserver(render).observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-theme'],
+    });
+
+    render();
+  })();
+</script>

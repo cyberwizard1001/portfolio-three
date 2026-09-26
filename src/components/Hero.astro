@@ -1,12 +1,12 @@
 ---
 import WindowChrome from './WindowChrome.astro';
-const base = import.meta.env.BASE_URL;
 ---
 
 <section class="hero-section grid-bg">
   <div class="hero-window">
     <WindowChrome title="bash —" activeTitle="~/portfolio/nirmal" icon="⌃⌥T">
       <div class="hero-win-body">
+        <div class="hero-glow" id="hero-glow" aria-hidden="true"></div>
         <div class="hero-main">
           <div class="hero-copy">
             <p class="hero-prompt">
@@ -38,34 +38,6 @@ const base = import.meta.env.BASE_URL;
             </div>
           </dl>
         </div>
-        <div class="hero-split">
-          <div class="hs-cell">
-            <p class="hs-label">background</p>
-            <p class="hs-text">
-              Interfaces are vehicles that get users places. I care about making them easy to understand and operate. For first-time drivers and seasoned ones alike, whether they're tired, distracted, or under pressure.
-            </p>
-            <div class="hs-tags">
-              <span class="hs-tag active">UX research</span>
-              <span class="hs-tag active">design systems</span>
-              <span class="hs-tag active">prototyping</span>
-              <span class="hs-tag">Flutter</span>
-            </div>
-            <p class="hs-typewriter" aria-live="polite" aria-atomic="true">
-              <span class="hs-tw-ps">~$</span>
-              <span class="hs-tw-text" id="hero-typewriter"></span><span class="hs-tw-cursor"></span>
-            </p>
-          </div>
-          <div class="hs-cell">
-            <p class="hs-label">currently</p>
-            <p class="hs-text">
-              Designing at Tedaisy Insurance Group and volunteering at Reach Volunteering. In my free time, I work on products that are honest about what they ask of people’s time and attention (do check out Medium).
-            </p>
-            <div class="hs-ctas">
-              <a href="#work" class="hs-cta">View my work ↓</a>
-              <a href={`${base}contact`} class="hs-cta hs-cta-ghost">Contact me ↗</a>
-            </div>
-          </div>
-        </div>
       </div>
     </WindowChrome>
   </div>
@@ -73,8 +45,8 @@ const base = import.meta.env.BASE_URL;
 
 <style>
   .hero-section {
-    min-height: calc(100vh - var(--bar-h));
-    padding: 1.75rem 2.5rem;
+    height: calc(100vh - var(--bar-h));
+    padding: 1rem 1.25rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -84,22 +56,50 @@ const base = import.meta.env.BASE_URL;
   .hero-window {
     position: relative;
     z-index: 1;
-    max-width: 1320px;
+    max-width: 1440px;
     margin: 0 auto;
     width: 100%;
+    height: calc(100vh - var(--bar-h) - 2rem);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hero-window :global(.window) {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
   }
 
   .hero-win-body {
     background: var(--term-overlay);
-    display: grid;
-    grid-template-rows: 1fr auto;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
   }
 
+  .hero-glow {
+    position: absolute;
+    width: 700px;
+    height: 700px;
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.6s;
+    z-index: 0;
+  }
+  .hero-win-body:hover .hero-glow { opacity: 1; }
+
   .hero-main {
-    padding: 1.75rem 2.5rem 1.5rem;
+    flex: 1;
+    padding: 2.5rem 2.5rem 2rem;
     display: grid;
+    position: relative;
+    z-index: 1;
     grid-template-columns: 1fr auto;
-    align-items: end;
+    align-items: center;
     gap: 2rem;
   }
 
@@ -147,6 +147,7 @@ const base = import.meta.env.BASE_URL;
   @media (max-width: 1024px) {
     .hero-main {
       grid-template-columns: 1fr;
+      align-items: start;
     }
     .hero-meta {
       padding-left: 0;
@@ -173,7 +174,7 @@ const base = import.meta.env.BASE_URL;
 
   .hero-h1 {
     font-family: var(--mono);
-    font-size: clamp(2.75rem, 6.5vw, 6.25rem);
+    font-size: clamp(3.5rem, 8.5vw, 9rem);
     font-weight: 700;
     letter-spacing: -0.045em;
     line-height: 0.9;
@@ -188,181 +189,63 @@ const base = import.meta.env.BASE_URL;
 
   .hero-h1 .lime { color: var(--lime); }
 
-  .hero-split {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    border-top: 1px solid var(--border);
-  }
-
-  .hs-cell {
-    padding: 1.25rem 2rem;
-    border-right: 1px solid var(--border);
-  }
-
-  .hs-cell:last-child { border-right: none; }
-
-  .hs-label {
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--dim);
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    margin-bottom: 0.6rem;
-  }
-
-  .hs-text {
-    font-family: var(--mono);
-    font-size: 0.875rem;
-    color: color-mix(in srgb, var(--text) 85%, transparent);
-    line-height: 1.65;
-    max-width: 380px;
-  }
-
-  .hs-tags {
-    display: flex;
-    gap: 5px;
-    flex-wrap: wrap;
-    margin-top: 0.9rem;
-  }
-
-  .hs-tag {
-    font-family: var(--mono);
-    font-size: 12px;
-    padding: 3px 9px;
-    border: 1px solid var(--border-hi);
-    border-radius: 2px;
-    color: var(--dim);
-  }
-
-  .hs-tag.active {
-    border-color: var(--lime);
-    color: var(--lime);
-    background: var(--lime-dim);
-  }
-
-  .hs-ctas {
-    display: flex;
-    gap: 0.625rem;
-    flex-wrap: wrap;
-    margin-top: 1rem;
-  }
-
-  .hs-cta {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    font-family: var(--mono);
-    font-size: 0.875rem;
-    font-weight: 600;
-    background: var(--lime);
-    color: var(--lime-contrast);
-    padding: 0.55rem 1.25rem;
-    text-decoration: none;
-    border-radius: 2px;
-    letter-spacing: -0.01em;
-    transition: opacity 0.15s;
-  }
-
-  .hs-cta-ghost {
-    background: transparent;
-    color: var(--lime);
-    border: 1px solid var(--lime);
-  }
-
-  .hs-cta:hover { opacity: 0.8; }
-
-  .hs-typewriter {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--dim);
-    margin-top: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    min-height: 1.4em;
-  }
-
-  .hs-tw-ps { color: var(--lime); flex-shrink: 0; }
-
-  .hs-tw-cursor {
-    display: inline-block;
-    width: 1px;
-    height: 0.9em;
-    background: var(--lime);
-    vertical-align: middle;
-    animation: tw-blink 1s step-end infinite;
-  }
-
-  @keyframes tw-blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
-  }
-
   @media (max-width: 860px) {
-    .hero-section { padding: 1.25rem; }
-    .hero-split { grid-template-columns: 1fr; }
-    .hs-typewriter { display: none; }
+    .hero-section {
+      height: auto;
+      min-height: calc(100vh - var(--bar-h));
+      padding: 1.25rem;
+    }
+    .hero-window { height: auto; }
   }
 
   @media (max-width: 480px) {
-    .hero-h1 { font-size: clamp(2rem, 11vw, 2.75rem); }
+    .hero-h1 { font-size: clamp(2.25rem, 11vw, 3rem); }
     .hero-main { padding: 1.25rem; }
     .hero-prompt { margin-bottom: 1rem; }
     .hero-meta { gap: 1rem; }
-    .hs-cell { padding: 1rem 1.25rem; }
+  }
+
+  @media (max-width: 860px) {
+    .hero-glow { display: none; }
   }
 </style>
 
 <script>
-  (function () {
-    const el = document.getElementById('hero-typewriter');
-    if (!el) return;
+  (function heroSpotlight() {
+    const winBody = document.querySelector('.hero-win-body') as HTMLElement;
+    const glow = document.getElementById('hero-glow') as HTMLElement;
+    if (!winBody || !glow) return;
 
-    const tips = [
-      'click 1–5 in the top bar to switch color schemes',
-      'click ☾ top-right to toggle dark / light mode',
-    ];
+    function getCSSVar(name: string) {
+      return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+    }
 
-    let tipIdx = 0;
-    let charIdx = 0;
-    let deleting = false;
-    let pauseTicks = 0;
+    function hexToRgba(hex: string, a: number) {
+      const r = parseInt(hex.slice(1, 3), 16);
+      const g = parseInt(hex.slice(3, 5), 16);
+      const b = parseInt(hex.slice(5, 7), 16);
+      return `rgba(${r},${g},${b},${a})`;
+    }
 
-    const PAUSE_AFTER_TYPE = 38;
-    const PAUSE_AFTER_DELETE = 8;
-    const TYPE_MS = 45;
-    const DELETE_MS = 22;
-
-    function tick() {
-      const current = tips[tipIdx];
-
-      if (pauseTicks > 0) {
-        pauseTicks--;
-        setTimeout(tick, deleting ? DELETE_MS : TYPE_MS);
-        return;
-      }
-
-      if (!deleting) {
-        charIdx++;
-        el.textContent = current.slice(0, charIdx);
-        if (charIdx === current.length) {
-          deleting = true;
-          pauseTicks = PAUSE_AFTER_TYPE;
-        }
-        setTimeout(tick, TYPE_MS);
-      } else {
-        charIdx--;
-        el.textContent = current.slice(0, charIdx);
-        if (charIdx === 0) {
-          deleting = false;
-          tipIdx = (tipIdx + 1) % tips.length;
-          pauseTicks = PAUSE_AFTER_DELETE;
-        }
-        setTimeout(tick, DELETE_MS);
+    function updateGlow() {
+      const lime = getCSSVar('--lime');
+      if (lime.startsWith('#')) {
+        glow.style.background = `radial-gradient(circle, ${hexToRgba(lime, 0.12)} 0%, ${hexToRgba(lime, 0.04)} 40%, transparent 65%)`;
       }
     }
 
-    setTimeout(tick, 1200);
+    winBody.addEventListener('mousemove', (e) => {
+      const rect = winBody.getBoundingClientRect();
+      glow.style.left = (e.clientX - rect.left) + 'px';
+      glow.style.top = (e.clientY - rect.top) + 'px';
+      updateGlow();
+    });
+
+    new MutationObserver(updateGlow).observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-theme', 'data-mode'],
+    });
+
+    updateGlow();
   })();
 </script>
-
