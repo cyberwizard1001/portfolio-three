@@ -8,9 +8,9 @@ image: /images/pet-insurance/hero.svg
 imageAlt: A confidence gauge moving from anxious to confident, beside a terminal checklist of what the redesigned review page made clear
 oneliner: People insuring a pet are committing real money to something they care about, and they want to feel understood before they hand it over. I redesigned the review page so it does a better job of showing them they are.
 eyebrow: Web · Checkout · Conversion
-problem: The review page buried the numbers that mattered and left claim terms ambiguous, slowing time-to-decision and seeding post-sale disputes.
-outcomeValue: A/B live
-outcomeLabel: 4 variants live in Amplitude with real traffic, measuring quote-completion uplift.
+problem: The review page is where people decide whether to pay. It hid the numbers they needed and left claim terms vague, so people hesitated, and some later complained about cover they thought they had.
+outcomeValue: A/B test live
+outcomeLabel: Four variants are running in Amplitude on real traffic, measuring whether more people finish their quote.
 statusline:
   - label: NORMAL
     lime: true
@@ -19,7 +19,6 @@ statusline:
   - label: MudBlazor · FCA
   - label: Hotjar · heuristics
 order: 1
-hidden: true
 sections:
   - component: ProjectHero
     props:

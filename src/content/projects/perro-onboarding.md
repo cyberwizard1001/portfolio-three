@@ -8,9 +8,9 @@ image: /images/perro/hero.svg
 imageAlt: A long cluttered before-path of six onboarding steps, against a short direct after-path of two steps to a lime home icon
 oneliner: Users were quitting the app before getting to the home screen. I redesigned the onboarding and built it using Flutter, working from research through to production.
 eyebrow: Mobile App · Onboarding · End-to-End
-problem: People install apps and forget they exist. Perro's onboarding stalled at profile picture and health data bottlenecks, so new users dropped before reaching their first real in-app action.
+problem: New users were giving up partway through setup. The app asked for a photo, health details and fitness info before it had shown them anything, and a lot of people never reached the home screen.
 outcomeValue: ↑ Conversion
-outcomeLabel: Higher subscription take-up after launch — UX cited as a product strength during acquisition.
+outcomeLabel: Fewer drop-offs, more subscriptions, and more people on longer plans. The UX was named as a strength when Perro was acquired.
 statusline:
   - label: NORMAL
     lime: true

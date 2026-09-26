@@ -8,9 +8,9 @@ image: /images/counselling/hero.svg
 imageAlt: Two donut charts showing session time shifting from mostly admin to mostly client practice
 oneliner: Mental health practitioners in solo and small practices spend 15 to 20 minutes of every 40-minute session on administration. My MSc dissertation explored what a tool built specifically for counselling work, rather than borrowed from elsewhere, could give back.
 eyebrow: UX Research · MSc Dissertation · 0→1
-problem: Solo counsellors lose 15–20 minutes of every 40-minute session to admin borrowed from tools never built for their work.
-outcomeValue: A purpose-built tool
-outcomeLabel: Designed to centralise the core counsellor activities — scheduling, notes, client records, and resources — in one place built for the work.
+problem: Counsellors in solo practice run their work across email, WhatsApp, calendars and spreadsheets that don't talk to each other. One told me 15 to 20 minutes of every 40-minute session goes on admin.
+outcomeValue: Tested prototype
+outcomeLabel: A practice dashboard and voice assistant, shaped with seven practitioners. The AI can't do anything until the counsellor approves it.
 statusline:
   - label: NORMAL
     lime: true
